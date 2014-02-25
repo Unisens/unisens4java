@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<signal>
+<sample>
+<data>4.9E-324</data>
+<data>1.7976931348623157E308</data>
+</sample>
+<sample>
+<data>-1.0</data>
+<data>-1.0</data>
+</sample>
+<sample>
+<data>1.005E-9</data>
+<data>0.6</data>
+</sample>
+<sample>
+<data>1.0</data>
+<data>1.0</data>
+</sample>
+<sample>
+<data>2.0</data>
+<data>2.0</data>
+</sample>
+</signal>

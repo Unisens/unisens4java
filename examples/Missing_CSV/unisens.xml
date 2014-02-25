@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<unisens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" measurementId="1 Stunde Debugging EKGMove" timestampStart="2010-12-17T15:20:13.000" version="2.0" xsi:schemaLocation="http://www.unisens.org/unisens2.0 http://www.unisens.org/unisens2.0/unisens.xsd">
+   <signalEntry comment="Neigungswinkel (zwischen 0 und 180°) der Sensorachsen gegen die Senkrechte (xyz) (reduced by mean over reductionLength)" contentClass="InclinationD" dataType="double" id="InclinationD.csv" lsbValue="1" sampleRate="0.03333333333333333" unit="grad">
+      <csvFileFormat decimalSeparator="." separator=";"/>
+      <channel name="InclinationD"/>
+   </signalEntry>
+   <signalEntry comment="Neigungswinkel (zwischen 0 und 180°) der Sensorachsen gegen die Senkrechte (xyz) (reduced by mean over reductionLength)" contentClass="InclinationR" dataType="double" id="InclinationR.csv" lsbValue="1" sampleRate="0.03333333333333333" unit="grad">
+      <csvFileFormat decimalSeparator="." separator=";"/>
+      <channel name="InclinationR"/>
+   </signalEntry>
+   <signalEntry comment="Neigungswinkel (zwischen 0 und 180°) der Sensorachsen gegen die Senkrechte (xyz) (reduced by mean over reductionLength)" contentClass="InclinationF" dataType="double" id="InclinationF.csv" lsbValue="1" sampleRate="0.03333333333333333" unit="grad">
+      <csvFileFormat decimalSeparator="." separator=";"/>
+      <channel name="InclinationF"/>
+   </signalEntry>
+   <signalEntry comment="Absolutwert des mittelwertfreien Betrags der Beschleunigung (reduced by mean over reductionLength)" contentClass="ActivityIntensity" dataType="double" id="ActivityIntensity.csv" lsbValue="1" sampleRate="0.03333333333333333" unit="g">
+      <csvFileFormat decimalSeparator="." separator=";"/>
+      <channel name="ActivityIntensity"/>
+   </signalEntry>
+   <signalEntry comment="Maximale Frequenz des Betrags des Beschleunidungssignals (reduced by mean over reductionLength)" contentClass="MaxFrequency" dataType="double" id="MaxFrequency.csv" lsbValue="1" sampleRate="0.03333333333333333" unit="">
+      <csvFileFormat decimalSeparator="." separator=";"/>
+      <channel name="MaxFrequency"/>
+   </signalEntry>
+   <signalEntry comment="Anzahl der Schritte im Segment (reduced by sum over reductionLength)" contentClass="StepCount" dataType="double" id="StepCount.csv" lsbValue="1" sampleRate="0.03333333333333333" unit="">
+      <csvFileFormat decimalSeparator="." separator=";"/>
+      <channel name="StepCount"/>
+   </signalEntry>
+   <signalEntry comment="Aus Daten eines Sensors an der Hüfte berechnete Aktivitätsklasse (reduced by mode over reductionLength)" contentClass="ActivityClass" dataType="double" id="ActivityClass.csv" lsbValue="1" sampleRate="0.03333333333333333" unit="">
+      <csvFileFormat decimalSeparator="." separator=";"/>
+      <channel name="ActivityClass"/>
+   </signalEntry>
+</unisens>

@@ -1,0 +1,464 @@
+%\documentclass[a4paper, oneside, openany, 10pt, DIV12]{scrartcl}
+\documentclass{unisens}
+
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{tabularx, varioref, mit_bib, graphicx}
+
+\newcommand{\xmlattribute}[1]{\texttt{#1}}
+
+\setcounter{secnumdepth}{0}
+
+\title{Unisens 2.0}
+\subject{Dokumentation}
+\author{Jörg Ottenbacher, Malte Kirst}
+
+
+
+\begin{document}
+\maketitle
+
+\section{Übersicht}
+
+Unisens ist ein universelles Datenformat für das Abspeichern, die Dokumentation und das Austauschen von Sensordaten. Unisens wurde speziell dafür entwickelt, semantisch zusammenhängende Sensordaten von unterschiedlichen Sensoren in einem einzigen Datensatz zu speichern, auch wenn die einzelnen Sensoren technisch unterschiedlich zu behandeln sind. Unisens fokussiert sich auf Vitaldaten, schränkt sich aber nicht darauf ein.
+
+Ein Beispiel: Beim cardiovaskulären Langzeit-Monitoring fallen unterschiedliche Daten an: Es wird kontinuierlich ein zweikanaliges EKG aufgezeichnet und mit einer Abtastrate von 200\,Hz gespeichert. Ein Algorithmus erkennt zur Laufzeit die Herzschläge und notiert diese Samplegenau zur EKG-Aufnahme. Das Langzeit-Blutdruckmessgerät misst etwa alle 30 Minuten den Blutdruck und speichert den systolischen und diastolischen Wert. Ein SpO$_2$-Sensor speichert den kontinuierlich gemessenen Sauerstoffgehalt des Blutes mit einer Abtastfrequenz von 256\,Hz.
+
+In diesem Beispiel wird schnell klar: Aufgrund der unterschiedlichen Abtastraten und der Mischung von kontinuierlichen und ereignisorientierten Daten ist eine konventionelle Speicherung in einer Datei nicht sinnvoll. Bei einem Aufsplitten in unterschiedliche Dateien geht schnell der semantische Zusammenhang verloren. Unisens speichert die Daten in unterschiedlichen Dateien innerhalb eines Datensatzes und stellt den Zusammenhang durch eine übergeordnete Meta-Datei her.
+
+%Kurze Beschreibung, halbe Seite, der Leser muss danach wissen, ob Unisens für seine Anwendung das richtige sein könnte. Wir nennen zwei Anwendungsbeispiele (1. EKG mit Kontextinformation Blutdruckmessung, 2. Schlaflabordaten, oder noch ein anderes einfaches Beispiel). Eines der beiden Beispiele wird durchgehend durch die Dokumentation verwendet. Anhand des Beispiels sollten alle Entrytypen erklärt werden können.
+
+
+
+
+\section{Begriffe}
+
+Um Missverständnisse zu vermeiden, wird an dieser Stelle die Bedeutung der in diesem Dokument verwendeten Begriffe beschrieben.
+
+\begin{description}
+	\item[Datensatz (Dataset)] 
+Zusammenhängende Einheit aus einer Header-Datei und einer beliebigen Anzahl von Datendateien und optional einer Kontextinformationsdatei. Ein Datensatz bezieht sich immer auf eine Messung.
+
+	\item[Header-Datei (Unisens-Datei)]
+Die Header-Datei eines Datensatzes heißt immer unisens.xml. Sie ist eine XML-Datei, die Informationen über Inhalt und Format der Datendateien enthält.
+
+	\item[Datendatei (Data Entry)]
+Überbegriff für eine Datei, die Signal-, Ereignis- oder Einzelmesswertdaten enthält.
+
+	\item[Signal (Signal)]
+Kontinuierlich mit beliebiger, aber fester Samplerate aufgezeichnetes Messsignal (z.B. das EKG). Ein Signal kann mehrere Kanäle enthalten. 
+
+	\item[Ereignisse (Events)]
+Zeitdiskrete Ereignisse, bestehend aus einem Zeitstempel und einem Ereignis (z.B. ein QRS-Trigger).
+
+	\item[Einzelwerte (Values)]
+Mischung aus Sinal und Ereignis: Zeitdiskrete Messwerte, die aber in mehreren Kanälen vorliegen können (z.B. Blutdruck). Jeder Einzelwert besteht aus dem Messwert und einem Zeitpunkt.
+
+	\item[Kanal (Channel)]
+Untergruppierung eines Signals oder eines Messwerts. Alle Kanäle eines Signals bzw. eines Messwerts haben dieselbe Quantisierung und dieselbe Abtastrate.
+
+	\item[Datentyp (Datatype)]
+Unterstützt werden folgende Datentypen: uint8, int8, uint16, int16, uint32, int32, float, double.
+
+	\item[Dateiformat (File Format)]
+Datendateien können in unterschiedlichen Dateiformaten abgelegt werden. Definierte Dateiformate sind CSV (Character Separareted Values), BIN (Binär-Format) und XML (Extensible Markup Language).
+
+	\item[Kontextinformation (Context)]
+Anwendungsspezifische Zusatzinformationen zum Umfeld einer Messung (z.B. Personendaten). 
+
+	\item[Proprietäre Daten (Custom Data)]
+Anwendungsspezifische Daten, die zu einer Messung gehören, aber in Unisens nicht durch Signale, Ereignisse oder Einzelwerte abgedeckt sind.
+
+
+	\item[Klasse (Content Class)]
+Jede Datendatei wird genau einer Klasse zugeordnet. Die Klasse bezieht sich auf den Dateninhalt, die eigentliche Information.
+
+	\item[Gruppe (Group)]
+Ereignisse, Signale und Messwerte können zu einer Gruppe zusammengefasst werden. Eine Gruppe spiegelt den semantischen Zusammenhang wider.
+\end{description}
+
+
+
+\section{Beschreibung}
+
+	\subsection{Eigenschaften und Funktionen}
+
+\paragraph{Freie Kennzeichnung von Inhalten (Art der Daten, Umgebung, Ursprung) in einem menschenlesbaren Format}
+
+In den Datendateien werden nur die aufgezeichneten Signaldaten gespeichert. Alle weiteren Informationen zur Aufnahme und zum Aufnahmesystem oder einfache Kommentare zum Signal werden in der Header-Datei im menschenlesbaren und -editierbaren XML-Format gespeichert.
+
+
+\paragraph{Unterstützung von Signaldaten, Ereignisdaten und Bereichsdaten}
+
+Das Datenformat kann kontinuierliche aufgezeichnete Sensordaten und einzeln aufgezeichnete Ereignisse in einem Datensatz vereinen. Daten unterschiedlichen Typs werden in getrennten Dateien gespeichert, der Zugriff erfolgt aber über das gleiche Interface.
+
+
+\paragraph{Beliebige Anzahl von Datendateien pro Datensatz}
+
+Die Anzahl der Datendateien (Signale, Ereignisse und Einzelwerte) pro Datensatz ist nicht begrenzt. In Bereichen wie z.\,B. der Polysomnographie ist es nötig, sehr viele unterschiedliche Signale und Ereignisse parallel aufzuzeichnen. Hier kann jeder der benutzen Sensoren seine Daten in einer eigenen Datendatei abspeichern. In der Header-Datei werden alle Datendateien aufgelistet und  in einen gemeinsamen Kontext gebracht.
+
+
+\paragraph{Klassenbildung für Daten gleichen Typs}
+
+Daten des gleichen Typs (z.\,B. EKG, Beschleunigung, EKG-Trigger) werden zu einer Klasse zusammengefasst. Damit wird beispielsweise einem EKG-Darstellungswerkzeug ermöglicht, die EKG-Daten eines Datensatzes zu identifizieren. Die Klasse wird im Attribut \xmlattribute{contentClass} gespeichert. Die Klassennamen können frei gewählt werden, es wird jedoch mpfohlen, sich an die auf S. \pageref{sec:recommendation} stehenden Richtlinien zu halten.
+
+Eine Datenklasse kann in einem Datensatz mehrfach vorhanden sein. Somit können in einem Datensatz bearbeitete und unbearbeitete Daten eines Signal enthalten sein (z.\,B. gefilterte EKG-Daten und EKG-Rohdaten oder automatisch erstellte Triggerliste und Referenztriggerliste)
+
+
+\paragraph{Eindeutige Identifizierbarkeit einer Datendatei innerhalb eines Datensatzes}
+
+Über die \xmlattribute{entryId} ist eine Datendatei eindeutig innerhalb des Datensatzes identifizierbar.
+
+
+\paragraph{Unterstützung von Daten mit verschiedener Abtastraten und Abtasttiefen}
+
+Innerhalb eines Datensatzes können Daten mit unterschiedlicher Abtastrate und Abtasttiefe gespeichert werden. Die Daten werden in getrennten Dateien abgelegt.
+
+
+\paragraph{Mehrkanalige Aufnahmen möglich}
+
+Signale und Einzelwerte können mehrere Kanäle besitzen, diese müssen jedoch in Abtastastrate und Abtasttiefe übereinstimmen.
+
+
+\paragraph{Keine Einschränkung der Größe der Daten durch die Spezifikation}
+
+Die Größe der Daten ist lediglich durch das Filesystem und den Datenträger begrenzt. Übersteigt die Anzahl der gespeicherten Samples $2^{63}$, kann die Referenzimplementierung die Datei nicht mehr vollständig lesen.
+
+
+\paragraph{Möglichkeit der Beschreibung von Daten}
+
+Alle Signal-, Ereignis- und Bereichsdaten sowie alle Kanäle können mit einem Kommentar versehen und damit verbal beschrieben werden.
+
+
+\paragraph{Unterstützung verschiedener Dateiformate für Datendateien}
+
+Für Datendateien können unterschiedliche Dateiformate verwendet werden (Binär, XML, CSV). Für jedes Dateiformat ist eine Referenzimplementierung in Java vorhanden, die Daten lesen und schreiben
+%Für jedes Dateiformat muss eine Referenzimplementierung zum Lesen und Schreiben in Java und eine Beispieldatei zur Verfügung gestellt werden. 
+
+
+\paragraph{Samplegenaue Angabe von Ereignissen und Bereichen}
+
+Alle Zeitpunkte können samplegenau angegeben werden. Zu jeder Datendatei wird in \xmlattribute{sampleRate} eine Samplerate angegeben, die als Zeitbasis für diese Datendatei gilt. Die einzelnen Datendateien innerhalb eines Datensatzes können unterschiedliche Sampleraten besitzen.
+
+
+\paragraph{Samplegenaue Unterstützung von Signalen größer und kleiner 1\,Hz}
+
+Die Samplerate kann sowohl ganzzahlig oder als Dezimalzahl angegeben sein. Dezimaltrenner ist in jedem Fall ein Punkt. 
+
+
+\paragraph{Umgang mit proprietären Daten}
+
+Innerhalb des Datensatzes können proprietäre Daten abgelegt und gekennzeichnet werden.
+
+
+\paragraph{Gruppierungsfunktion}
+
+Datendateien können zu inhaltlichen Gruppen zusammengefasst werden. So kann z.\,B. ein EKG mit der zugehörigen Annotation gruppiert werden.
+
+
+\paragraph{Unterstützung von aufnahmespezifischen Kontextinformationen}
+
+Aufnahmespezifische Kontextinformationen wie z.\,B. Patientendaten bei der Aufzeichnung von Vitalsignalen können als XML-Datei im Datensatz abgelegt werden, inklusive der Information über das zugehörige XML-Schema. Das Interface unterstützt das Parsen dieser Kontext-Datei und das Laden der zugehörigen Schema-Datei.
+
+
+%\paragraph{Wenn neuere Versionen von Unsisens spezifiert werden, muss eine Möglichkeit bestehen, vorhandene Daten einfach zu %konvertieren}
+
+
+	\subsection{Einschränkungen}
+
+%Was geht nicht. Wo kann es Probleme geben? Z.B.Video ist noch nicht dabei. Einschränkungen durch das Filesystem, Resourcen.
+
+			\paragraph{Einschränkungen durch das Filesystem} 
+
+Dateinamen und damit auch die Namen von Entries sind durch das Filesystem eingeschränkt. 
+
+
+			\paragraph{Einschränkungen durch Ressourcen}
+			
+Der Umfang eines Unisens-Datensatzes wird sowohl durch die Größe des Datenträgers als auch durch das Betriebssystem vorgegebene maximale Dateigröße beschränkt.
+
+
+			\paragraph{Einschränkungen durch Datentypen}
+
+Eine maximale Datei- oder Datensatzlänge ist nicht spezifiziert, jedoch durch Datentypen gegeben. Mit dem Erreichen von $2^{63}$ Samples ist die adressierbare Länge eines Datensatzes erschöpft.
+
+
+
+
+\section{Datenformat}
+
+	\subsection{Modell}
+
+Ein Unisens-Datensatz lässt sich als Container auffassen, der verschiedene Dateneinträge (Entries) sowie einen Abschnitt mit Kontextinformationen enthalten kann. Abbildung \ref{fig:aufbau} verdeutlicht diese Struktur und listet die möglichen Entries auf.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics{aufbau}
+	\caption{Aufbau eines Unisens-Datensatzes}
+	\label{fig:aufbau}
+\end{figure}
+
+Ein Daten-Entry enthält die Messdaten eines Sensors oder eine Liste von Ereignissen. Jedes Daten-Entry hat eine eigene Zeitbasis (Abtastrate) und bekommt eine Inhalts-Klasse (ContentClass) zugewiesen (z.\,B. EKG, Pleth, Blutdruck etc.). Die ContentClass ist frei wählbar, sollte aber möglichst aus einer vorgegeben Liste passend ausgewählt werden. Sie hilft bei der automatischen Identifikation von Datensätzen. Sensormessdaten können als quasikontinuierliches Signal mit fester Abtastrate aufgezeichnet (\code{signalEntry}) werden, so wie es beispielsweise bei einem EKG der Fall wäre. Genauso können aber auch zeitdiskrete Werte erfasste werden (\code{valueEntry}) , wie z.\,B. bei einer oszillometrischen Langzeit-Blutdrucküberwachung. Sensordaten werden mit allen wichtigen Parametern des Sensors gespeichert (Informationen über A/D-Wandler, Abtastrate, Quantisierung etc.) und können mehrere Kanäle enthalten. Ein Daten-Entry mit Annotationen (\code{eventEntry}) entspricht einer Liste von Ereignissen, die in Textform beschrieben werden können und über einen Zeitstempel und einen Ereignistyp verfügen.
+
+Alle Daten-Entries können beliebig zu Gruppen zusammengefasst werden. Damit kann z.\,B. einem EKG eine zugehörige QRS-Triggerliste oder einer Aktivitätsaufnahme die Liste der durchgeführten Aktivitäten zugeordnet werden.
+
+	
+%Klassendiagramm. Beschreibung (z.B. ein Unisens-Datensatz kann mehrere Entry-Einträge enthalten). Alle Klassen erklären (z.B. EventEntry, SignalEntry). Die jeweils zugehören Attribute erklären. Welche sind verpflichtend. Einschränkungen (Länge von Dateinamen etc)
+
+\begin{figure}[ht]
+	\includegraphics[width=\textwidth]{datenstruktur}
+	\label{figure:datenstruktur}
+	\caption{Struktur eines Unisens-Datensatzes}
+\end{figure}
+
+
+	\subsection{Aufbau}
+	
+Ein Unisens-Datensatz besteht aus einem Ordner im Dateisystem. Alle Meta-Informationen zum gesamten Datensatz bzw. zu jedem einzelnen Entry stehen in einer Header-Datei. Für diese Header-Datei wurde das XML-Format gewählt, die Struktur ist in einem XML-Schema vorgegeben. Der Name der Header-Datei ist immer unisens.xml. Der Name des Datensatzes entspricht dem Ordner-Namen.
+
+Die Header-Datei, das Kernstück eines Unisens-Datensatzes, verweist auf alle zugehörigen Entries, die in eigenen Dateien abgelegt sind. Ein Entry wird dabei über seine \code{entryId} als Primärschlüssel identifiziert, die dem Dateinamen entspricht. In Abbildung \ref{fig:dateien} ist die Dateistruktur eines Datensatzes gezeigt.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics{dateien}
+	\caption{Repräsentation eines Unisens-Datensatzes im Dateisystem}
+	\label{fig:dateien}
+\end{figure}
+
+Für jedes Daten-Entry existiert eine eigene Datei, welche in verschiedenen Formaten vorliegen kann. Spezifiziert sind  die Formate XML und CSV sowie Binärdateien. Der Anwender kann sich beim Speichern der Daten für ein Dateiformat entscheiden. Für kontinuierlich aufgezeichnete Sensordaten bietet sich ein Binärformat an, da dieses auch bei langen Datensätzen noch von akzeptabler Größe bleibt. Für Binärdateien werden unterschiedliche Datentypen unterstützt, unter anderem 32-Bit Integer-Werte (Int32) und Fließkommazahlen (Double). Bei Annotationen ist das CSV-Format empfehlenswert, da sich diese Dateien auch ohne die Unisens-Bibliothek komfortabel lesen und bearbeiten lassen.
+
+Gruppen werden innerhalb der Header-Datei als XML gespeichert. Die Gruppierung erfolgt über eine Liste der EntryIds der zu gruppierenden Einträge. In einer Beschreibung kann die Gruppe textuell umschrieben werden.
+
+%Die Header-Datei verweist auf Entries mit Fremddaten mit einem optionalen Kommentar und dem dazugehörigen zugehörige Dateinamen. Diese Möglichkeit wurde geschaffen, um proprietäre Daten im Unisens-Format zu integrieren.
+
+%Das Speichern von Kontextinformationen kann auf verschiedene Arten erfolgen. Entweder als einfache Key-Value-Paare innerhalb der Header-Datei, oder in einer separaten XML-Datei mit selbst vorgegebener Struktur. In diesem Fall muss ein entsprechendes XML-Schema mitgeliefert werden, das die Datenstruktur beschreibt. 
+
+Die modulare Organisation der Daten-Entries in einzelnen Dateien ermöglicht es, einen Datensatz jederzeit schnell und einfach durch neue Entries zu erweitern oder bestehende Entries zu entfernen. Damit ist es möglich, zusätzliche Signale zu speichern, die durch die Bearbeitung der Sensorrohdaten entstehen.
+
+
+	\subsection{Dateiformate}
+	
+Bereits spezifiziert und in der Referenzimplementierung umgesetzt ist ein binäres Dateiformat sowie ein CSV-Dateiformat. Die Unterstützung von XML-Dateien ist vorgesehen, aber noch nicht abschließend implementiert. Jedes andere Dateiformat kann als \texttt{customEntry} mit einem \texttt{customFileFormat} eingebunden werden. Tabelle \ref{tab:dateiformate} listet die Dateiformate auf.
+
+\begin{table}[ht]
+	\caption{Dateiformate \label{tab:dateiformate}}
+	\begin{tabularx}{\textwidth}{llX}
+		\hline
+		Name & Dateiendung & Attribute \\
+		\hline
+		\hline
+		\texttt{binFileFormat} & \texttt{bin} & Byte-Reihenfolge, Datentyp \\
+		\texttt{csvFileFormat} & \texttt{csv} & Trennzeichen, Dezimaltrennzeichen \\
+		\texttt{xmlFileFormat} & \texttt{xml} & Dezimaltrennzeichen \\
+		\texttt{customFileFormat} & beliebig & Dateityp \\
+		\hline
+	\end{tabularx}
+\end{table}
+
+
+	\subsection{Datentypen}
+	
+Unisens kann mit den gängigsten Datentypen umgehen. In Tabelle \ref{tab:datentypen} sind die Datentypen aufgelistet.
+
+\begin{table}[ht]
+	\caption{Datentypen \label{tab:datentypen}}
+	\begin{tabularx}{\textwidth}{llX}
+		\hline
+		Datentyp & Größe (Byte) & Wertebereich \\
+		\hline
+		\hline
+		\texttt{DOUBLE} & 8 & $4.9 \cdot 10^{-324} \dots 1.7976931348623157 \cdot 10^{308}$ \\
+		\texttt{FLOAT}  & 4 & $1.4 \cdot 10^{-45} \dots 3.4028235 \cdot 10^{38}$ \\
+%		\texttt{INT64}  & 8 & $-9223372036854775808 \dots 9223372036854775807$ \\
+		\texttt{INT32}  & 4 & $-2147483648 \dots 2147483647$ \\
+		\texttt{INT16}  & 2 & $-32768 \dots 32767$ \\
+		\texttt{INT8}   & 1 & $-128 \dots 127$ \\
+		\texttt{UINT32}  & 4 & $0 \dots 4294967295$ \\
+		\texttt{UINT16}  & 2 & $0 \dots 65535$ \\
+		\texttt{UINT8}   & 1 & $0 \dots 255$ \\
+		\hline
+	\end{tabularx}
+\end{table}
+
+
+	\subsection{Aufbau der Metadatei}
+
+Die Headerdatei \texttt{unisens.xml} ist im menschenlesbaren XML-Format geschrieben. Die verwendete XML-Schema-Definition (XSD) ist unter \cite{Unisens2008} einzusehen.
+
+
+	\subsection{Empfehlungen}\label{sec:recommendation}
+	
+		\subsubsection{Klassen}
+		
+Für die Werte des Attributes \texttt{ContentClass} sind grundsätzlich frei wählbar, es wird jedoch dringend empfohlen, sich an die in Tabelle \ref{tab:contentclass} aufgelisteten Klassenbezeichner zu halten, sofern dieses möglich ist. 
+% Wie sollten manche Attribute verwendet werden. ContentClass. Liste mit bisherigen und bekannten Klassen. Was ist bei Verwendung der A/D-Wandler Attribute zu beachten. Wie können diese von der Applikation verwendet werden. Beschreibung der Attribute allerdings bei Modell.
+% -	Benutzer müssen darauf achten, dass keine zeitlichen Offsets zwischen den SignalEntries bestehen.
+% -	FAT16 Dateinamen oder hatten wir das im Schema fest? 
+
+\begin{table}[ht]
+	\caption{Empfehlung für die Anwendung des Attributes \xmlattribute{contentClass}}
+	\begin{tabularx}{\textwidth}{lX}
+		\hline
+		Klasse & Beschreibung \\
+		\hline
+		\hline
+		ECG & EKG-Signal \\
+		TRIGGER & Trigger-Liste (EKG-Annotation) \\
+		ACC & Beschleunigungssignal \\
+		IMP & Impedanzsignal \\
+		RAW & Rohdaten \\
+		BLOODPRESSURE & Blutdruck \\
+		PLETH & Pleth-Signal \\
+		RESP & Atmung \\
+		MARKER & Patienten-Marker \\
+		\hline
+	\end{tabularx}
+	\label{tab:contentclass}
+\end{table}
+
+		\subsubsection{Dateinamen}
+
+Die IDs von Datendateien sollten nur aus den Buchstaben \texttt{A--Z}, den Ziffern \texttt{0--9} sowie aus den Zeichen \texttt{\_} und \texttt{-} bestehen. Die Länge der IDs ist durch das Dateisystem vorgegeben -- bei einem FAT16-System sind dies lediglich acht Zeichen.
+
+
+
+
+
+\section{Anwendung}
+
+%Mehrere Möglichkeiten. Z.B. einfach XML-Datei direkt auf Sensor erzeugen. Daten einfach als Bin-Datei dazu speichern. Zugriff über Java API. Zugriff von Matlab aus.
+
+Unisens-Dateien können direkt auf dem Embedded System des aufzeichnenden Sensors geschrieben werden. Ebenso können bereits vorhandene Daten nach Unisens konvertiert werden. Die vorhande Java-Bibliothek erlaubt die Nutzung aus Java-Programmen sowie die direkte Einbindung in \textsc{Matlab}.
+
+Um den Funktionsumfang der Unisens-Library vollständig nutzen zu können, bestehen folgende Anforderungen:
+\begin{itemize}
+	\item Java 5 oder höher
+	\item Unisens Interface \texttt{org.unisens.jar}
+	\item Referenzimplementierung der Unisens Library \texttt{org.unisens.ri.jar}
+\end{itemize}
+
+Verzichtet man auf den Komfort der Bibliothek, können Unisens-Dateien auf nahezu jedem System erstellt werden. Durch die menschenlesbare Header-Datei im XML-Format ist ein editieren per Hand möglich, ebenso können CSV- und Binär-Dateien mit Standardwerkzeugen erstellt werden.
+
+
+	\subsection{Embedded Systems}
+
+Soll Unisens in einem Embedded System zum Speichern von Sensordaten verwendet werden, ist es zweckmäßig, die \texttt{unisens.xml}-Datei aus einer Vorlage zu generieren, in der nur noch der Timestamp für den Beginn der Messung und ggf. der Kommentar geändert wird. Die Daten des Sensors können direkt als Binärdatei im Ordner des Datensatzes gespeichert werden. Die Eigenschaften des verwendeten  AD-Wandlers sowie das Datenformat der Binärdatei sind Systemabhängig und können entsprechend in der XML-Vorlage berücksichtigt werden.
+
+
+
+	\subsection{Java}
+
+Die Java-Referenzimplementierung erlaubt die direkte Nutzung von Unisens innerhalb einer Java-Anwendung. Die API ist in englischer Sprache dokumentiert und auf \cite{Unisens2008} verfügbar. Ebenso wird dort ein leicht verständliches Beispiel vorgehalten, in dem das Erstellen, Lesen, Bearbeiten und Speichern von Unisens-Daten ausführlich beschrieben wird.
+
+%		\subsubsection{Java API}
+%
+%Verweis auf Java-Doc und jar-Dateien. JRE. Anforderungen. Klassendiagramm des Interface
+%
+%
+%		\subsubsection{Referenz-Implementierung}
+%		
+%Verweis auf Java-Doc und jar-Dateien. Was sind die Systemanforderungen
+%
+%
+%		\subsubsection{Beispiel}
+%		
+%Ein umfangreicheres Beispiel: vorhandene Daten, lesen, bearbeiten, speichern
+
+
+	\subsection{Matlab}
+
+Alle \textsc{Matlab}-Versionen, die Java 5 oder höher verwenden, können Unisens uneingeschränkt verwenden. Dazu muss lediglich das Unisens-Interface und dessen Implementierung dem Java-Pfad von \textsc{Matlab} hinzugefügt werden. Eine Reihe von zur Verfügung gestellten Standardfunktionen erleichtert den Umgang in \textsc{Matlab}. In \cite{Unisens2008} ist die Verwendung von Unisens in \textsc{Matlab} ausführlich erklärt.
+
+
+
+%	\subsection{Labview}
+	
+%Eine Unterstürzung von Unisens in Labview ist vorgesehen, aber noch nicht umgesetzt.
+
+
+\newpage
+\section{Erweiterbarkeit}
+
+	\subsection{CustomAttributes}
+
+Die einfachste Art der Erweiterung ist das Erstellen eigener Attribute (\texttt{customAttributes}). Mit Hilfe von Key-Value-Paaren können beliebige Informationen im Datensatz gespeichert werden. Sie können wahlweise global für den gesamten Datensatz spezifiziert werden oder nur für einzelne Datendateien.
+
+\texttt{customAttributes} sind Bestandteil von Unisens und in der Referenzimplementierung enthalten.
+
+
+	\subsection{Context}
+	
+Das Speichern von Kontextinformationen kann auch in einer separaten XML-Datei mit selbst vorgegebener Struktur erfolgen (\code{context.xml}). In diesem Fall muss ein entsprechendes XML-Schema mitgeliefert werden, das diese Datenstruktur beschreibt. Aus der Headerdatei wird über das Element \texttt{context} darauf verwiesen.
+
+
+	\subsection{CustomEntries}
+
+Sollen Dateien innerhalb eines Datensatzes gespeichert werden, die sich nicht als eines der vorgesehenen Datentypen darstellen lassen, kann ein \texttt{customEntry} angelegt werden. Innerhalb eines \texttt{customEntry} wird auf den Namen der Datei verwiesen, zusätzlich können bestimmte Informationen (z.B. Datentyp, Kommentar u.ä.) als Attribut gespeichert werden. Ein Beispiel für ein \texttt{customEntry} wäre ein Foto, dass das Messobjekt zeigt und somit durchaus ein wichtiger Bestandteil der Messung sein kann, sich aber nicht anders in das Datenformat integrieren lässt. Ebenso können Anwendungen Zusatzinformationen zu einem Datensatz in einem \texttt{customEntry} speichern.
+
+	
+	\subsection{Eigene Implementierung}
+	
+Mit einer eigenen Implementierung der Library hat man Möglichkeiten, Unisens kompatibel zu erweitern. Solange das Interface korrekt implementiert wird, ist gewährleistet, dass alle Unisens-Daten korrekt geöffnet werden können. Eigene Erweiterungen wie z.B. andere Lese-Funktionen oder Signalverarbeitung wie zum Beispiel Up- und Downsampling können so problemlos eingefügt werden.
+
+	
+\section{Andere Datenformate}
+
+Im medizinischen Umfeld gibt es bereits etablierte Standards für das Speichern und Austauschen von Daten. Als prominenteste Vertreter seien hier das DICOM-Format für den Austausch digitaler Bilder oder HL7 bzw. GDT für den weiteren Austausch von Information und Daten genannt \cite{DICOM,HL7}. Für die Übertragung von Daten sind verschieden Protokolle empfehlenswert, etwa VITAL (ISO 11073) oder IMEX\,/\,MSD \cite{Schmitt2007,IMEX2005}. 
+
+Will man die Daten speichern, bearbeiten, umsamplen oder annotieren, ist sowohl das WFDB-Format als auch das European Data Format (EDF) und dessen Ableger etabliert \cite{Moody2008,Kemp2003,Kemp1992}. Zudem existieren bereits viele öffentlich zugängliche Daten in diesen Formaten. Aufgrund dessen ist es angestrebt, einfache Konvertierungsmethoden zur Verfügung zu stellen, die vorhandene Daten verlustfrei in das Unisens-Format überführen.
+
+Dateien anderer Datenformate können als \texttt{customEntry} einem Unisens-Datensatz hinzugefügt werden.
+
+
+\section{Lizenz}
+
+Die Unisens-Library und das Unisens-Interface stehen unter der GNU Lesser General Public License (LGPL). Der Lizenztext wird mit dem Code ausgeliefert und ist auf \cite{lgpl2008} einsehbar. 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  Literaturverzeichnis
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\bibliographystyle{mit_din}
+\bibliography{Unisens-Dokumentation}
+
+%XML
+%XSD
+%CSV Format
+%Floating Point Spec
+%FAT16: http://de.wikipedia.org/wiki/File_Allocation_Table#FAT16
+%WFDB Format: http://www.physionet.org/physiotools/wpg/wpg.htm
+%\nocite{moody2008}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  Kontakt
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Kontakt}
+
+\paragraph{FZI Forschungszentrum Informatik} ~\\
+Embedded Systems and Sensors Engineering (ESS)\\
+Haid-und-Neu-Str. 10--14\\
+76131 Karlsruhe\\[1ex]
+Dipl.-Ing. Malte Kirst\\
+kirst@fzi.de
+
+\paragraph{Universität Karlsruhe} ~\\
+Institut für Technik der Informationsverarbeitung (ITIV)\\
+Engesserstr. 5\\
+76131 Karlsruhe\\[1ex]
+Dipl.-Ing. Jörg Ottenbacher\\
+ottenbacher@itiv.uni-karlsruhe.de
+
+\paragraph{http://www.unisens.org}
+
+
+\end{document}

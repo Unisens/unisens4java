@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<unisens measurementId="Temp values" timestampStart="2011-06-16T19:39:58.340" version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.unisens.org/unisens2.0 http://www.unisens.org/unisens2.0/unisens.xsd" xmlns="http://www.unisens.org/unisens2.0">
+<valuesEntry dataType="int16" id="ve_int16.csv" lsbValue="1" name="ve_int16.csv" sampleRate="400">
+<csvFileFormat decimalSeparator="." separator=";"/>
+<channel name="a"/>
+<channel name="b"/>
+</valuesEntry>
+<valuesEntry dataType="int32" id="ve_int32.csv" lsbValue="1" sampleRate="400">
+<csvFileFormat decimalSeparator="." separator=";"/>
+<channel name="a"/>
+<channel name="b"/>
+</valuesEntry>
+<valuesEntry dataType="int32" id="ve_int32_1_dim.csv" lsbValue="1" sampleRate="400">
+<csvFileFormat decimalSeparator="." separator=";"/>
+<channel name="a"/>
+</valuesEntry>
+<valuesEntry dataType="double" id="ve_double.csv" lsbValue="1" sampleRate="400">
+<csvFileFormat decimalSeparator="." separator=";"/>
+<channel name="a"/>
+<channel name="b"/>
+</valuesEntry>
+<valuesEntry dataType="int16" id="ve_int16.xml" lsbValue="1" sampleRate="400">
+<xmlFileFormat/>
+<channel name="a"/>
+<channel name="b"/>
+</valuesEntry>
+<valuesEntry dataType="int32" id="ve_int32.xml" lsbValue="1" sampleRate="400">
+<xmlFileFormat/>
+<channel name="a"/>
+<channel name="b"/>
+</valuesEntry>
+<valuesEntry dataType="double" id="ve_double.xml" lsbValue="1" sampleRate="400">
+<xmlFileFormat/>
+<channel name="a"/>
+<channel name="b"/>
+</valuesEntry>
+</unisens>

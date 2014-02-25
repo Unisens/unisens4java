@@ -1,0 +1,18 @@
+<unisens xmlns="http://www.unisens.org/unisens2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" comment="Das ist eine Testdatei von 1:30 min Laenge" measurementId="test-id 001" timestampStart="2008-06-16T20:07:55.000" version="2.0" xsi:schemaLocation="http://www.unisens.org/unisens2.0 unisens.xsd">
+<signalEntry adcResolution="24" adcZero="9000000" comment="Auszug aus ITIV01" contentClass="ECG" dataType="int32" id="ecg.bin" lsbValue="0.002" sampleRate="200" unit="mV">
+<binFileFormat endianess="LITTLE"/>
+<channel name="dry electrodes"/>
+<channel name="wet electrodes"/>
+</signalEntry>
+<eventEntry comment="Referenz-Triggerliste" contentClass="TRIGGER" id="ref_trigger.csv" sampleRate="200" source="" sourceId="">
+<csvFileFormat comment="" decimalSeparator="." separator=";"/>
+</eventEntry>
+<eventEntry comment="Artefacts" contentClass="ARTEFACT" id="ref_artefacts.csv" sampleRate="200">
+<csvFileFormat comment="" decimalSeparator="." separator=";"/>
+</eventEntry>
+<group comment="EKG und Referenztrigger" id="default_ecg">
+<groupEntry ref="ref_artefacts.csv"/>
+<groupEntry ref="ref_trigger.csv"/>
+<groupEntry ref="ecg.bin"/>
+</group>
+</unisens>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<unisens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0" xsi:schemaLocation="http://www.unisens.org/unisens2.0 http://www.unisens.org/unisens2.0/unisens.xsd">
+   <signalEntry dataType="uint8" id="test_1x12_UINT8.bin" lsbValue="1" sampleRate="100">
+      <binFileFormat endianess="LITTLE"/>
+      <channel name="CH1"/>
+   </signalEntry>
+   <signalEntry dataType="uint8" id="test_2x12_UINT8.bin" lsbValue="1" sampleRate="100">
+      <binFileFormat endianess="LITTLE"/>
+      <channel name="CH1"/>
+      <channel name="CH2"/>
+   </signalEntry>
+   <signalEntry dataType="uint8" id="test_1x1_UINT8.bin" lsbValue="1" sampleRate="100">
+      <binFileFormat endianess="LITTLE"/>
+      <channel name="CH1"/>
+   </signalEntry>
+   <signalEntry dataType="uint8" id="test_2x1_UINT8.bin" lsbValue="1" sampleRate="100">
+      <binFileFormat endianess="LITTLE"/>
+      <channel name="CH1"/>
+      <channel name="CH2"/>
+   </signalEntry>
+   <signalEntry dataType="int8" id="test_1x12_INT8.bin" lsbValue="1" sampleRate="100">
+      <binFileFormat endianess="LITTLE"/>
+      <channel name="CH1"/>
+   </signalEntry>
+   <signalEntry dataType="int8" id="test_2x12_INT8.bin" lsbValue="1" sampleRate="100">
+      <binFileFormat endianess="LITTLE"/>
+      <channel name="CH1"/>
+      <channel name="CH2"/>
+   </signalEntry>
+   <signalEntry dataType="int8" id="test_1x1_INT8.bin" lsbValue="1" sampleRate="100">
+      <binFileFormat endianess="LITTLE"/>
+      <channel name="CH1"/>
+   </signalEntry>
+   <signalEntry dataType="int8" id="test_2x1_INT8.bin" lsbValue="1" sampleRate="100">
+      <binFileFormat endianess="LITTLE"/>
+      <channel name="CH1"/>
+      <channel name="CH2"/>
+   </signalEntry>
+   <signalEntry dataType="uint16" id="test_1x12_UINT16.bin" lsbValue="1" sampleRate="100">
+      <binFileFormat endianess="LITTLE"/>
+      <channel name="CH1"/>
+   </signalEntry>
+   <signalEntry dataType="uint16" id="test_2x12_UINT16.bin" lsbValue="1" sampleRate="100">
+      <binFileFormat endianess="LITTLE"/>
+      <channel name="CH1"/>
+      <channel name="CH2"/>
+   </signalEntry>
+   <signalEntry dataType="uint16" id="test_1x1_UINT16.bin" lsbValue="1" sampleRate="100">
+      <binFileFormat endianess="LITTLE"/>
+      <channel name="CH1"/>
+   </signalEntry>
+   <signalEntry dataType="uint16" id="test_2x1_UINT16.bin" lsbValue="1" sampleRate="100">
+      <binFileFormat endianess="LITTLE"/>
+      <channel name="CH1"/>
+      <channel name="CH2"/>
+   </signalEntry>
+   <signalEntry dataType="int16" id="test_1x12_INT16.bin" lsbValue="1" sampleRate="100">
+      <binFileFormat endianess="LITTLE"/>
+      <channel name="CH1"/>
+   </signalEntry>
+   <signalEntry dataType="int16" id="test_2x12_INT16.bin" lsbValue="1" sampleRate="100">
+      <binFileFormat endianess="LITTLE"/>
+      <channel name="CH1"/>
+      <channel name="CH2"/>
+   </signalEntry>
+   <signalEntry dataType="int16" id="test_1x1_INT16.bin" lsbValue="1" sampleRate="100">
+      <binFileFormat endianess="LITTLE"/>
+      <channel name="CH1"/>
+   </signalEntry>
+   <signalEntry dataType="int16" id="test_2x1_INT16.bin" lsbValue="1" sampleRate="100">
+      <binFileFormat endianess="LITTLE"/>
+      <channel name="CH1"/>
+      <channel name="CH2"/>
+   </signalEntry>
+   <signalEntry dataType="uint32" id="test_1x12_UINT32.bin" lsbValue="1" sampleRate="100">
+      <binFileFormat endianess="LITTLE"/>
+      <channel name="CH1"/>
+   </signalEntry>
+   <signalEntry dataType="uint32" id="test_2x12_UINT32.bin" lsbValue="1" sampleRate="100">
+      <binFileFormat endianess="LITTLE"/>
+      <channel name="CH1"/>
+      <channel name="CH2"/>
+   </signalEntry>
+   <signalEntry dataType="uint32" id="test_1x1_UINT32.bin" lsbValue="1" sampleRate="100">
+      <binFileFormat endianess="LITTLE"/>
+      <channel name="CH1"/>
+   </signalEntry>
+   <signalEntry dataType="uint32" id="test_2x1_UINT32.bin" lsbValue="1" sampleRate="100">
+      <binFileFormat endianess="LITTLE"/>
+      <channel name="CH1"/>
+      <channel name="CH2"/>
+   </signalEntry>
+   <signalEntry dataType="int32" id="test_1x12_INT32.bin" lsbValue="1" sampleRate="100">
+      <binFileFormat endianess="LITTLE"/>
+      <channel name="CH1"/>
+   </signalEntry>
+   <signalEntry dataType="int32" id="test_2x12_INT32.bin" lsbValue="1" sampleRate="100">
+      <binFileFormat endianess="LITTLE"/>
+      <channel name="CH1"/>
+      <channel name="CH2"/>
+   </signalEntry>
+   <signalEntry dataType="int32" id="test_1x1_INT32.bin" lsbValue="1" sampleRate="100">
+      <binFileFormat endianess="LITTLE"/>
+      <channel name="CH1"/>
+   </signalEntry>
+   <signalEntry dataType="int32" id="test_2x1_INT32.bin" lsbValue="1" sampleRate="100">
+      <binFileFormat endianess="LITTLE"/>
+      <channel name="CH1"/>
+      <channel name="CH2"/>
+   </signalEntry>
+   <signalEntry dataType="double" id="test_1x12_DOUBLE.bin" lsbValue="1" sampleRate="100">
+      <binFileFormat endianess="LITTLE"/>
+      <channel name="CH1"/>
+   </signalEntry>
+   <signalEntry dataType="double" id="test_2x12_DOUBLE.bin" lsbValue="1" sampleRate="100">
+      <binFileFormat endianess="LITTLE"/>
+      <channel name="CH1"/>
+      <channel name="CH2"/>
+   </signalEntry>
+   <signalEntry dataType="double" id="test_1x1_DOUBLE.bin" lsbValue="1" sampleRate="100">
+      <binFileFormat endianess="LITTLE"/>
+      <channel name="CH1"/>
+   </signalEntry>
+   <signalEntry dataType="double" id="test_2x1_DOUBLE.bin" lsbValue="1" sampleRate="100">
+      <binFileFormat endianess="LITTLE"/>
+      <channel name="CH1"/>
+      <channel name="CH2"/>
+   </signalEntry>
+</unisens>

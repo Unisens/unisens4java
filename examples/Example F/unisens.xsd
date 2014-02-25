@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://www.unisens.org/unisens2.0" xmlns="http://www.unisens.org/unisens2.0">
+	<xs:element name="unisens">
+		<xs:annotation>
+			<xs:documentation>Unisens 2.0 root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name = "customAttributes" type="customAttributes" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="context" type="context" minOccurs="0"/>
+				<xs:choice id="entries" maxOccurs="unbounded" minOccurs="0">
+					<xs:element name="signalEntry" type="signalEntry"/>
+					<xs:element name="valuesEntry" type="valuesEntry"/>
+					<xs:element name="eventEntry" type="eventEntry"/>
+					<xs:element name="customEntry" type="customEntry"/>
+				</xs:choice>
+				<xs:element name="group" type="group" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="version" type="xs:string" use="required"/>
+			<xs:attribute name="measurementId" type="xs:string" use="required"/>
+			<xs:attribute name="timestampStart" type="xs:dateTime" use="required"/>
+			<xs:attribute name="duration" type="xs:duration" use="optional"/>
+			<xs:attribute name="comment" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="customAttributes">
+		<xs:sequence>
+			<xs:element name="customAttribute" type="customAttribute" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="customAttribute">
+		<xs:attribute name="key"/>
+		<xs:attribute name="value"/>
+	</xs:complexType>
+	<xs:complexType name="fileFormat" abstract="true">
+		<xs:attribute name="comment" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="xmlFileFormat">
+		<xs:annotation>
+			<xs:documentation>file format options for XML files</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="fileFormat"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="csvFileFormat">
+		<xs:annotation>
+			<xs:documentation>file format options for CSV files</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="fileFormat">
+				<xs:attribute name="separator" type="xs:string"/>
+				<xs:attribute name="decimalSeparator" type="xs:string"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="binFileFormat">
+		<xs:annotation>
+			<xs:documentation>file format options for binary files</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="fileFormat">
+				<xs:attribute name="endianess" type ="Endianess"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="customFileFormat">
+		<xs:annotation>
+			<xs:documentation>file format options for custom files</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="fileFormat">
+				<xs:attribute name="fileFormatName" type ="xs:string"/>
+				<xs:anyAttribute/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:simpleType name="Endianess">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="LITTLE"/>
+			<xs:enumeration value="BIG"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="entry" abstract="true">
+		<xs:sequence>
+			<xs:choice id="fileFormat" minOccurs="1" maxOccurs="1">
+				<xs:element name="binFileFormat" type="binFileFormat"/>
+				<xs:element name="csvFileFormat" type="csvFileFormat"/>
+				<xs:element name="xmlFileFormat" type="xmlFileFormat"/>
+				<xs:element name="customFileFormat" type="customFileFormat"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="id" type="unisensFilename" use="required"/>
+		<xs:attribute name="contentClass" type="xs:string"/>
+		<xs:attribute name="source" type="xs:string"/>
+		<xs:attribute name="sourceId" type="xs:string"/>
+		<xs:attribute name="comment" type="xs:string"/>
+	</xs:complexType>
+	
+	<xs:complexType name="measurementEntry" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="entry">
+				<xs:sequence>
+					<xs:element name="channel" type="channel" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="sampleRate" type="xs:double" use="required"/>
+				<xs:attribute name="adcZero" type="xs:int" use="optional"/>
+				<xs:attribute name="baseline" type="xs:int" use="optional"/>
+				<xs:attribute name="lsbValue" type="xs:double" use="optional"/>
+				<xs:attribute name="adcResolution" type="xs:int" use="optional"/>
+				<xs:attribute name="dataType" type="DataType" use="optional"/>
+				<xs:attribute name="unit" type="xs:string" use="optional"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:simpleType name="DataType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="double"/>
+			<xs:enumeration value="float"/>
+			<xs:enumeration value="uint8"/>
+			<xs:enumeration value="int8"/>
+			<xs:enumeration value="uint16"/>
+			<xs:enumeration value="int16"/>
+			<xs:enumeration value="uint32"/>
+			<xs:enumeration value="int32"/>
+			<xs:enumeration value="uint64"/>
+			<xs:enumeration value="int64"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="signalEntry">
+		<xs:complexContent>
+			<xs:extension base="measurementEntry"/>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="eventEntry">
+		<xs:complexContent>
+			<xs:extension base="entry">
+				<xs:attribute name="sampleRate" type="xs:double" use="required"/>
+				<xs:attribute name="commentLength" type="xs:int"/>
+				<xs:attribute name="typeLength" type="xs:int"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="valuesEntry">
+		<xs:complexContent>
+			<xs:extension base="measurementEntry"/>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="customEntry">
+		<xs:complexContent>
+			<xs:extension base="entry">
+				<xs:anyAttribute namespace="##any" processContents="lax"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="channel">
+		<xs:attribute name="name" type="xs:string" use="required"/>
+	</xs:complexType>
+	
+	<xs:simpleType name="unisensFilename">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="([0-9]|[a-z]|_|-|.){1,254}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="groupEntry">
+		<xs:attribute name="ref" type="unisensFilename" use="required"/>
+	</xs:complexType>
+	
+	<xs:complexType name="group">
+		<xs:sequence>
+			<xs:element name="groupEntry" type="groupEntry" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:ID" use="required"/>
+		<xs:attribute name="comment" type="xs:string"/>
+	</xs:complexType>
+	
+	<xs:complexType name="context">
+		<xs:attribute name="schemaUrl" type="xs:string" use="required"/>
+	</xs:complexType>
+	
+</xs:schema>

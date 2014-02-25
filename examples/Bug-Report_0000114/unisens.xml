@@ -1,0 +1,13 @@
+<unisens xmlns="http://www.itiv.org/unisens2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.itiv.org/unisens2.0 unisens.xsd">
+<signalEntry comment="0089,0089,10.10.1910" contentClass="ECG" dataType="int16" id="ecg.bin" lsbValue="3417.0" sampleRate="500.0" source="Cardiolight" sourceId="Zweikanalableitung" unit="nV">
+<channel name="A"/>
+<channel name="B"/>
+<binFileFormat endianess="LITTLE"/>
+</signalEntry>
+<customEntry id="XML">
+<customFileFormat fileFormatName="xml"/>
+</customEntry>
+<group id="default_ecg">
+<groupEntry ref="ecg.bin"/>
+</group>
+</unisens>

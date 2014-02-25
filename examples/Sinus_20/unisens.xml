@@ -1,0 +1,6 @@
+<unisens xmlns="http://www.unisens.org/unisens2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" comment="Das ist eine Testdatei" measurementId="test-id 001" timestampStart="2008-10-30T19:02:15.000" version="2.0" xsi:schemaLocation="http://www.unisens.org/unisens2.0 unisens.xsd">
+   <signalEntry adcResolution="16" adcZero="16000" comment="generated test data" contentClass="ECG" dataType="int32" id="test-entry.bin" lsbValue="0.0002" sampleRate="250" unit="mV">
+      <binFileFormat endianess="LITTLE"/>
+      <channel name="I"/>
+   </signalEntry>
+</unisens>

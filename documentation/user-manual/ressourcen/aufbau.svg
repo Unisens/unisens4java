@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="204.6582"
+   height="169.2627"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   sodipodi:docname="aufbau.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   version="1.0">
+  <defs
+     id="defs4">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+    <inkscape:perspective
+       id="perspective2390"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3196"
+       inkscape:persp3d-origin="94.829102 : 49.754232 : 1"
+       inkscape:vp_z="189.6582 : 74.631348 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 74.631348 : 1"
+       sodipodi:type="inkscape:persp3d" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.6793832"
+     inkscape:cx="131.24486"
+     inkscape:cy="-39.325964"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     gridtolerance="10000"
+     inkscape:window-width="1112"
+     inkscape:window-height="995"
+     inkscape:window-x="0"
+     inkscape:window-y="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-79.771492,-538.20398)">
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial"
+       x="79.000008"
+       y="545.36218"
+       id="text2258"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2260"
+         x="79.000008"
+         y="545.36218"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Arial">Datensatz </tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial"
+       x="94.000008"
+       y="565.36218"
+       id="text2262"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2264"
+         x="94.000008"
+         y="565.36218">Daten</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial"
+       x="109.00001"
+       y="585.36218"
+       id="text2270"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2272"
+         x="109.00001"
+         y="585.36218">Annotationen (EventEntry)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial"
+       x="124"
+       y="645.36218"
+       id="text2274"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2276"
+         x="124"
+         y="645.36218">kontinuierliche Signale (SignalEntry)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial"
+       x="109.00001"
+       y="605.36218"
+       id="text2278"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2280"
+         x="109.00001"
+         y="605.36218">Sensordaten</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial"
+       x="94"
+       y="665.36218"
+       id="text2282"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2284"
+         x="94"
+         y="665.36218">Gruppen (Group)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial"
+       x="94"
+       y="685.36218"
+       id="text2286"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2288"
+         x="94"
+         y="685.36218">Fremddaten (CustomEntry)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial"
+       x="94"
+       y="705.36218"
+       id="text2290"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2292"
+         x="94"
+         y="705.36218">Kontextinformationen (Context)</tspan></text>
+    <g
+       id="g2294"
+       transform="matrix(0.886718,0,0,1,5.19538,215)">
+      <path
+         id="path2296"
+         d="M 90,337.36218 L 90,467.29574 L 95,467.29574"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.06195772px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         id="path2300"
+         d="M 95,447.36218 L 90,447.36218"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.06195772px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         id="path2302"
+         d="M 95,347.36218 L 90,347.36218"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.06195772px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g2304"
+       transform="matrix(0.8867176,0,0,1,2.46106,215)">
+      <path
+         id="path2306"
+         d="M 110,357.36218 L 110,387.36218 L 115,387.36218"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.06195796px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         id="path2308"
+         d="M 115,367.36218 L 110,367.36218"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.06195796px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial"
+       x="124"
+       y="625.36218"
+       id="text3265"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3267"
+         x="124"
+         y="625.36218">Einzelwerte (ValuesEntry)</tspan></text>
+    <g
+       id="g3269"
+       transform="matrix(0.8867176,0,0,1,17.461064,255)">
+      <path
+         id="path3271"
+         d="M 110,357.36218 L 110,387.36218 L 115,387.36218"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.06195796px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         id="path3273"
+         d="M 115,367.36218 L 110,367.36218"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.06195796px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <path
+       id="path3275"
+       d="M 89.43359,702.36218 L 85,702.36218 L 85,682.36218"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       sodipodi:nodetypes="ccc" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text3317"
+       y="545.36218"
+       x="79.000008"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial"
+       xml:space="preserve"><tspan
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Arial"
+         y="545.36218"
+         x="79.000008"
+         id="tspan3319"
+         sodipodi:role="line">Datensatz </tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3321"
+       y="565.36218"
+       x="94.000008"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial"
+       xml:space="preserve"><tspan
+         y="565.36218"
+         x="94.000008"
+         id="tspan3323"
+         sodipodi:role="line">Daten</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3325"
+       y="585.36218"
+       x="109.00001"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial"
+       xml:space="preserve"><tspan
+         y="585.36218"
+         x="109.00001"
+         id="tspan3327"
+         sodipodi:role="line">Annotationen (EventEntry)</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3329"
+       y="645.36218"
+       x="124"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial"
+       xml:space="preserve"><tspan
+         y="645.36218"
+         x="124"
+         id="tspan3331"
+         sodipodi:role="line">kontinuierliche Signale (SignalEntry)</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3333"
+       y="605.36218"
+       x="109.00001"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial"
+       xml:space="preserve"><tspan
+         y="605.36218"
+         x="109.00001"
+         id="tspan3335"
+         sodipodi:role="line">Sensordaten</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3337"
+       y="665.36218"
+       x="94"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial"
+       xml:space="preserve"><tspan
+         y="665.36218"
+         x="94"
+         id="tspan3339"
+         sodipodi:role="line">Gruppen (Group)</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3341"
+       y="685.36218"
+       x="94"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial"
+       xml:space="preserve"><tspan
+         y="685.36218"
+         x="94"
+         id="tspan3343"
+         sodipodi:role="line">Fremddaten (CustomEntry)</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3345"
+       y="705.36218"
+       x="94"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial"
+       xml:space="preserve"><tspan
+         y="705.36218"
+         x="94"
+         id="tspan3347"
+         sodipodi:role="line">Kontextinformationen (Context)</tspan></text>
+    <g
+       transform="matrix(0.886718,0,0,1,5.19538,215)"
+       id="g3349">
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.06195772px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 90,337.36218 L 90,467.29574 L 95,467.29574"
+         id="path3351" />
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.06195772px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 95,447.36218 L 90,447.36218"
+         id="path3353" />
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.06195772px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 95,347.36218 L 90,347.36218"
+         id="path3355" />
+    </g>
+    <g
+       transform="matrix(0.8867176,0,0,1,2.46106,215)"
+       id="g3357">
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.06195796px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 110,357.36218 L 110,387.36218 L 115,387.36218"
+         id="path3359" />
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.06195796px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 115,367.36218 L 110,367.36218"
+         id="path3361" />
+    </g>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3363"
+       y="625.36218"
+       x="124"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Arial"
+       xml:space="preserve"><tspan
+         y="625.36218"
+         x="124"
+         id="tspan3365"
+         sodipodi:role="line">Einzelwerte (ValuesEntry)</tspan></text>
+    <g
+       transform="matrix(0.8867176,0,0,1,17.461064,255)"
+       id="g3367">
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.06195796px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 110,357.36218 L 110,387.36218 L 115,387.36218"
+         id="path3369" />
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.06195796px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 115,367.36218 L 110,367.36218"
+         id="path3371" />
+    </g>
+    <path
+       sodipodi:nodetypes="ccc"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 89.43359,702.36218 L 85,702.36218 L 85,682.36218"
+       id="path3373" />
+  </g>
+</svg>

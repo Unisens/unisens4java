@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<!-- Sample build file used to retrieve svnant's sources -->
+<project name="unisens-builder" basedir="." default="all">
+  
+  <!--  all properties are in build.properties --> 
+	<property file="build.properties" /> 
+	<property file="login.properties" /> 
+
+	<!-- path to the svnant libraries. They are located in builder/lib -->
+	<path id="svnant.classpath">
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+
+	<!-- load the svn task -->
+  <typedef resource="org/tigris/subversion/svnant/svnantlib.xml" classpathref="svnant.classpath" />
+  <taskdef name="xsddoc" classname="net.sf.xframe.xsddoc.Task" classpathref="svnant.classpath"/>
+
+
+  <!--all -->
+  <target name="all" depends="clean, makeDirs, checkout, getSVNrevision, releaseNumber, build, test, packageJars, copySource, copyDistFiles, javaDoc, xsdDoc, packageRelease" /> 
+  <!--local -->
+  <target name="buildCI" depends="clean, makeDirs, nocheckout, releaseNumber, build, test, packageJars, copySource, copyDistFiles, javaDoc, xsdDoc, packageRelease" /> 
+
+  <target name="debug" depends="makeDirs, checkout, getSVNrevision, releaseNumber, build, test, packageJars, copySource, copyDistFiles, javaDoc, xsdDoc, packageRelease" /> 
+
+
+  <!-- make dirs -->
+  <target name="makeDirs" >
+    <mkdir dir="dist" />
+    <mkdir dir="dist/${release.name}" />
+    <mkdir dir="dist/${release.name}/src" />
+    <mkdir dir="dist/${release.name}/doc" />
+  	<mkdir dir="dist/${release.name}/schema-doc" />
+
+    <mkdir dir="checkout" />
+
+    <mkdir dir="build" />
+    <mkdir dir="build/unisens-interface" />
+    <mkdir dir="build/unisens-library" />
+	<mkdir dir="build/unisens-tests" />
+	
+	<mkdir dir="test" />
+
+  </target>
+  
+  <!-- clean dirs -->
+  <target name="clean" >
+    <delete dir="dist" />
+    <delete dir="checkout" />
+    <delete dir="build" />
+	<delete dir="test" />
+  </target>           
+
+  <!-- checkout from svn -->
+  <target name="checkout">
+	<property name="workingdir" value="checkout" />
+  	<svn username="${svn.repository.user}" password="${svn.repository.passwd}"  javahl="false">
+      <checkout url="${svn.unisens.url}" revision="HEAD" destPath="${workingdir}" />
+    </svn>
+  </target>
+	
+  <!-- no checkout from svn for local build -->
+  <target name="nocheckout">
+	<property name="workingdir" value=".." />
+  </target>
+  
+  	<!-- create filename and update version and build number in about box -->
+	<target name="getSVNrevision">
+		<!-- Es wird immer die maximale Revisionsnummer der library genommen! -->
+		<svn username="${svn.repository.user}" password="${svn.repository.passwd}" javahl="false">
+			<wcVersion path="${workingdir}" prefix="" />
+		</svn>
+	</target>
+	
+	<!-- create filename and update version and build number in about box -->
+	<target name="releaseNumber">
+		<echo>Current revision is ${revision.max}</echo>
+		<tstamp><format property="timestamp" pattern="dd.MM.yyyy HH:MM z"/></tstamp>
+		
+		<property name="release.date" value="${timestamp}" />
+		<property name="release.filename" value="${release.name}-${release.version}.${revision.max}" />
+		
+		<replace file="${workingdir}/unisens-library/src/META-INF/MANIFEST.MF" token="${implemenation-version}" value="${release.version} Rev. ${revision.max}" />
+		<replace file="${workingdir}/unisens-interface/src/META-INF/MANIFEST.MF" token="${specification-version}" value="${release.version} Rev. ${revision.max}" />
+	</target>
+	
+  <!-- build interface and unisens-library-->
+  <target name="build">
+    <javac destdir="build/unisens-interface" srcdir="${workingdir}/unisens-interface/src" />
+    <javac destdir="build/unisens-library" srcdir="${workingdir}/unisens-library/src" classpath="build/unisens-interface"/>
+	<javac destdir="build/unisens-tests" srcdir="${workingdir}/unisens-tests" debug="true">
+		<classpath>
+			<path refid="svnant.classpath"/>
+			<pathelement path="build/unisens-interface"/>
+			<pathelement path="build/unisens-library"/>
+		</classpath>
+	</javac>
+  </target>
+  
+  <!-- make jar files -->
+  <target name="packageJars">
+ 	<jar destfile="dist/${release.name}/org.unisens.jar"  manifest="${workingdir}/unisens-interface/src/META-INF/MANIFEST.MF">
+      <fileset dir="build/unisens-interface"/>
+      <fileset dir="${workingdir}/unisens-interface/src/" includes="unisens.xsd"/>
+    </jar>
+    <jar destfile="dist/${release.name}/org.unisens.ri.jar" manifest="${workingdir}/unisens-library/src/META-INF/MANIFEST.MF">
+      <fileset dir="build/unisens-library"/>
+      <fileset dir="${workingdir}/unisens-library/src" includes="config/*" />
+    </jar>
+  </target>
+
+
+  <!-- run junit tests -->
+  <target name="test" depends="build" description="runs all JUnit tests">
+    <taskdef name="junit" classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask"/>
+    <junit printsummary="yes" failureProperty="test.failed" fork="true" dir="${workingdir}/" showoutput="true">
+		<classpath>
+			<path refid="svnant.classpath"/>
+			<pathelement path="build/unisens-interface"/>
+			<pathelement path="build/unisens-library"/>
+			<pathelement path="${workingdir}/unisens-library/src"/>
+			<pathelement path="build/unisens-tests"/>
+		</classpath>
+		<batchtest todir="test" fork="true">
+			<fileset dir="build/unisens-tests"><include name="**/*Test.class"/></fileset>
+			<formatter type="xml"/>
+		</batchtest>
+    </junit>
+	
+	<junitreport tofile="TESTS-TestSuites.xml" todir="test">
+            <fileset dir="test">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report todir="test"/>
+        </junitreport>
+
+	<fail message="Tests failed. Check log and/or reports." if="test.failed"/>
+  </target>
+  
+
+  <!-- copy source to dist dirs -->
+  <target name="copySource">
+    <copy todir="dist/${release.name}/src">
+      <fileset dir="${workingdir}/unisens-interface/src" />
+    </copy>
+    <copy todir="dist/${release.name}/src" >
+      <fileset dir="${workingdir}/unisens-library/src" />
+    </copy>
+  </target>
+
+  <!--copy additional distfiles and documentation to dist dir -->
+  <target name="copyDistFiles" >
+    <copy todir="dist/${release.name}" >
+      <fileset dir="${workingdir}/distfiles" />
+    </copy>
+    <copy file="${workingdir}/documentation/user-manual/Unisens-Dokumentation.pdf" todir="dist/${release.name}/doc" />
+  </target>
+
+  <!-- make javadoc -->
+  <target name="javaDoc" >
+    <javadoc sourcepath="${workingdir}/unisens-interface/src" destdir="dist/${release.name}/doc" />
+  </target>
+	
+  <!-- make xsddoc -->
+	<target name="xsdDoc">
+		<xsddoc out="dist/${release.name}/schema-doc" doctitle="Unisens - a universal data format " verbose="true">
+			<fileset dir="${workingdir}/unisens-interface/src" includes="*.xsd"/>
+		</xsddoc>
+	</target>
+
+  <!-- make zip from dist -->
+  <target name="packageRelease">
+    <zip destfile="${release.filename}.zip" basedir="dist" />
+  </target>
+  
+</project>

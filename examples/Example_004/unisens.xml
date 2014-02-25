@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<unisens xmlns="http://www.unisens.org/unisens2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" comment="Height Weight" measurementId="01 F X X" timestampStart="2010-01-20T18:13:00.000" version="2.0" xsi:schemaLocation="http://www.unisens.org/unisens2.0 unisens.xsd">
+  <signalEntry adcResolution="16" adcZero="-1" comment="HP:0.4Hz LP:53Hz" contentClass="ECG" dataType="int16" id="ECG0_01_F_X_X.bin" sampleRate="256" unit="uV">
+    <binFileFormat endianess="LITTLE" />
+    <channel name="I" />
+  </signalEntry>
+  <signalEntry adcResolution="16" adcZero="-1" comment="LP:10Hz" contentClass="X" dataType="int16" id="X_01_F_X_X.bin" sampleRate="32" unit="m/s^2">
+    <binFileFormat endianess="LITTLE" />
+    <channel name="I" />
+  </signalEntry>
+  <signalEntry adcResolution="16" adcZero="-1" comment="LP:10Hz" contentClass="Y" dataType="int16" id="Y_01_F_X_X.bin" sampleRate="32" unit="m/s^2">
+    <binFileFormat endianess="LITTLE" />
+    <channel name="I" />
+  </signalEntry>
+  <signalEntry adcResolution="16" adcZero="-1" comment="LP:10Hz" contentClass="Z" dataType="int16" id="Z_01_F_X_X.bin" sampleRate="32" unit="m/s^2">
+    <binFileFormat endianess="LITTLE" />
+    <channel name="I" />
+  </signalEntry>
+  <eventEntry comment="Seconds from Start (blocks); Marker Type; Description of Marker" contentClass="TRIGGER" id="Annotations_01_F_X_X.csv" sampleRate="1">
+    <csvFileFormat decimalSeparator="." separator=";" />
+  </eventEntry>
+</unisens>

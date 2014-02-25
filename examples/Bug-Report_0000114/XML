@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PADSYRECORDING edited="false" version="1.1">
+  <CREATIONDATE version="1.0">
+    <Date>07.03.2007 12:37:03</Date>
+  </CREATIONDATE>
+  <RECEIVER version="1.0">
+    <Name1><![CDATA[]]></Name1>
+    <Name2><![CDATA[]]></Name2>
+    <Street><![CDATA[]]></Street>
+    <Address><![CDATA[]]></Address>
+    <Country><![CDATA[]]></Country>
+  </RECEIVER>
+  <PRINTSECTIONLIST version="1.0">
+    <LISTLENGTH>1</LISTLENGTH>
+    <PS_0 version="1.0">
+      <SECTIONNAME><![CDATA[printpaceranalysis]]></SECTIONNAME>
+      <PROP_sectionEnabled general_type="6">false</PROP_sectionEnabled>
+    </PS_0>
+  </PRINTSECTIONLIST>
+  <RECORDINGINFOS version="1.3" edited="false">
+    <HEARTFREQUENCY version="1.0" edited="false">
+      <MIDDLE_HF_ARRAY version="1.0">
+        <Name><![CDATA[]]></Name>
+        <Distance>60000</Distance>
+        <Count>166</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</Values>
+      </MIDDLE_HF_ARRAY>
+      <MIN_HF_ARRAY version="1.0">
+        <Name><![CDATA[]]></Name>
+        <Distance>60000</Distance>
+        <Count>166</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</Values>
+      </MIN_HF_ARRAY>
+      <MAX_HF_ARRAY version="1.0">
+        <Name><![CDATA[]]></Name>
+        <Distance>60000</Distance>
+        <Count>166</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</Values>
+      </MAX_HF_ARRAY>
+      <MIN_HF edited="false" version="1.0">
+        <Begin></Begin>
+        <Duration>0</Duration>
+        <Hf>0</Hf>
+      </MIN_HF>
+      <MAX_HF edited="false" version="1.0">
+        <Begin></Begin>
+        <Duration>0</Duration>
+        <Hf>0</Hf>
+      </MAX_HF>
+      <Middle_HF edited="false">0</Middle_HF>
+      <Middle_day_HF edited="false">0</Middle_day_HF>
+      <Middle_night_HF edited="false">0</Middle_night_HF>
+    </HEARTFREQUENCY>
+    <ARRHYTHMIA version="1.0" edited="false">
+      <SVESREPORT version="1.0" edited="false">
+        <SvesCount edited="false">0</SvesCount>
+        <TachyCount episodenedited="false" edited="false">0</TachyCount>
+        <BradyCount episodenedited="false" edited="false">0</BradyCount>
+        <PauseCount episodenedited="false" edited="false">0</PauseCount>
+      </SVESREPORT>
+      <VESREPORT version="1.1" edited="false">
+        <CoupletsCount edited="false">0</CoupletsCount>
+        <TripletsCount edited="false">0</TripletsCount>
+        <SystolenCount edited="false">0</SystolenCount>
+        <SalvenCount edited="false" episodenedited="false">0</SalvenCount>
+        <VESCount edited="false">0</VESCount>
+        <SalvenEpisodesCount>0</SalvenEpisodesCount>
+        <VTEpisodesCount>0</VTEpisodesCount>
+        <VES_per_hour>0</VES_per_hour>
+        <VES_per_1000>0</VES_per_1000>
+        <VES_percent>0</VES_percent>
+      </VESREPORT>
+      <ARTEFACT_ARRAY version="1.0">
+        <Name><![CDATA[SignalQuality]]></Name>
+        <Distance>3600000</Distance>
+        <Count>5</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0,0,0</Values>
+      </ARTEFACT_ARRAY>
+      <CLASS_NORMAL version="1.0">
+        <Name><![CDATA[0]]></Name>
+        <Distance>3600000</Distance>
+        <Count>3</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0</Values>
+      </CLASS_NORMAL>
+      <CLASS_ARRHYTHMIA version="1.0">
+        <Name><![CDATA[3]]></Name>
+        <Distance>3600000</Distance>
+        <Count>3</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0</Values>
+      </CLASS_ARRHYTHMIA>
+      <CLASS_BUNDLE_BRANCH_BLOCK version="1.0">
+        <Name><![CDATA[24]]></Name>
+        <Distance>3600000</Distance>
+        <Count>3</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0</Values>
+      </CLASS_BUNDLE_BRANCH_BLOCK>
+      <CLASS_BRADYCARDIA version="1.0">
+        <Name><![CDATA[2]]></Name>
+        <Distance>3600000</Distance>
+        <Count>3</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0</Values>
+      </CLASS_BRADYCARDIA>
+      <CLASS_PAUSE version="1.0">
+        <Name><![CDATA[6]]></Name>
+        <Distance>3600000</Distance>
+        <Count>3</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0</Values>
+      </CLASS_PAUSE>
+      <CLASS_SUPRAVENTRICULAR_TACHYCARDIA version="1.0">
+        <Name><![CDATA[1]]></Name>
+        <Distance>3600000</Distance>
+        <Count>3</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0</Values>
+      </CLASS_SUPRAVENTRICULAR_TACHYCARDIA>
+      <CLASS_PAROXYSMAL_SUPRAVENTRICULAR_TACHYCARDIA version="1.0">
+        <Name><![CDATA[23]]></Name>
+        <Distance>3600000</Distance>
+        <Count>3</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0</Values>
+      </CLASS_PAROXYSMAL_SUPRAVENTRICULAR_TACHYCARDIA>
+      <CLASS_SVPB version="1.0">
+        <Name><![CDATA[4]]></Name>
+        <Distance>3600000</Distance>
+        <Count>3</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0</Values>
+      </CLASS_SVPB>
+      <CLASS_VPB version="1.0">
+        <Name><![CDATA[7]]></Name>
+        <Distance>3600000</Distance>
+        <Count>3</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0</Values>
+      </CLASS_VPB>
+      <CLASS_DEFORMED version="1.0">
+        <Name><![CDATA[5]]></Name>
+        <Distance>3600000</Distance>
+        <Count>3</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0</Values>
+      </CLASS_DEFORMED>
+      <CLASS_IDIOVENTRICULAR_RHYTHM version="1.0">
+        <Name><![CDATA[25]]></Name>
+        <Distance>3600000</Distance>
+        <Count>3</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0</Values>
+      </CLASS_IDIOVENTRICULAR_RHYTHM>
+      <CLASS_INTERPONED_PVB version="1.0">
+        <Name><![CDATA[8]]></Name>
+        <Distance>3600000</Distance>
+        <Count>3</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0</Values>
+      </CLASS_INTERPONED_PVB>
+      <CLASS_R_ON_T version="1.0">
+        <Name><![CDATA[9]]></Name>
+        <Distance>3600000</Distance>
+        <Count>3</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0</Values>
+      </CLASS_R_ON_T>
+      <CLASS_3_1_VPB version="1.0">
+        <Name><![CDATA[10]]></Name>
+        <Distance>3600000</Distance>
+        <Count>3</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0</Values>
+      </CLASS_3_1_VPB>
+      <CLASS_2_1_VPB version="1.0">
+        <Name><![CDATA[11]]></Name>
+        <Distance>3600000</Distance>
+        <Count>3</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0</Values>
+      </CLASS_2_1_VPB>
+      <CLASS_BIGEMINY version="1.0">
+        <Name><![CDATA[12]]></Name>
+        <Distance>3600000</Distance>
+        <Count>3</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0</Values>
+      </CLASS_BIGEMINY>
+      <CLASS_1_2_VPB version="1.0">
+        <Name><![CDATA[13]]></Name>
+        <Distance>3600000</Distance>
+        <Count>3</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0</Values>
+      </CLASS_1_2_VPB>
+      <CLASS_VENTRICULAR_COUPLET version="1.0">
+        <Name><![CDATA[14]]></Name>
+        <Distance>3600000</Distance>
+        <Count>3</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0</Values>
+      </CLASS_VENTRICULAR_COUPLET>
+      <CLASS_VENTRICULAR_TRIPLET version="1.0">
+        <Name><![CDATA[15]]></Name>
+        <Distance>3600000</Distance>
+        <Count>3</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0</Values>
+      </CLASS_VENTRICULAR_TRIPLET>
+      <CLASS_VENTRICULAR_SALVO version="1.0">
+        <Name><![CDATA[16]]></Name>
+        <Distance>3600000</Distance>
+        <Count>3</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0</Values>
+      </CLASS_VENTRICULAR_SALVO>
+      <CLASS_VENTRICULAR_TACHYCARDIA version="1.0">
+        <Name><![CDATA[17]]></Name>
+        <Distance>3600000</Distance>
+        <Count>3</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0</Values>
+      </CLASS_VENTRICULAR_TACHYCARDIA>
+      <CLASS_ARTEFACT version="1.0">
+        <Name><![CDATA[20]]></Name>
+        <Distance>3600000</Distance>
+        <Count>3</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0</Values>
+      </CLASS_ARTEFACT>
+      <CLASS_MARKER version="1.0">
+        <Name><![CDATA[21]]></Name>
+        <Distance>3600000</Distance>
+        <Count>3</Count>
+        <SumMax>1</SumMax>
+        <Values>0,0,1</Values>
+      </CLASS_MARKER>
+      <CLASS_PACEMAKER version="1.0">
+        <Name><![CDATA[19]]></Name>
+        <Distance>3600000</Distance>
+        <Count>3</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0</Values>
+      </CLASS_PACEMAKER>
+      <CLASS_PACEMAKER_INDUCED version="1.0">
+        <Name><![CDATA[26]]></Name>
+        <Distance>3600000</Distance>
+        <Count>3</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0</Values>
+      </CLASS_PACEMAKER_INDUCED>
+      <CLASS_UNCERTAIN version="1.0">
+        <Name><![CDATA[29]]></Name>
+        <Distance>3600000</Distance>
+        <Count>3</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0</Values>
+      </CLASS_UNCERTAIN>
+    </ARRHYTHMIA>
+    <CLASSDEFINITIONS version="1.0">
+      <PAUSE>2000</PAUSE>
+      <SVES>25</SVES>
+      <VES>15</VES>
+      <BRADYK>50</BRADYK>
+      <TACHYK>120</TACHYK>
+      <PAROX>30</PAROX>
+      <ARRH>20</ARRH>
+      <RONT>100</RONT>
+      <VV>600</VV>
+      <IDIOV>30</IDIOV>
+    </CLASSDEFINITIONS>
+    <ST version="1.0">
+      <KONKAV version="1.0">
+        <Name><![CDATA[]]></Name>
+        <Distance>0</Distance>
+        <Count>0</Count>
+        <SumMax/>
+        <Values/>
+      </KONKAV>
+      <KONVEX version="1.0">
+        <Name><![CDATA[]]></Name>
+        <Distance>0</Distance>
+        <Count>0</Count>
+        <SumMax/>
+        <Values/>
+      </KONVEX>
+      <ASCENDING version="1.0">
+        <Name><![CDATA[]]></Name>
+        <Distance>0</Distance>
+        <Count>0</Count>
+        <SumMax/>
+        <Values/>
+      </ASCENDING>
+      <DESCENDING version="1.0">
+        <Name><![CDATA[]]></Name>
+        <Distance>0</Distance>
+        <Count>0</Count>
+        <SumMax/>
+        <Values/>
+      </DESCENDING>
+      <HORIZONTAL version="1.0">
+        <Name><![CDATA[]]></Name>
+        <Distance>0</Distance>
+        <Count>0</Count>
+        <SumMax/>
+        <Values/>
+      </HORIZONTAL>
+      <KONKAV_ORIG/>
+      <KONVEX_ORIG/>
+      <ASCENDING_ORIG/>
+      <DESCENDING_ORIG/>
+      <HORIZONTAL_ORIG/>
+      <Max_Value>0.0</Max_Value>
+      <Max_Channel>65</Max_Channel>
+      <Max_Time>07.03.2007 08:06:10</Max_Time>
+    </ST>
+    <HRV version="1.1">
+      <SDNN version="1.0">
+        <Name><![CDATA[]]></Name>
+        <Distance>3600000</Distance>
+        <Count>5</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0,0,0</Values>
+      </SDNN>
+      <SDNN5MIN version="1.0">
+        <Name><![CDATA[]]></Name>
+        <Distance>300000</Distance>
+        <Count>54</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</Values>
+      </SDNN5MIN>
+      <SDANN version="1.0">
+        <Name><![CDATA[]]></Name>
+        <Distance>3600000</Distance>
+        <Count>5</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0,0,0</Values>
+      </SDANN>
+      <SDANNI version="1.0">
+        <Name><![CDATA[]]></Name>
+        <Distance>3600000</Distance>
+        <Count>5</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0,0,0</Values>
+      </SDANNI>
+      <RMSSD version="1.0">
+        <Name><![CDATA[]]></Name>
+        <Distance>3600000</Distance>
+        <Count>5</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0,0,0</Values>
+      </RMSSD>
+      <SNN50 version="1.0">
+        <Name><![CDATA[]]></Name>
+        <Distance>3600000</Distance>
+        <Count>5</Count>
+        <SumMax>0</SumMax>
+        <Values>0,0,0,0,0</Values>
+      </SNN50>
+      <PNN50 version="1.0">
+        <Name><![CDATA[]]></Name>
+        <Distance>3600000</Distance>
+        <Count>5</Count>
+        <SumMax>0.0</SumMax>
+        <Values>0.0,0.0,0.0,0.0,0.0</Values>
+      </PNN50>
+      <ACTIVESDNN version="1.0">
+        <Name><![CDATA[]]></Name>
+        <Distance>0</Distance>
+        <Count>1</Count>
+        <SumMax>0</SumMax>
+        <Values>0</Values>
+      </ACTIVESDNN>
+      <ACTIVESDANN version="1.0">
+        <Name><![CDATA[]]></Name>
+        <Distance>0</Distance>
+        <Count>1</Count>
+        <SumMax>0</SumMax>
+        <Values>0</Values>
+      </ACTIVESDANN>
+      <ACTIVESDANNI version="1.0">
+        <Name><![CDATA[]]></Name>
+        <Distance>0</Distance>
+        <Count>1</Count>
+        <SumMax>0</SumMax>
+        <Values>0</Values>
+      </ACTIVESDANNI>
+      <ACTIVERMSSD version="1.0">
+        <Name><![CDATA[]]></Name>
+        <Distance>0</Distance>
+        <Count>1</Count>
+        <SumMax>0</SumMax>
+        <Values>0</Values>
+      </ACTIVERMSSD>
+      <ACTIVESNN50 version="1.0">
+        <Name><![CDATA[]]></Name>
+        <Distance>0</Distance>
+        <Count>1</Count>
+        <SumMax>0</SumMax>
+        <Values>0</Values>
+      </ACTIVESNN50>
+      <ACTIVEPNN50 version="1.0">
+        <Name><![CDATA[]]></Name>
+        <Distance>0</Distance>
+        <Count>1</Count>
+        <SumMax>0.0</SumMax>
+        <Values>0.0</Values>
+      </ACTIVEPNN50>
+      <REPOSESDNN version="1.0">
+        <Name><![CDATA[]]></Name>
+        <Distance>0</Distance>
+        <Count>0</Count>
+        <SumMax>0</SumMax>
+        <Values></Values>
+      </REPOSESDNN>
+      <REPOSESDANN version="1.0">
+        <Name><![CDATA[]]></Name>
+        <Distance>0</Distance>
+        <Count>1</Count>
+        <SumMax>0</SumMax>
+        <Values>0</Values>
+      </REPOSESDANN>
+      <REPOSESDANNI version="1.0">
+        <Name><![CDATA[]]></Name>
+        <Distance>0</Distance>
+        <Count>0</Count>
+        <SumMax>0</SumMax>
+        <Values></Values>
+      </REPOSESDANNI>
+      <REPOSERMSSD version="1.0">
+        <Name><![CDATA[]]></Name>
+        <Distance>0</Distance>
+        <Count>0</Count>
+        <SumMax>0</SumMax>
+        <Values></Values>
+      </REPOSERMSSD>
+      <REPOSESNN50 version="1.0">
+        <Name><![CDATA[]]></Name>
+        <Distance>0</Distance>
+        <Count>0</Count>
+        <SumMax>0</SumMax>
+        <Values></Values>
+      </REPOSESNN50>
+      <REPOSEPNN50 version="1.0">
+        <Name><![CDATA[]]></Name>
+        <Distance>0</Distance>
+        <Count>0</Count>
+        <SumMax>0.0</SumMax>
+        <Values></Values>
+      </REPOSEPNN50>
+      <SdnnSum>0.0</SdnnSum>
+      <SdannSum>0.0</SdannSum>
+      <SdanniSum>0.0</SdanniSum>
+      <RmssdSum>0.0</RmssdSum>
+      <Snn50Sum>0.0</Snn50Sum>
+      <Pnn50Sum>0.0</Pnn50Sum>
+      <SdnnDay>0.0</SdnnDay>
+      <SdannDay>0.0</SdannDay>
+      <SdanniDay>0.0</SdanniDay>
+      <RmssdDay>0.0</RmssdDay>
+      <Snn50Day>0.0</Snn50Day>
+      <Pnn50Day>0.0</Pnn50Day>
+      <SdnnNight>0.0</SdnnNight>
+      <SdannNight>0.0</SdannNight>
+      <SdanniNight>0.0</SdanniNight>
+      <RmssdNight>0.0</RmssdNight>
+      <Snn50Night>0.0</Snn50Night>
+      <Pnn50Night>0.0</Pnn50Night>
+      <PreNN>1</PreNN>
+      <PostNN>1</PostNN>
+      <SVTSelected>true</SVTSelected>
+      <BradySelected>true</BradySelected>
+    </HRV>
+    <PM version="1.0">
+      <PacerType><![CDATA[Nein]]></PacerType>
+      <PacerMode><![CDATA[DDD]]></PacerMode>
+      <StimulationType>0</StimulationType>
+      <SpikeRegion1>350</SpikeRegion1>
+      <SpikeRegion2>150</SpikeRegion2>
+      <SpikeRegion3>40</SpikeRegion3>
+      <SpikeRegion4>75</SpikeRegion4>
+      <AtrialStimulated>0</AtrialStimulated>
+      <VentricularStimulated>0</VentricularStimulated>
+      <AtrialAndVentricularStimulated>0</AtrialAndVentricularStimulated>
+      <ManuallyEditedStimulated>0</ManuallyEditedStimulated>
+      <Fusion>0</Fusion>
+      <Exitblock>0</Exitblock>
+      <NBeatFollowedBySMIBeat>0</NBeatFollowedBySMIBeat>
+      <VBeatFollowedBySMIBeat>0</VBeatFollowedBySMIBeat>
+      <SMIBeatFollowedByNBeat>0</SMIBeatFollowedByNBeat>
+      <SMIBeatFollowedByVBeat>0</SMIBeatFollowedByVBeat>
+      <SMIBeatFollowedBySMIBeat>0</SMIBeatFollowedBySMIBeat>
+      <Oversensing>0</Oversensing>
+      <OversensingFrequency>58</OversensingFrequency>
+      <OversensingFrequencyAfterVES>55</OversensingFrequencyAfterVES>
+    </PM>
+    <MARKERREPORT version="1.0">
+      <MARKER version="1.0">
+        <Ms>9951088</Ms>
+        <Type>1</Type>
+        <Text><![CDATA[]]></Text>
+      </MARKER>
+    </MARKERREPORT>
+    <PROPERTIES version="1.0">
+      <Report_Enable>true,true,true,true</Report_Enable>
+    </PROPERTIES>
+    <EXAMPLEREPORT version="1.0"/>
+    <ECGPROFILE version="1.0"/>
+    <Recordingtype>1</Recordingtype>
+    <PadsyVersion><![CDATA[6.1a]]></PadsyVersion>
+    <ApplicationVersion><![CDATA[3.7a]]></ApplicationVersion>
+    <PadsyVersionLastEdited><![CDATA[6.1a]]></PadsyVersionLastEdited>
+    <ApplicationVersionLastEdited><![CDATA[3.7a]]></ApplicationVersionLastEdited>
+    <Pacemakerdetection>false</Pacemakerdetection>
+    <QRSResults>0</QRSResults>
+    <Nbeats>0</Nbeats>
+    <Vbeats>0</Vbeats>
+    <Abeats>0</Abeats>
+    <SMIbeats>0</SMIbeats>
+    <Signalquality>0.0</Signalquality>
+    <FrequenceWindow>5</FrequenceWindow>
+    <FrequenceVariability>0.2</FrequenceVariability>
+    <ReasonOfAdmission><![CDATA[]]></ReasonOfAdmission>
+    <Medication><![CDATA[]]></Medication>
+    <Indication><![CDATA[]]></Indication>
+    <Comment><![CDATA[]]></Comment>
+    <EndCode>5</EndCode>
+    <MemoryMediaNo><![CDATA[CF128/10000]]></MemoryMediaNo>
+    <RecorderModules><![CDATA[]]></RecorderModules>
+    <BatteryVoltage>1350,1375,1375,1350,1350,1350,1350,1350,1350,1350,1350,1350,1325,1350,1325,1325,1325,1325,1325</BatteryVoltage>
+    <ChannelNames>A,B</ChannelNames>
+    <ReposePhases></ReposePhases>
+    <LeadSystem><![CDATA[2]]></LeadSystem>
+    <CableElectrodes><![CDATA[5]]></CableElectrodes>
+    <CableCode>4</CableCode>
+    <AnalysedChannels>3</AnalysedChannels>
+    <AnalysedSensQRS>0</AnalysedSensQRS>
+    <AnalysedSensVES>0</AnalysedSensVES>
+    <AnalysedSensVT>0</AnalysedSensVT>
+    <AnalysedType>-1</AnalysedType>
+    <AnalysedVersion>-1</AnalysedVersion>
+    <AnalysedTime>-1</AnalysedTime>
+    <OrigAnalysedChannels>3</OrigAnalysedChannels>
+    <OrigAnalysedSensQRS>0</OrigAnalysedSensQRS>
+    <OrigAnalysedSensVES>0</OrigAnalysedSensVES>
+    <OrigAnalysedSensVT>0</OrigAnalysedSensVT>
+    <OrigAnalysedType>-1</OrigAnalysedType>
+    <OrigAnalysedVersion>-1</OrigAnalysedVersion>
+    <OrigAnalysedTime>-1</OrigAnalysedTime>
+  </RECORDINGINFOS>
+</PADSYRECORDING>

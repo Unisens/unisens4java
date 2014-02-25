@@ -1,0 +1,492 @@
+\documentclass{unisens}
+
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{tabularx, varioref, mit_bib, graphicx, listings}
+\usepackage{type1cm}
+\usepackage{eso-pic}
+\usepackage{color}
+
+%\makeatletter
+%\AddToShipoutPicture{%
+%            \setlength{\@tempdimb}{.5\paperwidth}%
+%            \setlength{\@tempdimc}{.5\paperheight}%
+%            \setlength{\unitlength}{1pt}%
+%            \put(\strip@pt\@tempdimb,\strip@pt\@tempdimc){%
+%        \makebox(0,0){\rotatebox{45}{\textcolor[gray]{0.85}%
+%        {\fontsize{6cm}{6cm}\texttt{\textbf{DRAFT}}}}}%
+%            }%
+%}
+%\makeatother
+
+\newcommand{\xmlattribute}[1]{\texttt{#1}}
+\newcommand{\xmlelement}[1]{\texttt{#1}}
+
+\setcounter{secnumdepth}{0}
+
+\title{Unisens 2.0}
+\subject{How to create your own data files}
+\author{Malte Kirst}
+
+
+
+\begin{document}
+\maketitle
+\lstset{language=XML,
+	basicstyle = \ttfamily\color{black}\small,
+	%keywordstyle = \bfseries\color{unisensGray},
+	keywordstyle = \bfseries\color{black},
+	commentstyle = \color{red},
+	stringstyle = \itshape\color{unisensBlue},
+	showstringspaces = false,
+	%list of optional attributes
+	keywords={comment,source,souceId,endianess,separator,decimalSeparator,commentLength,typeLength,duration,fileFormatName},
+	breaklines = true}
+	
+	
+	\section{Introduction}
+	
+%Dieses Dokument soll die Erstellung von Unisens-Datendateien anhand von Beispielen erklären. Die Binärdateien in den Beispielen sind in hexadezimaler Schreibweise und little endian angegeben. Der Java-Code in den Listings ist ein Minimalbeispiel, um die zugehörige Daten-Datei zu schreiben. Der Eintrag in die Header-Datei (unisens.xml) ist mit diesem Minimalbeispiel nicht vollständig.
+
+This document explains the usage of the Unisens data format by the help of some examples. The binary files in this examples are all rendered in hexadecimal notation and in little endian format. The Java code in the listings represent a minimal example for writing the data file. The header file (unisens.xml) will be not complete if it is only created by these minimal examples.
+
+\begin{table}[ht]
+	\caption{Data types specified by Unisens \label{tab:datentypen}}
+	\begin{tabularx}{\textwidth}{llX}
+		\hline
+		data type & size (byte) & values margin \\
+		\hline
+		\hline
+		\texttt{double} & 8 & $4.9 \cdot 10^{-324} \dots 1.7976931348623157 \cdot 10^{308}$ \\
+		\texttt{float}  & 4 & $1.4 \cdot 10^{-45} \dots 3.4028235 \cdot 10^{38}$ \\
+%		\texttt{INT64}  & 8 & $-9223372036854775808 \dots 9223372036854775807$ \\
+		\texttt{int32}  & 4 & $-2147483648 \dots 2147483647$ \\
+		\texttt{int16}  & 2 & $-32768 \dots 32767$ \\
+		\texttt{int8}   & 1 & $-128 \dots 127$ \\
+		\texttt{uint32}  & 4 & $0 \dots 4294967295$ \\
+		\texttt{uint16}  & 2 & $0 \dots 65535$ \\
+		\texttt{uint8}   & 1 & $0 \dots 255$ \\
+		\hline
+	\end{tabularx}
+\end{table}
+
+
+
+	\section{Signals}
+	
+%Als Signale werden quasi-kontinuierlich abgetastete Signale bezeichnet, die eine feste Abtastfrequenz und einen oder mehrere Kanäle besitzen können. Sie werden als \xmlelement{signalEntry} gespeichert.
+%
+%Das empfohlene Dateiformat für Signale ist das Binärformat. Die einzelnen Abtastwerte werden als little oder big endian in der Form Sample1.Kanal1, Sample1.Kanal2, \dots , Sample1.KanalN, Sample2.Kanal1, Sample2.Kanal2, \dots , Sample2.KanalN gespeichert. Durch die Angabe des Datentyps, der Kanalanzahl und der Sample-Nummer kann ein wahlfreier Zugriff gewährleistet werden.
+%
+%Alle Beispiele stellen ein Signal mit zwei Kanälen (\emph{A} und \emph{B}) mit jeweils drei 16-bittigen Abtastwerten mit einer Sampling-Rate von 250\,Hz.
+All continuous sampled data with a fix sample rate and one or more channels are called signals. They are stored as a \xmlelement{signalEntry}.
+
+We recommend using the binary format for signal entries. In this format, the samples are stored as little or big endian in the following order: sample1.channel1, sample1.channel2, \dots sample1.channelN, sample2.channel1, sample2.channel2, \dots sample2.channelN, \dots The library can provide a random access to the data with the information about the data type, the number of channels and the sample number.
+
+We use for all examples in this document the same signal with two channels (\emph{A} und \emph{B}) each with three 16 bit samples and a sampling rate of 250\,Hz. 
+\begin{equation}
+\label{eq:signal}
+	\mathrm{signal} = \left(
+	\begin{array}{cc}
+		1 & 4\\
+		2 & 5\\
+		3 & 6\\
+	\end{array}
+	\right).
+\end{equation}
+
+
+		\subsection{BIN}
+
+%Das direkte Schreiben von Binärdateien eines bestimmten Datentyps wird von vielen Programmiersprachen ermöglicht. Unisens unterstützt verschiedene Datentypen (s. Tab. \ref{tab:datentypen}) sowie little und big endian. Datentyp (\xmlattribute{dataType}) und Endianess (\xmlattribute{endianess}) müssen in der Header-Datei angegeben werden.
+Many programming languages support the direct writing of binary files. Unisens supports different data types for binary files (see table \ref{tab:datentypen}) as well as little and big endian. The data type (\xmlattribute{dataType}) and the endianess (\xmlattribute{endianess}) have to be assigned in the header file.
+
+\begin{lstlisting}[frame=single]
+01 00 04 00 02 00 05 00  03 00 06 00
+\end{lstlisting}
+% LITTLE ENDIAN
+
+
+
+\begin{lstlisting}[language=Java,caption={Java code for the creation of a binary signal entry}]
+UnisensFactory uf = UnisensFactoryBuilder.createFactory();
+Unisens u = uf.createUnisens("C:\\TestData");
+SignalEntry se = u.createSignalEntry("signal.bin", new String[]{"A", "B"}, DataType.INT16, 250);
+short[][] A = new short[][]{{1, 4}, {2, 5}, {3, 6}};
+se.append(A);
+u.save();
+u.closeAll();
+\end{lstlisting}
+%
+%\begin{lstlisting}[language=Matlab,caption={Matlab-Code}]
+%h = fopen('signal.bin', 'w')
+%A = [1, 2, 3; 4, 5, 6]
+%fwrite(h, A, 'int16')
+%fclose(h)
+%\end{lstlisting}
+
+
+
+		\subsection{XML}
+	
+%Die Speicherung von Signalen als XML-Datei ist nur in Ausnahmefällen sinnvoll, wird aber von der Unisens-Bibliothek unterstützt. Die XML-Datei richtet sich nach der Schema-Definition signal.xsd.
+Saving signal entries as an XML file is supported by the Unisens library, but we suggest this only in exceptional cases. The structure of the XML file is defined in its schema definition file signal.xsd.
+
+\begin{lstlisting}[frame=single]
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<signal>
+	<sample>
+		<data>1</data>
+		<data>4</data>
+	</sample>
+	<sample>
+		<data>2</data>
+		<data>5</data>
+	</sample>
+	<sample>
+		<data>3</data>
+		<data>6</data>
+	</sample>
+</signal>
+\end{lstlisting}
+
+\begin{lstlisting}[language=Java,caption={Java code for the creation of an XML signal entry}]
+UnisensFactory uf = UnisensFactoryBuilder.createFactory();
+Unisens u = uf.createUnisens("C:\\TestData");
+SignalEntry se = u.createSignalEntry("signal.xml", new String[]{"A", "B"}, DataType.INT16, 250);
+short[][] A = new short[][]{{1, 4}, {2, 5}, {3, 6}};
+se.setFileFormat(se.createXmlFileFormat());
+se.append(A);
+u.save();
+u.closeAll();
+\end{lstlisting}
+
+
+
+%\begin{lstlisting}
+%<?xml version="1.0"  encoding="UTF-8"?>
+%<xsd:schema targetNamespace="http://www.unisens.org/unisens2.0/signal"  elementFormDefault="qualified"  attributeFormDefault="unqualified"  xmlns:xsd="http://www.w3.org/2001/XMLSchema"  xmlns="http://www.unisens.org/unisens2.0/signal">
+%	<xsd:element name="signal"  type="signal" >
+%		<xsd:annotation>
+%			<xsd:documentation>The root element. A signal has at least one sample.</xsd:documentation></xsd:annotation></xsd:element>
+%	    <xsd:complexType name="signal">
+%      <xsd:annotation>
+%     	<xsd:documentation></xsd:documentation>
+%    </xsd:annotation>
+%    <xsd:sequence>
+%  		<xsd:element name="sample" type="sample" minOccurs="1" maxOccurs="unbounded" />
+%    </xsd:sequence>
+%    </xsd:complexType>
+%    <xsd:complexType name="sample">
+%      <xsd:annotation>
+%      	<xsd:documentation>A sample has a data element for each channel. </xsd:documentation>
+%      </xsd:annotation>
+%      <xsd:sequence>
+%  		<xsd:element name="data" type="xsd:double" minOccurs="1" maxOccurs="unbounded"/>
+%  	</xsd:sequence>
+%  </xsd:complexType>
+%</xsd:schema>
+%\end{lstlisting}
+
+
+		\subsection{CSV}
+
+%In einigen Fällen (wenig Daten, manuelle Editierbarkeit notwendig, Kompatibilität zu anderer Software) kann die Speicherung als CSV-Datei sinnvoll sein. Der erste Kanal wird dabei in die erste Spalte geschrieben, in den folgenden Spalten kommen die folgenden Kanäle. Das Spaltentrennzeichen (\xmlattribute{separator}) und das Dezimaltrennzeichen (\xmlattribute{deciamlSeparator}) müssen in der Header-Datei angegeben werden.
+Sometimes it is useful to save the signals in a CSV file (manual editability of the data, little amount of data or due to compatibility reasons to other software). In this case, the first channel's data is written in the first column, the second channel in the second column respectively. The column separator (\xmlattribute{separator}) and the decimal separator (\xmlattribute{deciamlSeparator}) are given in the header file.
+		
+\begin{lstlisting}[frame=single]
+1;4
+2;5
+3;6
+\end{lstlisting}
+
+\begin{lstlisting}[language=Java,caption={Java code for the creation of a CSV signal entry}]
+UnisensFactory uf = UnisensFactoryBuilder.createFactory();
+Unisens u = uf.createUnisens("C:\\TestData");
+SignalEntry se = u.createSignalEntry("signal.csv", new String[]{"A", "B"}, DataType.INT16, 250);
+short[][] A = new short[][]{{1, 4}, {2, 5}, {3, 6}};
+CsvFileFormat cff = se.createCsvFileFormat();
+cff.setSeparator(";");
+cff.setDecimalSeparator(".");
+se.setFileFormat(cff);
+se.append(A);
+u.save();
+u.closeAll();
+\end{lstlisting}
+
+
+	\section{Values}
+
+%Werden Messwerte nicht mit einer festen Samplerate abgetastet, sondern zu unterschiedlichen, flexiblen Zeitpunkten, werden diese als \xmlelement{valueEntry} gespeichert. Jeder Eintrag besteht hier aus einem Zeitstempel und einem oder mehreren Messwerten zu diesem Zeitpunkt. die Anzahl der Messwerte pro Eintrag ist abhängig von der Anzahl der Kanäle. 
+
+%Der Zeitstempel wird immer als ganzzahliger Wert in Samples der für dieses Entry definierten Samplerate. Auf diese Weise lassen sich beliebig genaue Zeitstempel erstellen. Bei einer Samplerate von 1000\,Hz ergibt sich als Zeitstempel ein Millisekundenwert. Die folgenden Beispiele speichern die Messwerte aus \ref{eq:signal} zu den Zeitpunkten 1320, 22968 und 10323. Die Zeiteinheit lässt sich aus der Header-Datei bestimmen.
+
+All measurement data that is not sampled with a constant sample rate but at different, flexible points of time should be saved as valuesEntry. Every valuesEntry consists of a time stamp and one or more values at this time. The number of measured values at each time is the number of channels. 
+
+The time stamp is always an integer containing the sample number in the sample rate given for this entry. By this method the time stamps can be adjusted to any accuracy. For example, for a millisecond-exact time stamp you use a sample rate of 1000\,Hz. The following examples use the two channel measurement values from (\ref{eq:signal}) at the time 1320, 22968 and 30232.
+
+
+
+
+		\subsection{CSV}
+
+%Für viele Messwerte bietet sich das CSV-Format an, da hier die Daten sehr übersichtlich gespeichert werden. In der ersten Spalte werden die Zeitpunkte (\xmlattribute{sampleStamp}s) gespeichert, in den weiteren Spalten folgen die Kanäle. Das Spaltentrennzeichen (\xmlattribute{separator}) und das Dezimaltrennzeichen (\xmlattribute{deciamlSeparator}) müssen in der Header-Datei angegeben werden. Um einen schnellen Datenzugriff zu gewährleisten muss die Datei muss nach dem Zeitstempel aufsteigend sortiert sein.
+The CSV file format is the best choice for most measurement values, because the format's clear structure. The first column is for the time stamps (\xmlattribute{sampleStamp}s), the following columns are for the data -- one column for each channel. The column separator (\xmlattribute{separator}) and the decimal separator (\xmlattribute{deciamlSeparator}) are given in the header file. For providing a fast data access, the file has to be sorted ascending by the time stamp.
+
+\begin{lstlisting}[frame=single]
+1320;1;4
+22968;2;5
+30232;3;6
+\end{lstlisting}
+
+\begin{lstlisting}[language=Java,caption={Java code for the creation of a CSV values entry}]
+UnisensFactory uf = UnisensFactoryBuilder.createFactory();
+Unisens u = uf.createUnisens("C:\\TestData");
+ValuesEntry ve = u.createValuesEntry("values.csv", new String[]{"A", "B"}, DataType.INT16, 1000);
+CsvFileFormat cff = ve.createCsvFileFormat();
+cff.setSeparator(";");
+cff.setDecimalSeparator(".");
+ve.setFileFormat(cff);
+ve.append(new Value(1320, new short[]{1, 4}));
+ve.append(new Value(22968, new short[]{2, 5}));
+ve.append(new Value(30232, new short[]{3, 6}));
+u.save();
+u.closeAll();
+\end{lstlisting}
+
+
+		\subsection{BIN}
+
+%Für das Speichern großer Mengen von Messwerten wie z.\,B. bei einem Tachogramm eines EKG kann die Speicherung als Binärdatei effizienter sein. Die Daten werden wie folgt gespeichert: SampleStamp als INT64, anschließend die zugehörigen Messwerte, in diesem Beispiel zwei mal INT16, anschließend der nächste Eintrag nach selbem Schema. Der größte speicherbare SampleStamp ist $2^{63}-1$. Datentyp (\xmlattribute{dataType}) und Endianess (\xmlattribute{endianess}) müssen in der Header-Datei angegeben werden.
+
+The storage of a huge amount of values, e.\,g. for a tachogram of a long ECG data set, can be more efficient in a binary file. In this case, the data is stored in the following order: sample stamp as INT64 followed by the corresponding values, channel by channel, in the given format. The next combinations of sample stamps are following subsequently.  In our example we have two values of the type INT16 after each sample stamp. 
+
+The biggest possible sample stamp is $2^{63} - 1$. The data type (\xmlattribute{dataType}) and the endianess (\xmlattribute{endianess}) have to be assigned in the header file.
+
+\begin{lstlisting}[frame=single]
+28 05 00 00 00 00 00 00  01 00 04 00 B8 59 00 00
+00 00 00 00 02 00 05 00  18 76 00 00 00 00 00 00
+03 00 06 00
+\end{lstlisting}
+
+\begin{lstlisting}[language=Java,caption={Java code for the creation of a binary values entry}]
+UnisensFactory uf = UnisensFactoryBuilder.createFactory();
+Unisens u = uf.createUnisens("C:\\TestData");
+ValuesEntry ve = u.createValuesEntry("values.bin", new String[]{"A", "B"}, DataType.INT16, 1000);
+ve.setFileFormat(ve.createBinFileFormat());
+ve.append(new Value(1320, new short[]{1, 4}));
+ve.append(new Value(22968, new short[]{2, 5}));
+ve.append(new Value(30232, new short[]{3, 6}));
+u.save();
+u.closeAll();
+\end{lstlisting}
+
+
+		\subsection{XML}
+
+%Einzelwerte können auch gemäß der Schema-Datei values.xsd im XML-Format gespeichert werden.
+Values can also be stored as an XML file according to its XML schema values.xsd. 
+
+\begin{lstlisting}[frame=single]
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<values>
+   <value sampleStamp="1320">
+      <data>1</data>
+      <data>4</data>
+   </value>
+   <value sampleStamp="22968">
+      <data>2</data>
+      <data>5</data>
+   </value>
+   <value sampleStamp="30232">
+      <data>3</data>
+      <data>6</data>
+   </value>
+</values>
+\end{lstlisting}
+
+\begin{lstlisting}[language=Java,caption={Java code for the creation of an XML values entry}]
+UnisensFactory uf = UnisensFactoryBuilder.createFactory();
+Unisens u = uf.createUnisens("C:\\TestData");
+ValuesEntry ve = u.createValuesEntry("values.xml", new String[]{"A", "B"}, DataType.INT16, 1000);
+ve.setFileFormat(ve.createXmlFileFormat());
+ve.append(new Value(1320, new short[]{1, 4}));
+ve.append(new Value(22968, new short[]{2, 5}));
+ve.append(new Value(30232, new short[]{3, 6}));
+u.save();
+u.closeAll();
+\end{lstlisting}
+
+
+
+	\section{Annotations}
+
+%Annotation werden als \xmlelement{eventEntry} gespeichert, da hier keine Interpretation als physikalische Messwerte vorgenommen wird. Gespeichert wird lediglich der Zeitpunkt des Ereignisses (nach dem selben Verfahren wie bei Einzelwerten), ein Annotationscode des Ereignisses und ein Kommentar. In diesem Beispiel sind die Zeitstempel (124, 346 und 523) in Millisekunden angegeben, die Annotationen sind EKG-Annotation gemäß den WFDB Annotation Codes.
+Annotations should be stored as \xmlelement{eventEntry}, because this entry class has no interpretation as physical values. An event entry stores the point of time of the event (according the same procedure of the values), an annotation code of the event and a comment for each event. We are using the sample stamps 124, 346 and 523 in this example, at a time base of 250\,Hz. The annotation corresponds to the ECG annotations of the WFDB Annotation Codes.
+
+
+
+		\subsection{CSV}
+
+%Für Ereignisse bietet sich wieder das CSV-Format an, da hier keine Angaben zur Länge der Annotation oder des Kommentars gemacht werden muss. Lediglich das Spaltentrennzeichen (\xmlattribute{separator}) muss in der Header-Datei angegeben werden. In der ersten Spalte steht der SampleStamp, in der zweiten Spalte der Annotation-Code, die dritte Spalte ist für einen Kommentar vorgesehen. Bei vielen Annotation kann die dritte Spalte leer gelassen werden, da es keine Kommentare gibt.  Um einen schnellen Datenzugriff zu gewähleisten muss die CSV-Datei muss nach dem Zeitstempel aufsteigend sortiert sein.
+The CSV format is the best choice for most event entries. Because of its structure is no declaration of the length of the annotation or the comment necessary. Only the column separator (\xmlattribute{separator}) has to be assigned in the header file. The first column of the CSV file contains the sample stamp, the second column the corresponding annotation code and the third column the comment, respectively.  For many annotations is the third column optional. For a fast data access, the CSV file as to be sorted ascending by time.
+
+\begin{lstlisting}[frame=single]
+124;N;NORMAL 
+346;N;NORMAL 
+523;V;PVC
+\end{lstlisting}
+
+\begin{lstlisting}[language=Java,caption={Java code for the creation of a CSV event entry}]
+UnisensFactory uf = UnisensFactoryBuilder.createFactory();
+Unisens u = uf.createUnisens("C:\\TestData");
+EventEntry ee = u.createEventEntry("event.csv", 250);
+CsvFileFormat cff = ee.createCsvFileFormat();
+cff.setSeparator(";");
+cff.setDecimalSeparator(".");
+ee.setFileFormat(cff);
+ee.append(new Event(124, "N", "NORMAL"));
+ee.append(new Event(346, "N", "NORMAL"));
+ee.append(new Event(523, "V", "PVC"));
+u.save();
+u.closeAll();
+\end{lstlisting}
+
+
+
+		\subsection{XML}
+
+%Ereignisse können auch gemäß der Schema-Datei events.xsd im XML-Format gespeichert werden.
+Events can also be stored as an XML file according to its XML schema events.xsd. 
+
+\begin{lstlisting}[frame=single]
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<events>
+   <event comment="NORMAL" sampleStamp="124" type="N"/>
+   <event comment="NORMAL" sampleStamp="346" type="N"/>
+   <event comment="PVC" sampleStamp="523" type="V"/>
+</events>
+\end{lstlisting}
+
+\begin{lstlisting}[language=Java,caption={  Java code for the creation of a XML-EventEntry}]
+UnisensFactory uf = UnisensFactoryBuilder.createFactory();
+Unisens u = uf.createUnisens("C:\\TestData");
+EventEntry ee = u.createEventEntry("event.xml", 250);
+ee.setFileFormat(ee.createXmlFileFormat());
+ee.append(new Event(124, "N", "NORMAL"));
+ee.append(new Event(346, "N", "NORMAL"));
+ee.append(new Event(523, "V", "PVC"));
+u.save();
+u.closeAll();
+\end{lstlisting}
+
+
+
+		\subsection{BIN}
+
+%Die Speicherung als Binärdatei ist möglich, aber nur in wenigen Szenarien sinnvoll. Der SampleStamp wird als INT64 gespeichert, es folgen Annotation-Code und Kommentar. Wegen des Binärformats müssen die Attribute \xmlattribute{typeLength} und \xmlattribute{commentLength} in der Header-Datei gesetzt werden (in diesem Beispiel 1 und 6). Zu beachten ist die notwendige gleiche Länge der Type- und Kommentar-Strings.
+The storage of events as a binary file is possible, but only useful in some scenarios. Similar to the values entry, the sample stamp is stored as a 64 bit integer, followed by the annotation code and the comment. Because of the binary format, the length of the annotation code and the comment has to be set to a fix length. We use the length 1 for the annotation code (\xmlattribute{typeLength}) and 6 for the length of the comment (\xmlattribute{commentLength}). Please note that all annotation codes and all comments have to be of the same length.
+
+\begin{lstlisting}[frame=single]
+7C 00 00 00 00 00 00 00  4E 4E 4F 52 4D 41 4C 5A
+01 00 00 00 00 00 00 4E  4E 4F 52 4D 41 4C 0B 02
+00 00 00 00 00 00 56 50  56 43 20 20 20
+\end{lstlisting}
+
+\begin{lstlisting}[language=Java,caption={Java code for the creation of a binary event entry}]
+UnisensFactory uf = UnisensFactoryBuilder.createFactory();
+Unisens u = uf.createUnisens("C:\\TestData");
+EventEntry ee = u.createEventEntry("event.bin", 250);
+ee.setFileFormat(ee.createBinFileFormat());
+ee.setCommentLength(6);
+ee.setTypeLength(1);
+ee.append(new Event(124, "N", "NORMAL"));
+ee.append(new Event(346, "N", "NORMAL"));
+ee.append(new Event(523, "V", "PVC   "));
+u.save();
+u.closeAll();
+\end{lstlisting}
+
+
+
+
+
+	\section{Header File}
+
+After running all samples above, the Java library creates automaticly the following header file C:\textbackslash TestData\textbackslash unisens.xml. The order of the entries can vary. Please note that this unisens.xml file is not valid according the XML schema definition. Required attributes like timestampStart, lsbValue or  contentClass may be missing.
+
+\begin{lstlisting}[frame=single]
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<unisens version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.unisens.org/unisens2.0 http://www.unisens.org/unisens2.0/unisens.xsd" xmlns="http://www.unisens.org/unisens2.0">
+  <signalEntry dataType="int16" id="signal.bin" lsbValue="1" sampleRate="250">
+    <binFileFormat endianess="LITTLE"/>
+    <channel name="A"/>
+    <channel name="B"/>
+  </signalEntry>
+  <signalEntry dataType="int16" id="signal.csv" lsbValue="1" sampleRate="250">
+    <csvFileFormat decimalSeparator="," separator=";"/>
+    <channel name="A"/>
+    <channel name="B"/>
+  </signalEntry>
+  <signalEntry dataType="int16" id="signal.xml" lsbValue="1" sampleRate="250">
+    <xmlFileFormat/>
+    <channel name="A"/>
+    <channel name="B"/>
+  </signalEntry>
+  <valuesEntry dataType="int16" id="values.bin" lsbValue="1" sampleRate="1000">
+    <binFileFormat endianess="LITTLE"/>
+    <channel name="A"/>
+    <channel name="B"/>
+  </valuesEntry>
+  <valuesEntry dataType="int16" id="values.csv" lsbValue="1" sampleRate="1000">
+    <csvFileFormat decimalSeparator="." separator=";"/>
+    <channel name="A"/>
+    <channel name="B"/>
+  </valuesEntry>
+  <valuesEntry dataType="int16" id="values.xml" lsbValue="1" sampleRate="1000">
+    <xmlFileFormat/>
+    <channel name="A"/>
+    <channel name="B"/>
+  </valuesEntry>
+  <eventEntry commentLength="6" id="event.bin" sampleRate="250" typeLength="1">
+    <binFileFormat endianess="LITTLE"/>
+  </eventEntry>
+  <eventEntry id="event.csv" sampleRate="250">
+    <csvFileFormat decimalSeparator="." separator=";"/>
+  </eventEntry>
+  <eventEntry id="event.xml" sampleRate="250">
+    <xmlFileFormat/>
+  </eventEntry>
+</unisens>
+\end{lstlisting}
+
+
+
+
+
+
+%j_unisens = j_uf.createUnisens('C:\tmp\lalala')
+%j_entry = j_unisens.createEventEntry('test_event.bin', 1000)
+%j_entry.setFileFormat(j_entry.createBinFileFormat)
+%j_entry.setCommentLength(6)
+%j_entry.setTypeLength(1)
+%j_entry.append(org.unisens.Event(124, 'N',  'NORMAL'))
+%j_entry.append(org.unisens.Event(346, 'N',  'NORMAL'))
+%j_entry.append(org.unisens.Event(346, 'V',  'PVC   '))
+%j_unisens.save
+%j_unisens.closeAll
+
+
+%
+%	\section{Zeitbereiche}
+%
+%		\subsection{CSV}
+%
+%\begin{lstlisting}[frame=single]
+%15;25;VT/VF;mit Schockabgabe
+%124;145;VT/VF
+%\end{lstlisting}
+
+
+\end{document}

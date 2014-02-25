@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: org.unisens.ri.Version
+Implementation-Version: ${implemenation-version}
+Implementation-URL: http://unisens.org

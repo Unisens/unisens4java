@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<unisens measurementId="Temp signals" timestampStart="2011-06-16T19:39:58.000" version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.unisens.org/unisens2.0 http://www.unisens.org/unisens2.0/unisens.xsd" xmlns="http://www.unisens.org/unisens2.0">
+<signalEntry dataType="int8" id="se_int8_le.bin" lsbValue="1" sampleRate="1000">
+<binFileFormat endianess="LITTLE"/>
+<channel name="a"/>
+<channel name="b"/>
+</signalEntry>
+<signalEntry dataType="int8" id="se_int8_le_n_1.bin" lsbValue="1" sampleRate="1000">
+<binFileFormat endianess="LITTLE"/>
+<channel name="a"/>
+<channel name="b"/>
+<channel name="c"/>
+</signalEntry>
+<signalEntry dataType="int8" id="se_int8_le_1_1.bin" lsbValue="1" sampleRate="1000">
+<binFileFormat endianess="LITTLE"/>
+<channel name="a"/>
+</signalEntry>
+<signalEntry dataType="int8" id="se_int8_be.bin" lsbValue="1" sampleRate="1000">
+<binFileFormat endianess="BIG"/>
+<channel name="a"/>
+<channel name="b"/>
+</signalEntry>
+<signalEntry dataType="uint8" id="se_uint8_le.bin" lsbValue="1" sampleRate="1000">
+<binFileFormat endianess="LITTLE"/>
+<channel name="a"/>
+<channel name="b"/>
+</signalEntry>
+<signalEntry dataType="uint8" id="se_uint8_be.bin" lsbValue="1" sampleRate="1000">
+<binFileFormat endianess="BIG"/>
+<channel name="a"/>
+<channel name="b"/>
+</signalEntry>
+<signalEntry dataType="int16" id="se_int16_le.bin" lsbValue="1" sampleRate="1000">
+<binFileFormat endianess="LITTLE"/>
+<channel name="a"/>
+<channel name="b"/>
+</signalEntry>
+<signalEntry dataType="int16" id="se_int16_be.bin" lsbValue="1" sampleRate="1000">
+<binFileFormat endianess="BIG"/>
+<channel name="a"/>
+<channel name="b"/>
+</signalEntry>
+<signalEntry dataType="uint16" id="se_uint16_le.bin" lsbValue="1" sampleRate="1000">
+<binFileFormat endianess="LITTLE"/>
+<channel name="a"/>
+<channel name="b"/>
+</signalEntry>
+<signalEntry dataType="uint16" id="se_uint16_be.bin" lsbValue="1" sampleRate="1000">
+<binFileFormat endianess="BIG"/>
+<channel name="a"/>
+<channel name="b"/>
+</signalEntry>
+<signalEntry dataType="int32" id="se_int32_le.bin" lsbValue="1" sampleRate="1000">
+<binFileFormat endianess="LITTLE"/>
+<channel name="a"/>
+<channel name="b"/>
+</signalEntry>
+<signalEntry dataType="int32" id="se_int32_be.bin" lsbValue="1" sampleRate="1000">
+<binFileFormat endianess="BIG"/>
+<channel name="a"/>
+<channel name="b"/>
+</signalEntry>
+<signalEntry dataType="uint32" id="se_uint32_le.bin" lsbValue="1" sampleRate="1000">
+<binFileFormat endianess="LITTLE"/>
+<channel name="a"/>
+<channel name="b"/>
+</signalEntry>
+<signalEntry dataType="uint32" id="se_uint32_be.bin" lsbValue="1" sampleRate="1000">
+<binFileFormat endianess="BIG"/>
+<channel name="a"/>
+<channel name="b"/>
+</signalEntry>
+<signalEntry dataType="uint32" id="se_uint32_1x1_le.bin" lsbValue="1" sampleRate="1000">
+<binFileFormat endianess="LITTLE"/>
+<channel name="a"/>
+</signalEntry>
+<signalEntry dataType="float" id="se_float_le.bin" lsbValue="1" sampleRate="1000">
+<binFileFormat endianess="LITTLE"/>
+<channel name="a"/>
+<channel name="b"/>
+</signalEntry>
+<signalEntry dataType="float" id="se_float_be.bin" lsbValue="1" sampleRate="1000">
+<binFileFormat endianess="BIG"/>
+<channel name="a"/>
+<channel name="b"/>
+</signalEntry>
+<signalEntry dataType="double" id="se_double_le.bin" lsbValue="1" sampleRate="1000">
+<binFileFormat endianess="LITTLE"/>
+<channel name="a"/>
+<channel name="b"/>
+</signalEntry>
+<signalEntry dataType="double" id="se_double_be.bin" lsbValue="1" sampleRate="1000">
+<binFileFormat endianess="BIG"/>
+<channel name="a"/>
+<channel name="b"/>
+</signalEntry>
+<signalEntry dataType="int16" id="se_tab.csv" lsbValue="1" sampleRate="1000">
+<csvFileFormat decimalSeparator="." separator="\t"/>
+<channel name="a"/>
+<channel name="b"/>
+</signalEntry>
+<signalEntry dataType="double" id="se_sep.csv" lsbValue="1" sampleRate="1000">
+<csvFileFormat decimalSeparator="," separator=";"/>
+<channel name="a"/>
+<channel name="b"/>
+</signalEntry>
+<signalEntry dataType="int16" id="se_short.csv" lsbValue="1" sampleRate="1000">
+<csvFileFormat decimalSeparator="." separator=";"/>
+<channel name="a"/>
+<channel name="b"/>
+</signalEntry>
+<signalEntry dataType="int32" id="se_int.csv" lsbValue="1" sampleRate="1000">
+<csvFileFormat decimalSeparator="." separator=";"/>
+<channel name="a"/>
+<channel name="b"/>
+</signalEntry>
+<signalEntry dataType="double" id="se_double.csv" lsbValue="1" sampleRate="1000">
+<csvFileFormat decimalSeparator="." separator=";"/>
+<channel name="a"/>
+<channel name="b"/>
+</signalEntry>
+<signalEntry dataType="int16" id="se_short.xml" lsbValue="1" sampleRate="1000">
+<xmlFileFormat/>
+<channel name="a"/>
+<channel name="b"/>
+</signalEntry>
+<signalEntry dataType="int32" id="se_int.xml" lsbValue="1" sampleRate="1000">
+<xmlFileFormat/>
+<channel name="a"/>
+<channel name="b"/>
+</signalEntry>
+<signalEntry dataType="double" id="se_double.xml" lsbValue="1" sampleRate="1000">
+<xmlFileFormat/>
+<channel name="a"/>
+<channel name="b"/>
+</signalEntry>
+</unisens>

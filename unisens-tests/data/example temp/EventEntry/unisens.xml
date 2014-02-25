@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<unisens measurementId="Temp events" timestampStart="2011-06-16T19:39:58.000" version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.unisens.org/unisens2.0 http://www.unisens.org/unisens2.0/unisens.xsd" xmlns="http://www.unisens.org/unisens2.0">
+<eventEntry commentLength="11" id="ee.bin" sampleRate="1000" typeLength="2">
+<binFileFormat endianess="LITTLE"/>
+</eventEntry>
+<eventEntry id="ee.csv" sampleRate="1000" typeLength="1">
+<csvFileFormat decimalSeparator="." separator="\t"/>
+</eventEntry>
+<eventEntry id="ee.xml" sampleRate="1000" typeLength="1">
+<xmlFileFormat/>
+</eventEntry>
+</unisens>

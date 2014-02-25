@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<values>
+<value sampleStamp="100">
+<data>1</data>
+<data>1</data>
+</value>
+<value sampleStamp="200">
+<data>2</data>
+<data>2</data>
+</value>
+<value sampleStamp="300">
+<data>3</data>
+<data>3</data>
+</value>
+<value sampleStamp="400">
+<data>4</data>
+<data>4</data>
+</value>
+<value sampleStamp="500">
+<data>5</data>
+<data>5</data>
+</value>
+</values>

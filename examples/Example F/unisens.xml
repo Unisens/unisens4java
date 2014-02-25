@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<unisens 	measurementId="Example F"
+         	timestampStart="2006-10-12T12:23:11"
+         	version="2.0"
+         	comment="Messdaten Sportinstitut"
+         	xmlns="http://www.unisens.org/unisens2.0"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			xsi:schemaLocation="http://www.unisens.org/unisens2.0 unisens.xsd">
+          	<context schemaUrl="context.xml"/>
+			<signalEntry	contentClass="ECG"
+           					id="ecg2.bin"
+           					comment="ECG with differnt electrodes"
+           					sourceId="23:23:23:ac:2e:00"
+           					source="telesmart"
+                     		sampleRate="400" 
+                     		adcZero="8388608"
+                     		lsbValue="1.0e-5" 
+                     		adcResolution="24" 
+                     		unit="mV" 
+                     		dataType="int32">
+                     		<binFileFormat comment="binary, 2 channels, uint16, little endian" endianess="LITTLE"/>
+				 			<channel name="dry electrodes"/>
+				 			<channel name="wet electrodes"/>
+           	</signalEntry>
+           	<eventEntry contentClass="RAW"
+					comment="Aktivitaetsmarker mit CSV"
+					id="events.csv" 
+					source="padsy"
+					sampleRate="400">
+					<csvFileFormat	comment="CSV mit Semikolon"
+									separator=";"/>
+       		</eventEntry>
+       		
+       		<customEntry contentClass="NULL" id="entry.custom" customAttr1="customAttrValue1" customAttr2="customAttrValue2">
+       			<customFileFormat fileFormatName="custom" comment="Custom file format"/>
+       		</customEntry>
+       		
+       		<valuesEntry	contentClass="BP"
+							id="bloodpressure.csv"
+							comment="Blutdruck"
+							sampleRate="1"
+							unit="mmHg"
+							dataType="int16">
+							<csvFileFormat	comment="csv, 2 channel" separator=","/>
+							<channel name="systolisch"/>
+							<channel name="diastolisch"/>	        
+			</valuesEntry>
+	
+           	<group id="group2" comment="Comment">
+           		<groupEntry ref="ecg2.bin"/>
+           	</group>
+</unisens>

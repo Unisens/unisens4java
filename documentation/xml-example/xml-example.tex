@@ -1,0 +1,262 @@
+\documentclass{unisens}
+
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{tabularx, varioref, mit_bib, graphicx, listings}
+
+\newcommand{\xmlattribute}[1]{\texttt{#1}}
+\newcommand{\xmlelement}[1]{\texttt{#1}}
+
+\setcounter{secnumdepth}{0}
+
+\title{Unisens 2.0}
+\subject{How to create your own unisens.xml file}
+\author{Malte Kirst}
+
+
+
+\begin{document}
+\maketitle
+\lstset{language=XML,
+	basicstyle = \ttfamily\color{black}\small,
+	keywordstyle = \bfseries\color{unisensGray},
+	commentstyle = \color{red},
+	stringstyle = \itshape\color{unisensBlue},
+	showstringspaces = false,
+	%list of optional attributes
+	keywords={comment,source,souceId,endianess,separator,decimalSeparator,commentLength,typeLength,duration,fileFormatName},
+	breaklines = true}
+	
+	
+	\section{Einführung}
+	
+Dieses Dokument soll die Erstellung einer Unisens-Headerdatei anhand eines Beispiels erklären. Für das XML-Format spielt die Reihenfolge der Attribute keine Rolle. Optionale Attribute sind grau.
+
+Das Modell für einen Unisens-Datensatz innerhalb des \xmlelement{unisens}-Elements ist:
+\begin{verbatim}
+(customAttributes?, context?, 
+  (signalEntry | valuesEntry | eventEntry | customEntry)* , group* )
+\end{verbatim}
+Für jedes Entry innerhalb eines Datensatzes gilt:
+\begin{verbatim}
+(customAttributes?,  
+  (binFileFormat | csvFileFormat | xmlFileFormat | customFileFormat) )
+\end{verbatim}
+
+
+	\section{XML-Elemente und -Attribute}
+
+		\subsection{XML Version}
+
+\lstinputlisting[firstline=1,lastline=1]{unisens.xml}
+
+Dieser Teil ist immer zu Beginn einer validen XML-Datei notwendig, hier wird der Zeichensatz und die XML-Version definiert.
+\\
+
+
+
+		\subsection{Root-Element}
+
+\lstinputlisting[firstline=2,lastline=2]{unisens.xml}
+
+\noindent
+%You can use any string as \xmlattribute{measurementId}. The \xmlattribute{timestampStart} has to be in the form YYYY-MM-DD...
+Die \xmlattribute{measurementId} ist eine Eindeutige ID für diesen Datensatz. In \xmlattribute{timestampStart} wird der Aufnahmebeginn dieses Datensatzes festgehalten alle Daten-Einträge beginnen zu diesem Zeitpunkt. Das Format entspricht der ISO 8601. Die Angabe der Millisekunden ist optional. Ebenso optional ist die Angabe des Attributes \xmlattribute{comment}, der einen Kommentar zu diesem Datensatz speichert. Für manche Datensätze kann es sinnvoll sein, die Gesamtlänge anzugeben. Hierfür ist das optionale Attribut \xmlattribute{duration} gedacht. Die Gesamtlänge wird immer in Sekunden angegeben. Das Attribut \xmlattribute{version} bezeichnet die Version der Unisens-Spezifikation, mit der dieser Datensatz geschrieben wurde. Die Attribute \xmlattribute{xmlns}, \xmlattribute{xmlns:xsi} und \xmlattribute{xsi:schemaLocation} sind in dieser Form notwendig, damit Unisens-Anwendungen das XML-Schema richtig interpretieren können.
+\\
+
+
+
+
+		\subsection{Eigene Attribute}
+
+\lstinputlisting[firstline=3,lastline=6]{unisens.xml}
+
+\noindent
+%This part is optional. Here you can save additional information. Create one \xmlelement{customAttribute} element for each key-value-pair. You can name the \xmlattribute{key}s as ever you want. The \xmlattribute{value}s are always interpreted as a string. The number of key-value-pairs is not limited.
+Dieser Teil ist optional. Mit Hilfe des Elements \xmlelement{customAttributes} können Schlüssel-Wert-Paare zu einem Datensatz gespeichert werden. Dabei ist die Zeichenkette in \xmlattribute{key} der Schlüssel und die in \xmlattribute{value} der zu gehörige Wert. Die Anzahl der  \xmlelement{customAttribute}-Elemente ist nicht limitiert.
+
+\xmlelement{customAttribute}s können sowohl global für den gesamten Datensatz angelegt werden als auch innerhalb von einem  \xmlelement{*Entry}. 
+\\
+
+
+
+		\subsection{Kontext-Informationen}
+
+
+\lstinputlisting[firstline=7,lastline=7]{unisens.xml}
+
+\noindent
+Dieser Teil ist optional. In einer separaten XML-Datei mit dem Namen context.xml und dem in \xmlattribute{schemaUrl} definierten Schema können weitere Daten zu diesem Datensatz abgelegt werden. Pro Datensatz kann es nur eine context.xml geben.
+\\
+
+
+
+		\subsection{Signale}
+
+\lstinputlisting[firstline=8,lastline=12]{unisens.xml}
+
+\noindent
+Das Element \xmlelement{signalEntry} ist für alle quasi-kontinuierlich abgetasteten Messdaten gedacht. Als Dateiformat bietet sich hier ein binärformat an, da dies sehr kompakt ist. Es kann aber auch XML oder CSV verwendet werden, was jedoch bei großen Datensätzen zu Geschwindigkeitseinbußen und sehr großen Dateien führen kann.
+
+Die \xmlattribute{contentClass} gibt die Inhaltsklasse der gespeicherten Daten an, zum Beispiel ECG für EKG-Werte oder BLOODPRESSURE für Blutdruckwerte. In Tabelle \ref{tab:contentclass} ist eine Liste mit Empfehlungen für verschiedene Inhaltsklassen. Die \xmlattribute{id} enthält den vollständigen Dateinamen der zugehörigen Datendatei im selben Ordner. Die Abtastrate des Signals wird in \xmlattribute{sampleRate} abgelegt, die Abtastrate kann auch eine Fließkommazahl sein. Der Datentyp, in dem die Daten vorliegen, wird in \xmlattribute{dataType} gespeichert. Dies ist auch der Datentyp, in dem die Daten von der Unisens-Library zurückgegeben werden (s. Tab. \ref{tab:datentypen}). Ein Kommentar kann optional in \xmlattribute{comment} angegeben werden, ein Name für diesen Eintrag kann optional in  \xmlattribute{name} vergeben werden.
+
+Der verwendete AD-Konverter (ADC) wird mit den folgenden Attributen beschrieben: \xmlattribute{adcResolution} gibt die Auflösung in Bit an und \xmlattribute{lsbValue} ist das Least Significant Bit (LSB) des ADC in der unter \xmlattribute{unit} angegebenen Einheit. Ist das LSB unbekannt, wird hier 1 angegeben. Eine Liste der empfohlenen Einheiten ist in Tabelle \ref{tab:einheiten} angegeben. Die \xmlattribute{baseline} ist der Ausgangswert des ADC, wenn am Eingang der physikalische Wert 0 der angegebenen Einheit anliegt (also z.\,B. 0\,V bei einem Spannungsmesser oder 0\,g bei einem Beschleunigungsmesser). Hiermit kann also ein Offset des ADC eingestellt werden. Das Attribut \xmlattribute{adcZero} beinhaltet den Ausgangswert des ADC, wenn am Eingang genau in der Mitte steht. Bei bipolaren ADC mit Zweierkomplement-Ausgang ist dieser Wert normalerweise 0.
+
+Das optionale Attribut \xmlattribute{source} enthält die Beschreibung der Datenquelle, üblicherweise ist dies der Sensorname. Dies kann im optionalen Attribut \xmlattribute{sourceId} weiter spezifiziert werden, wenn der Sensor eine eigene ID hat (dies kann z.\,B. eine MAC-Adresse sein).
+
+Um Dateien im Binärformat einzubinden, muss das \xmlelement{binFileFormat} definiert werden. Neben einem optionalen Kommentar in \xmlattribute{comment} wird in \xmlattribute{endianess} die Byte-Reihenfolge angegeben, entweder LITTLE für little endian oder BIG für big endian. Bei Windows-Systemen und Intel-Prozessoren hat man es normalerweise mit little endian zu tun, während Motorola-Prozessoren oft mit big endian arbeiten. 
+
+Für jeden Kanal des Signals wird ein \xmlelement{channel}-Element angelegt. Im Attribut \xmlattribute{name} ist der Name das Kanals angegeben.
+\\
+
+
+
+		\subsection{Einzelmesswerte}
+
+\lstinputlisting[firstline=37,lastline=41]{unisens.xml}
+
+\noindent
+Das Element \xmlelement{valuesEntry} ist für alle nicht-kontinuierlich abgetasteten Messdaten gedacht. Als Dateiformat bietet sich hier CSV an, da dies menschenlesbar, übersichtlich und kompakt ist. Es kann aber auch XML oder ein Binärformat verwendet werden. Die Attribute entsprechen alle dem \xmlelement{signalEntry}. Die Abtastfrequenz in \xmlattribute{sampleRate} dient hier als Zeitbasis für einen samplegenauen Datenzugriff.
+
+Werden die Daten als CSV-Datei gespeichert, muss das \xmlelement{csvFileFormat} angegben werden. Hierfür kann das Trennzeichen in der CSV-Datei im Attribut \xmlattribute{separator} definiert werden, Standard ist ein Semikolon. Der Kommentar \xmlattribute{comment} ist optional, ebenso die Angabe eines Dezimaltrennzeichens \xmlattribute{decimalSeparator} innerhalb der Werte (standardmäßig ein Punkt).
+
+Einzelmesswerte können in mehreren Kanälen vorliegen, diese werden entsprechend den Signalen angegeben.
+\\
+
+
+
+		\subsection{Ereignisse}
+
+\lstinputlisting[firstline=28,lastline=30]{unisens.xml}
+
+\noindent
+Das Element \xmlelement{eventEntry} soll bei nicht messtechnisch erfassten Ereignissen verwendet werden. In diesem Element können keine ADC-spezifischen Attribute verwendet werden, ansonsten entsprechen die Attribute denen von Einzelmesswerten oder Signalen. Die Abtastfrequenz in \xmlattribute{sampleRate} dient hier ebenfalls als Zeitbasis für einen samplegenauen Datenzugriff.
+
+Werden Ereignisse im Binärformat gespeichert, sind die Attribute \xmlattribute{typleLength} und \xmlattribute{commentLength} anzugeben. Diese geben die Länge der Zeichenkette des Ereignisses und dessen optionalen Kommentars an. Alle Ereignisse und Kommentare müssen in diesem Fall die gleiche Länge haben und dürfen sie nicht überschreiten
+
+Um dieses zu umgehen, bietet es sich für Ereignisse an, nicht das Binärformat zu verwenden, sonder CSV- oder XML-Dateien. Dafür muss ein entsprechendes Element angelegt werden. Im Falle einer XML-Datei ist dies das \xmlelement{xmlFileFormat}, das außer einem optionalen \xmlattribute{comment} keine weiteren Attribute hat.
+\\
+
+
+
+		\subsection{Proprietäre Daten}
+
+\lstinputlisting[firstline=31,lastline=36]{unisens.xml}
+
+\noindent
+Proprietäre Daten, die nicht von Unisens unterstützt werden, können als  \xmlelement{customEntry} angelegt werden. Dieses können zum Beispiel weitere Datensätze in eigenen Formaten sein (z.\,B. EDF) oder auch Bilder oder Videos von den Messungen. In diesem Beispiel ist das \xmlelement{customEntry} noch mit \xmlelement{customAttributes} versehen, was aber nicht notwendig ist. Ein \xmlelement{customEntry} hat in den meisten Fällen ein freies Dateiformat, das mit \xmlelement{customFileFormat} angegeben wird. Hier kann das Format mit \xmlattribute{fileFormatName} näher spezifiziert werden, so dass Anwendungen darauf reagieren können.
+\\
+
+
+		\subsection{Gruppierungen}
+
+\lstinputlisting[firstline=42,lastline=45]{unisens.xml}
+
+\noindent
+Dieser Teil ist optional. Hiermit können mehrere Einträge zu einer Gruppe zusammengefasst werden. Die Anzahl der Gruppen und die Anzahl der Elemente einer Gruppe ist nicht limitiert. Eine Gruppe \xmlelement{group} hat eine eindeutige ID \xmlattribute{id} und kann mit einem Kommentar \xmlattribute{comment} versehen werden. Die einzelnen Einträge  \xmlelement{groupEntry} verweisen mit \xmlattribute{ref} jeweils auf die ID eines SignalEntry, ValuesEntry, EventEntry oder CustomEntry.
+\\
+
+
+		\subsection{Root-Element schließen}
+
+\lstinputlisting[firstline=46,lastline=46]{unisens.xml}
+
+\noindent
+Am Ende der Datei muss selbstverständlich das Root-Element geschlossen werden.
+\\
+
+
+
+	\section{Konstanten und Empfehlungen}
+	
+
+
+\begin{table}[ht]
+	\caption{Empfehlung für die Anwendung des Attributes \xmlattribute{contentClass}}
+	\begin{tabularx}{\textwidth}{lX}
+		\hline
+		Klasse & Beschreibung \\
+		\hline
+		\hline
+		ECG & EKG-Signal \\
+		TRIGGER & Trigger-Liste (EKG-Annotation) \\
+		ACC & Beschleunigungssignal \\
+		IMP & Impedanzsignal \\
+		RAW & Rohdaten \\
+		BLOODPRESSURE & Blutdruck \\
+		PLETH & Pleth-Signal \\
+		RESP & Atmung \\
+		MARKER & Patienten-Marker \\
+		ARTIFACT & Liste mit Artefakt-Markern \\
+		\hline
+	\end{tabularx}
+	\label{tab:contentclass}
+\end{table}
+
+
+
+\begin{table}[ht]
+	\caption{Von Unisens spezifizierte Datentypen \label{tab:datentypen}}
+	\begin{tabularx}{\textwidth}{llX}
+		\hline
+		Datentyp & Größe (Byte) & Wertebereich \\
+		\hline
+		\hline
+		\texttt{double} & 8 & $4.9 \cdot 10^{-324} \dots 1.7976931348623157 \cdot 10^{308}$ \\
+		\texttt{float}  & 4 & $1.4 \cdot 10^{-45} \dots 3.4028235 \cdot 10^{38}$ \\
+%		\texttt{INT64}  & 8 & $-9223372036854775808 \dots 9223372036854775807$ \\
+		\texttt{int32}  & 4 & $-2147483648 \dots 2147483647$ \\
+		\texttt{int16}  & 2 & $-32768 \dots 32767$ \\
+		\texttt{int8}   & 1 & $-128 \dots 127$ \\
+		\texttt{uint32}  & 4 & $0 \dots 4294967295$ \\
+		\texttt{uint16}  & 2 & $0 \dots 65535$ \\
+		\texttt{uint8}   & 1 & $0 \dots 255$ \\
+		\hline
+	\end{tabularx}
+\end{table}
+
+
+
+\begin{table}[ht]
+	\caption{Empfehlung für physikalische Einheiten \label{tab:einheiten}}
+	\begin{tabularx}{\textwidth}{lX}
+		\hline
+		Einheit & Beschreibung\\
+		\hline
+		\hline
+		uV, \textmu V, mV, V, kV & Spannung \\
+		g & Beschleunigung \\
+		°C & Temperatur \\
+		\hline
+	\end{tabularx}
+\end{table}
+
+
+
+	\section{Beispiel-Datei}
+
+\lstinputlisting{unisens.xml}
+
+%\begin{verbatim}{}
+%
+%
+%  <signalEntry adcResolution="16" baseline="0" adcZero="0" comment="Holter-EKG mit Ambu Bluesensor Klebeelektroden, Downsampling" contentClass="ECG" dataType="int16" id="ecg_padsy_250.bin" lsbValue="3.417" sampleRate="250" source="TELESMART H/P" unit="uV">
+%    <customAttributes>
+%      <customAttribute key="numberOfVes" value="22" />
+%      <customAttribute key="schnipp" value="schnapp" />
+%    </customAttributes>
+%    <binFileFormat endianess="LITTLE" />
+%    <channel name="A" />
+%    <channel name="B" />
+%  </signalEntry>
+%  <signalEntry adcResolution="12" baseline="2048" adcZero="0" comment="ACC sensor connection board (textile)" contentClass="ACC" dataType="int16" id="acc_textile_50.bin" lsbValue="0.00294" sampleRate="50" source="ST Microelectronics MEMS Inertial Sensor" sourceId="LIS3LV02DQ" unit="g">
+%    <binFileFormat comment="binary, 3 channels" endianess="LITTLE" />
+%    <channel name="x" />
+%    <channel name="y" />
+%    <channel name="z" />
+%  </signalEntry>
+%  
+%\end{verbatim}
+
+\end{document}

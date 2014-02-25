@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<events>
+<event comment="" sampleStamp="30" type="A"/>
+<event comment="" sampleStamp="500" type="A"/>
+<event comment="" sampleStamp="1343" type="A"/>
+<event comment="" sampleStamp="3200" type="A"/>
+<event comment="" sampleStamp="5600" type="A"/>
+<event sampleStamp="5600" type="A"/>
+<event sampleStamp="2147483646" type="A"/>
+<event sampleStamp="0" type="A"/>
+</events>
