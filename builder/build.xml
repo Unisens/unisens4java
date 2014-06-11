@@ -1,29 +1,26 @@
 <?xml version="1.0"?>
-<!-- Sample build file used to retrieve svnant's sources -->
+<!-- Sample build file used to retrieve library's sources -->
 <project name="unisens-builder" basedir="." default="all">
   
   <!--  all properties are in build.properties --> 
 	<property file="build.properties" /> 
-	<property file="login.properties" /> 
+	<property file="login.properties" />
+  <property name="workingdir" value=".." />
 
-	<!-- path to the svnant libraries. They are located in builder/lib -->
-	<path id="svnant.classpath">
+	<!-- path to the library libraries. They are located in builder/lib -->
+	<path id="library.classpath">
 		<fileset dir="${lib.dir}">
 			<include name="**/*.jar"/>
 		</fileset>
 	</path>
 
-	<!-- load the svn task -->
-  <typedef resource="org/tigris/subversion/svnant/svnantlib.xml" classpathref="svnant.classpath" />
-  <taskdef name="xsddoc" classname="net.sf.xframe.xsddoc.Task" classpathref="svnant.classpath"/>
+	<!-- load the tasks -->
+  <taskdef name="xsddoc" classname="net.sf.xframe.xsddoc.Task" classpathref="library.classpath"/>
 
 
   <!--all -->
-  <target name="all" depends="clean, makeDirs, checkout, getSVNrevision, releaseNumber, build, test, packageJars, copySource, copyDistFiles, javaDoc, xsdDoc, packageRelease" /> 
-  <!--local -->
-  <target name="buildCI" depends="clean, makeDirs, nocheckout, releaseNumber, build, test, packageJars, copySource, copyDistFiles, javaDoc, xsdDoc, packageRelease" /> 
-
-  <target name="debug" depends="makeDirs, checkout, getSVNrevision, releaseNumber, build, test, packageJars, copySource, copyDistFiles, javaDoc, xsdDoc, packageRelease" /> 
+  <target name="all" depends="clean, makeDirs, releaseNumber, build, test, packageJars, copySource, copyDistFiles, javaDoc, xsdDoc, packageRelease" /> 
+  <target name="debug" depends="makeDirs, releaseNumber, build, test, packageJars, copySource, copyDistFiles, javaDoc, xsdDoc, packageRelease" /> 
 
 
   <!-- make dirs -->
@@ -52,38 +49,47 @@
     <delete dir="build" />
 	<delete dir="test" />
   </target>           
-
-  <!-- checkout from svn -->
-  <target name="checkout">
-	<property name="workingdir" value="checkout" />
-  	<svn username="${svn.repository.user}" password="${svn.repository.passwd}"  javahl="false">
-      <checkout url="${svn.unisens.url}" revision="HEAD" destPath="${workingdir}" />
-    </svn>
-  </target>
-	
-  <!-- no checkout from svn for local build -->
-  <target name="nocheckout">
-	<property name="workingdir" value=".." />
-  </target>
-  
-  	<!-- create filename and update version and build number in about box -->
-	<target name="getSVNrevision">
-		<!-- Es wird immer die maximale Revisionsnummer der library genommen! -->
-		<svn username="${svn.repository.user}" password="${svn.repository.passwd}" javahl="false">
-			<wcVersion path="${workingdir}" prefix="" />
-		</svn>
-	</target>
 	
 	<!-- create filename and update version and build number in about box -->
 	<target name="releaseNumber">
-		<echo>Current revision is ${revision.max}</echo>
+    <!-- git rev-list HEAD | tail -1 ==> 6cfbd13cc210062fb24b90a3111ff56074e43c87 -->
+    <!-- git tag -a -m "For calculating build number" build 6cfbd13cc210062fb24b90a3111ff56074e43c87 -->
+    <!-- git tag -a 1.5 -m "Version 1.5" -->
+    <!-- git push -tags -progress "origin" master:master (use double minus in front of tags and progress) -->
+    <!-- Tag is version number. Build number from number of changes on master (1.5.99) -->
+    <!-- Read guide here: http://pukkaone.github.io/2010/12/19/build-number-git-repository.html -->
+    <exec executable="git" outputproperty="BUILD_NUMBER">
+      <arg value="describe"/>
+      <arg value="--match"/>
+      <arg value="build"/>
+      <redirector>
+        <outputfilterchain>
+          <tokenfilter>
+            <replaceregex pattern="^[^-]+-" replace=""/>
+            <replaceregex pattern="-.+$" replace=""/>
+          </tokenfilter>
+       </outputfilterchain>
+     </redirector>
+    </exec>
+    <exec executable="git" outputproperty="VERSION_NUMBER">
+      <arg value="describe"/>
+      <redirector>
+        <outputfilterchain>
+          <tokenfilter>
+            <replaceregex pattern="-.+$" replace=""/>
+          </tokenfilter>
+       </outputfilterchain>
+     </redirector>
+    </exec>
+    <echo>Current version is ${VERSION_NUMBER}.${BUILD_NUMBER}</echo>
+
 		<tstamp><format property="timestamp" pattern="dd.MM.yyyy HH:MM z"/></tstamp>
 		
 		<property name="release.date" value="${timestamp}" />
-		<property name="release.filename" value="${release.name}-${release.version}.${revision.max}" />
+		<property name="release.filename" value="${release.name}-${VERSION_NUMBER}.${BUILD_NUMBER}" />
 		
-		<replace file="${workingdir}/unisens-library/src/META-INF/MANIFEST.MF" token="${implemenation-version}" value="${release.version} Rev. ${revision.max}" />
-		<replace file="${workingdir}/unisens-interface/src/META-INF/MANIFEST.MF" token="${specification-version}" value="${release.version} Rev. ${revision.max}" />
+		<replace file="${workingdir}/unisens-library/src/META-INF/MANIFEST.MF" token="${implemenation-version}" value="${VERSION_NUMBER} Rev. ${BUILD_NUMBER}" />
+		<replace file="${workingdir}/unisens-interface/src/META-INF/MANIFEST.MF" token="${specification-version}" value="${VERSION_NUMBER} Rev. ${BUILD_NUMBER}" />
 	</target>
 	
   <!-- build interface and unisens-library-->
@@ -92,7 +98,7 @@
     <javac destdir="build/unisens-library" srcdir="${workingdir}/unisens-library/src" classpath="build/unisens-interface"/>
 	<javac destdir="build/unisens-tests" srcdir="${workingdir}/unisens-tests" debug="true">
 		<classpath>
-			<path refid="svnant.classpath"/>
+			<path refid="library.classpath"/>
 			<pathelement path="build/unisens-interface"/>
 			<pathelement path="build/unisens-library"/>
 		</classpath>
@@ -117,7 +123,7 @@
     <taskdef name="junit" classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask"/>
     <junit printsummary="yes" failureProperty="test.failed" fork="true" dir="${workingdir}/" showoutput="true">
 		<classpath>
-			<path refid="svnant.classpath"/>
+			<path refid="library.classpath"/>
 			<pathelement path="build/unisens-interface"/>
 			<pathelement path="build/unisens-library"/>
 			<pathelement path="${workingdir}/unisens-library/src"/>
