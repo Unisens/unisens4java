@@ -24,12 +24,13 @@ along with the Unisens Tests. If not, see <http://www.gnu.org/licenses/>.
 package org.unisens.test;
 
 public interface TestProperties {
-	static String EXAMPLE1 = "unisens-tests//data//example1";
-	static String EXAMPLE2 = "unisens-tests//data//example2";
-	static String EXAMPLE3 = "unisens-tests//data//test_read_pos";
-	static String EXAMPLE_UNIT = "unisens-tests//data//test_uint";
 	
-	static String EXAMPLE_TEMP_SIGNAL_ENTRY = "unisens-tests//data//example temp//SignalEntry";
-	static String EXAMPLE_TEMP_EVENT_ENTRY = "unisens-tests//data//example temp//EventEntry";
-	static String EXAMPLE_TEMP_VALUES_ENTRY = "unisens-tests//data//example temp//ValuesEntry";
+	static String TEST_DEST = "unisens-tests"+System.getProperty("file.separator")+"test-dest";
+	static String TEST_SRC_BASE = "unisens-tests"+System.getProperty("file.separator")+"data";
+	
+	static String EXAMPLE1 = "example1";
+	static String EXAMPLE2 = "example2";
+	static String EXAMPLE3 = "test_read_pos";
+	static String EXAMPLE4 = "test_uint";
+
 }

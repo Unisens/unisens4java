@@ -66,18 +66,14 @@ public class SignalEntryCreateReadAppendTest implements TestProperties{
 	public static float[][] float32 = new float[][]{{Float.MIN_VALUE,Float.MAX_VALUE},{-1,-1},{0,0},{1,1},{2,2}};
 	public static double[][] double64 = new double[][]{{Double.MIN_VALUE, Double.MAX_VALUE},{-1,-1},{0.000000001005,0.6},{1,1},{2,2}};
 	
-	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		File unisensPath = new File(EXAMPLE_TEMP_SIGNAL_ENTRY);
-		if(unisensPath.exists()){
-			for(File file : unisensPath.listFiles())
-				if(file.isFile())
-					assertTrue(file.delete());
-		}else
-			assertTrue(unisensPath.mkdirs());
+		if (new File(TEST_DEST).exists())
+		{
+			assertTrue(TestUtils.deleteRecursive(new File(TEST_DEST)));
+		}
 		factory = UnisensFactoryBuilder.createFactory();
-		unisens = factory.createUnisens(EXAMPLE_TEMP_SIGNAL_ENTRY);
+		unisens = factory.createUnisens(TEST_DEST);
 		unisens.setTimestampStart(new Date());
 		timestampStart = unisens.getTimestampStart();
 		unisens.setMeasurementId("Temp signals");
@@ -87,6 +83,10 @@ public class SignalEntryCreateReadAppendTest implements TestProperties{
 	public static void tearDownAfterClass() throws Exception {
 		unisens.closeAll();
 		unisens.save();
+		if (new File(TEST_DEST).exists())
+		{
+			assertTrue(TestUtils.deleteRecursive(new File(TEST_DEST)));
+		}
 	}
 	
 	@Test
@@ -338,7 +338,7 @@ public class SignalEntryCreateReadAppendTest implements TestProperties{
 		unisens.closeAll();
 		unisens.save();
 		
-		unisens = factory.createUnisens(EXAMPLE_TEMP_SIGNAL_ENTRY);
+		unisens = factory.createUnisens(TEST_DEST);
 		assertEquals(timestampStart.toString(), unisens.getTimestampStart().toString());
 		signalEntry = (SignalEntry)unisens.getEntry("se_double_be.bin");
 		assertEquals("BIN", signalEntry.getFileFormat().getFileFormatName());

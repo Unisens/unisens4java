@@ -27,6 +27,7 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -61,12 +62,24 @@ public class SignalEntryImplTest implements TestProperties{
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		factory = UnisensFactoryBuilder.createFactory();
-		unisens = factory.createUnisens(EXAMPLE1);
+		if (new File(TEST_DEST).exists())
+		{
+			assertTrue(TestUtils.deleteRecursive(new File(TEST_DEST)));
+		}
+		
+		UnisensFactory factory = UnisensFactoryBuilder.createFactory();
+		
+		String path = TestUtils.copyTestData(EXAMPLE1);
+		unisens = factory.createUnisens(path);
 		signalEntry = (SignalEntry)unisens.getEntry("ecg.bin");
-		unisens3 = factory.createUnisens(EXAMPLE3);
+
+		path = TestUtils.copyTestData(EXAMPLE3);
+		unisens3 = factory.createUnisens(path);
 		signalEntry3 = (SignalEntry)unisens3.getEntry("test.bin");
-		unisensUint = factory.createUnisens(EXAMPLE_UNIT);
+
+		path = TestUtils.copyTestData(EXAMPLE4);
+		unisensUint = factory.createUnisens(path);
+		
 		signalEntryUint8_2x12 = (SignalEntry)unisensUint.getEntry("test_2x12_UINT8.bin");
 		signalEntryUint16_2x12 = (SignalEntry)unisensUint.getEntry("test_2x12_UINT16.bin");
 		signalEntryUint32_2x12 = (SignalEntry)unisensUint.getEntry("test_2x12_UINT32.bin");
@@ -81,6 +94,12 @@ public class SignalEntryImplTest implements TestProperties{
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		unisens.closeAll();
+		unisens3.closeAll();
+		unisensUint.closeAll();
+		if (new File(TEST_DEST).exists())
+		{
+			assertTrue(TestUtils.deleteRecursive(new File(TEST_DEST)));
+		}
 	}
 	
 	@Test

@@ -57,16 +57,12 @@ public class ValuesEntryCreateReadAppendTest implements TestProperties{
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		File unisensPath = new File(EXAMPLE_TEMP_VALUES_ENTRY);
-		if(unisensPath.exists()){
-			for(File file : unisensPath.listFiles())
-				if(file.isFile())
-					assertTrue(file.delete());
+		if (new File(TEST_DEST).exists())
+		{
+			assertTrue(TestUtils.deleteRecursive(new File(TEST_DEST)));
 		}
-		else
-			assertTrue(unisensPath.mkdirs());
 		factory = UnisensFactoryBuilder.createFactory();
-		unisens = factory.createUnisens(EXAMPLE_TEMP_VALUES_ENTRY);
+		unisens = factory.createUnisens(TEST_DEST);
 		unisens.setTimestampStart(new Date());
 		unisens.setMeasurementId("Temp values");
 	}
@@ -75,6 +71,12 @@ public class ValuesEntryCreateReadAppendTest implements TestProperties{
 	public static void tearDownAfterClass() throws Exception {
 		unisens.closeAll();
 		unisens.save();
+		File unisensPath = new File(TEST_DEST);
+		if(unisensPath.exists()){
+			for(File file : unisensPath.listFiles())
+				if(file.isFile())
+					assertTrue(file.delete());
+		}
 	}
 	
 	@Test

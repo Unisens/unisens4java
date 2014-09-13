@@ -56,16 +56,12 @@ public class EventEntryCreateReadAppendTest implements TestProperties {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		File unisensPath = new File(EXAMPLE_TEMP_EVENT_ENTRY);
-		if(unisensPath.exists()){
-			for(File file : unisensPath.listFiles())
-				if(file.isFile())
-					assertTrue(file.delete());
+		if (new File(TEST_DEST).exists())
+		{
+			assertTrue(TestUtils.deleteRecursive(new File(TEST_DEST)));
 		}
-		else
-			assertTrue(unisensPath.mkdirs());
 		factory = UnisensFactoryBuilder.createFactory();
-		unisens = factory.createUnisens(EXAMPLE_TEMP_EVENT_ENTRY);
+		unisens = factory.createUnisens(TEST_DEST);
 		timestampStart = new Date();
 		unisens.setTimestampStart(timestampStart);
 		unisens.setMeasurementId("Temp events");
@@ -83,6 +79,12 @@ public class EventEntryCreateReadAppendTest implements TestProperties {
 	public static void tearDownAfterClass() throws Exception {
 		unisens.closeAll();
 		unisens.save();
+		File unisensPath = new File(TEST_DEST);
+		if(unisensPath.exists()){
+			for(File file : unisensPath.listFiles())
+				if(file.isFile())
+					assertTrue(file.delete());
+		}
 	}
 	
 	@Test
@@ -115,7 +117,7 @@ public class EventEntryCreateReadAppendTest implements TestProperties {
 	public void testSaveUnisens() throws Exception{
 		unisens.closeAll();
 		unisens.save();
-		unisens = factory.createUnisens(EXAMPLE_TEMP_EVENT_ENTRY);
+		unisens = factory.createUnisens(TEST_DEST);
 		assertEquals(timestampStart.toString(), unisens.getTimestampStart().toString());
 		eventEntry = (EventEntry)unisens.getEntry("ee.bin");
 		assertEquals("BIN", eventEntry.getFileFormat().getFileFormatName());

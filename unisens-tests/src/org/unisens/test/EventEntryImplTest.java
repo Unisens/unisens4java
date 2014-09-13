@@ -24,7 +24,9 @@ along with the Unisens Tests. If not, see <http://www.gnu.org/licenses/>.
 package org.unisens.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,8 +48,14 @@ public class EventEntryImplTest implements TestProperties{
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		factory = UnisensFactoryBuilder.createFactory();
-		unisens = factory.createUnisens(EXAMPLE2);
+		if (new File(TEST_DEST).exists())
+		{
+			assertTrue(TestUtils.deleteRecursive(new File(TEST_DEST)));
+		}
+		String path = TestUtils.copyTestData(EXAMPLE2);
+		UnisensFactory factory = UnisensFactoryBuilder.createFactory();
+		unisens = factory.createUnisens(path);
+		
 		eventEntry = (EventEntry)unisens.getEntry("events.csv");
 		expected = new ArrayList<Event>();
 		expected.add(new Event(30, "A1", "liegen"));
@@ -61,6 +69,7 @@ public class EventEntryImplTest implements TestProperties{
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		unisens.closeAll();
+		TestUtils.deleteRecursive(new File(TEST_DEST));
 	}
 
 	@Test
@@ -80,7 +89,6 @@ public class EventEntryImplTest implements TestProperties{
 		eventEntry.append(expected);
 		assertEquals(expected, eventEntry.read(0, 6));
 	}
-
 
 	@Test
 	public void testClone() {

@@ -25,7 +25,9 @@ package org.unisens.test;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.junit.AfterClass;
@@ -49,8 +51,14 @@ public class ValuesEntryImpTest implements TestProperties{
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		factory = UnisensFactoryBuilder.createFactory();
-		unisens = factory.createUnisens(EXAMPLE2);
+		if (new File(TEST_DEST).exists())
+		{
+			assertTrue(TestUtils.deleteRecursive(new File(TEST_DEST)));
+		}
+		UnisensFactory factory = UnisensFactoryBuilder.createFactory();
+		String path = TestUtils.copyTestData(EXAMPLE2);
+		unisens = factory.createUnisens(path);
+
 		valuesEntry = (ValuesEntry)unisens.getEntry("bloodpressure.csv");
 		expectedArray = new Value[]{new Value(0, new short[]{123, 82}), new Value(600, new short[]{124, 87}), new Value(1200, new short[]{130, 67}), new Value(1800, new short[]{118, 78}), new Value(2400, new short[]{142, 92})};
 		expectedValueList = new ValueList();
@@ -62,6 +70,10 @@ public class ValuesEntryImpTest implements TestProperties{
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		unisens.closeAll();
+		if (new File(TEST_DEST).exists())
+		{
+			assertTrue(TestUtils.deleteRecursive(new File(TEST_DEST)));
+		}
 	}
 
 
@@ -132,7 +144,6 @@ public class ValuesEntryImpTest implements TestProperties{
 		tempValuesEntry.append(expectedArray);
 		Value[] actuals = tempValuesEntry.read(tempValuesEntry.getCount() - expectedArray.length, expectedArray.length);
 		assertArrayEquals(expectedArray, actuals);
-		unisens.deleteEntry(tempValuesEntry);
 	}
 
 	@Test
@@ -140,7 +151,6 @@ public class ValuesEntryImpTest implements TestProperties{
 		tempValuesEntry.appendValuesList(expectedValueList);
 		ValueList actuals = tempValuesEntry.readValuesList(tempValuesEntry.getCount() - expectedValueList.getSamplestamps().length, expectedValueList.getSamplestamps().length);
 		assertEquals(expectedValueList, actuals);
-		unisens.deleteEntry(tempValuesEntry);
 	}
 
 	@Test

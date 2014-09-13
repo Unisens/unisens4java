@@ -38,28 +38,19 @@ import org.unisens.FileFormat;
 import org.unisens.Unisens;
 import org.unisens.UnisensFactory;
 import org.unisens.UnisensFactoryBuilder;
+import org.unisens.UnisensParseException;
 import org.unisens.ri.config.Constants;
 
 
-public class CustomEntryImplTest implements TestProperties{
-	public static CustomEntry customEntry;	
-	public static Unisens unisens;
-	public static UnisensFactory factory;
-	
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		factory = UnisensFactoryBuilder.createFactory();
-		unisens = factory.createUnisens(EXAMPLE2);
-		customEntry = (CustomEntry)unisens.getEntry("entry.custom");
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-		unisens.closeAll();
-	}
+public class CustomEntryImplTest extends TestBase {
 
 	@Test
-	public void testGetAttribute() {
+	public void testGetAttribute() throws UnisensParseException {
+		String path = TestUtils.copyTestData(EXAMPLE2);
+		UnisensFactory factory = UnisensFactoryBuilder.createFactory();
+		Unisens unisens = factory.createUnisens(path);
+		CustomEntry customEntry = (CustomEntry)unisens.getEntry("entry.custom");
+		
 		assertEquals("customAttrValue1", customEntry.getAttribute("customAttr1"));
 		assertNull(customEntry.getAttribute("unexpectedAttr"));
 		assertNull(customEntry.getAttribute(Constants.ENTRY_CONTENTCLASS));
@@ -70,7 +61,12 @@ public class CustomEntryImplTest implements TestProperties{
 	}
 
 	@Test
-	public void testGetAttributes() {
+	public void testGetAttributes() throws UnisensParseException {
+		String path = TestUtils.copyTestData(EXAMPLE2);
+		UnisensFactory factory = UnisensFactoryBuilder.createFactory();
+		Unisens unisens = factory.createUnisens(path);
+		CustomEntry customEntry = (CustomEntry)unisens.getEntry("entry.custom");
+		
 		HashMap<String, String> expected = new HashMap<String, String>();
 		expected.put("customAttr1", "customAttrValue1");
 		expected.put("customAttr2", "customAttrValue2");
@@ -79,13 +75,23 @@ public class CustomEntryImplTest implements TestProperties{
 	}
 	
 	@Test
-	public void testGetFileFormat() {
+	public void testGetFileFormat() throws UnisensParseException {
+		String path = TestUtils.copyTestData(EXAMPLE2);
+		UnisensFactory factory = UnisensFactoryBuilder.createFactory();
+		Unisens unisens = factory.createUnisens(path);
+		CustomEntry customEntry = (CustomEntry)unisens.getEntry("entry.custom");
+		
 		FileFormat fileFormat = customEntry.getFileFormat();
 		assertTrue(fileFormat instanceof CustomFileFormat);
 	}
 
 	@Test
-	public void testClone() {
+	public void testClone() throws UnisensParseException {
+		String path = TestUtils.copyTestData(EXAMPLE2);
+		UnisensFactory factory = UnisensFactoryBuilder.createFactory();
+		Unisens unisens = factory.createUnisens(path);
+		CustomEntry customEntry = (CustomEntry)unisens.getEntry("entry.custom");
+		
 		CustomEntry clonedEntry = (CustomEntry)customEntry.clone();
 		assertEquals(customEntry.getId(), clonedEntry.getId());
 		assertEquals(customEntry.getComment(), clonedEntry.getComment());

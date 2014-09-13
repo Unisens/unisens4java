@@ -24,6 +24,7 @@ along with the Unisens Library. If not, see <http://www.gnu.org/licenses/>.
 package org.unisens.ri;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -69,6 +70,14 @@ public abstract class EntryImpl implements Entry , Constants{
 	public EntryImpl(Unisens unisens , String id){
 		this.unisens = unisens;
 		this.id = id;
+		String absoluteFileName = unisens.getPath() + id;
+	    try
+	    {
+	    	new FileOutputStream(absoluteFileName).close();
+	    }
+        catch (IOException e)
+        {
+        }	    	
 	}
 	
 	protected EntryImpl(Entry entry){
