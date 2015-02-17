@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<unisens xmlns="http://www.unisens.org/unisens2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" comment="" duration="23392.610238215915" measurementId="data_ekgmove" timestampStart="2014-02-04T22:53:34.445" version="2.0" xsi:schemaLocation="http://www.unisens.org/unisens2.0 http://www.unisens.org/unisens2.0/unisens.xsd">
+  <customAttributes>
+    <customAttribute key="revision" value="0" />
+    <customAttribute key="sensorTimeDrift" value="3.4817728478521235E-5" />
+    <customAttribute key="weight" value="88" />
+    <customAttribute key="height" value="170" />
+    <customAttribute key="sensorVersion" value="10674" />
+    <customAttribute key="sensorType" value="ekgMove" />
+    <customAttribute key="sectorCount" value="121635" />
+    <customAttribute key="age" value="59" />
+    <customAttribute key="sensorLocation" value="chest" />
+    <customAttribute key="gender" value="F" />
+    <customAttribute key="personId" value="000" />
+    <customAttribute key="sensorSerialNumber" value="00000" />
+  </customAttributes>
+  <signalEntry adcResolution="16" baseline="2048" comment="ecg" contentClass="ecg" dataType="int16" id="ecg.bin" lsbValue="0.0026858184230029595" sampleRate="1024" unit="mV">
+    <binFileFormat endianess="LITTLE" />
+    <channel name="ecg" />
+  </signalEntry>
+  <signalEntry adcResolution="16" comment="acc" contentClass="acc" dataType="int16" id="acc.bin" lsbValue="0.00390625" sampleRate="64" unit="g">
+    <binFileFormat endianess="LITTLE" />
+    <channel name="accX" />
+    <channel name="accY" />
+    <channel name="accZ" />
+  </signalEntry>
+  <signalEntry adcResolution="16" comment="temp" contentClass="temp" dataType="int16" id="temp.bin" lsbValue="0.1" sampleRate="1" unit="Grad Celsius">
+    <binFileFormat endianess="LITTLE" />
+    <channel name="temp" />
+  </signalEntry>
+  <signalEntry adcResolution="32" comment="press" contentClass="press" dataType="int32" id="press.bin" lsbValue="0.125" sampleRate="8" unit="Pa">
+    <binFileFormat endianess="LITTLE" />
+    <channel name="press" />
+  </signalEntry>
+  <signalEntry comment="Mean temperature in output interval" dataType="double" id="TempMean.bin" lsbValue="1" sampleRate="0.03333333333333333" unit="">
+    <binFileFormat endianess="LITTLE" />
+    <channel name="TempMean" />
+  </signalEntry>
+  <eventEntry comment="ECG R-Peaks" commentLength="10" contentClass="R" id="R.csv" sampleRate="1024" typeLength="1">
+    <csvFileFormat decimalSeparator="," separator=";" />
+  </eventEntry>
+  <signalEntry comment="Altitude from barometer" dataType="double" id="Altitude.bin" lsbValue="1" sampleRate="0.03333333333333333" unit="m">
+    <binFileFormat endianess="LITTLE" />
+    <channel name="Altitude" />
+  </signalEntry>
+  <signalEntry comment="MovementAcceleration: Raw acceleration, bandpass filtered, vector magnitude" dataType="double" id="MovementAcceleration.bin" lsbValue="1" sampleRate="0.03333333333333333" unit="g">
+    <binFileFormat endianess="LITTLE" />
+    <channel name="MovementAcceleration" />
+  </signalEntry>
+  <valuesEntry comment="NN-List from EKG = Tachogram (Position, time between current and last beat in [ms])" contentClass="Nn" dataType="double" id="Nn.csv" lsbValue="1" sampleRate="1024" unit="ms">
+    <csvFileFormat decimalSeparator="," separator=";" />
+    <channel name="Nn" />
+  </valuesEntry>
+  <signalEntry comment="Count of steps per output interval" dataType="double" id="StepCount.bin" lsbValue="1" sampleRate="0.03333333333333333" unit="steps">
+    <binFileFormat endianess="LITTLE" />
+    <channel name="StepCount" />
+  </signalEntry>
+  <valuesEntry comment="Heartrate, beat by beat (position and heartrate)" contentClass="HrBxb" dataType="double" id="HrBxb.csv" lsbValue="1" sampleRate="1024" unit="1/min">
+    <csvFileFormat decimalSeparator="," separator=";" />
+    <channel name="HrBxb" />
+  </valuesEntry>
+  <signalEntry comment="Inclination of sensor axis down against the vertical (0 to 180 deg)" dataType="double" id="InclinationDown.bin" lsbValue="1" sampleRate="0.03333333333333333" unit="deg">
+    <binFileFormat endianess="LITTLE" />
+    <channel name="InclinationDown" />
+  </signalEntry>
+  <signalEntry comment="Inclination of sensor axis forward against the vertical (0 to 180 deg)" dataType="double" id="InclinationForward.bin" lsbValue="1" sampleRate="0.03333333333333333" unit="deg">
+    <binFileFormat endianess="LITTLE" />
+    <channel name="InclinationForward" />
+  </signalEntry>
+  <signalEntry comment="Inclination of sensor axis right against the vertical (0 to 180 deg)" dataType="double" id="InclinationRight.bin" lsbValue="1" sampleRate="0.03333333333333333" unit="deg">
+    <binFileFormat endianess="LITTLE" />
+    <channel name="InclinationRight" />
+  </signalEntry>
+  <signalEntry comment="Vertical speed, calculated from barometer" dataType="double" id="VerticalSpeed.bin" lsbValue="1" sampleRate="0.03333333333333333" unit="m/s">
+    <binFileFormat endianess="LITTLE" />
+    <channel name="VerticalSpeed" />
+  </signalEntry>
+  <signalEntry comment="Body position (0=unknown, 1=lying supine, 2=lying left, 3=lying prone, 4=lying right, 5=upright, 6=sitting/lying, 7=standing)" dataType="double" id="BodyPosition.bin" lsbValue="1" sampleRate="0.03333333333333333" unit="">
+    <binFileFormat endianess="LITTLE" />
+    <channel name="BodyPosition" />
+  </signalEntry>
+  <valuesEntry comment="Mean heartrate in output interval [1/min]" contentClass="Hr" dataType="double" id="Hr.csv" lsbValue="1" sampleRate="0.03333333333333333" unit="1/min">
+    <csvFileFormat decimalSeparator="," separator=";" />
+    <channel name="Hr" />
+  </valuesEntry>
+  <signalEntry comment="Activity energy expenditure (AEE) in kcal/d" dataType="double" id="ActivityEnergyExpenditure.bin" lsbValue="1" sampleRate="0.03333333333333333" unit="kcal/d">
+    <binFileFormat endianess="LITTLE" />
+    <channel name="ActivityEnergyExpenditure" />
+  </signalEntry>
+  <signalEntry comment="MET value directly calculated from regression models" dataType="double" id="MET.bin" lsbValue="1" sampleRate="0.03333333333333333" unit="">
+    <binFileFormat endianess="LITTLE" />
+    <channel name="MET" />
+  </signalEntry>
+  <signalEntry comment="Activity Class (0=unknown, 1=lying, 2=sitting/standing, 4=slope up, 5=jogging, 6=slope down, 7=walking, 8=sitting/lying, 9=standing)" dataType="double" id="ActivityClass.bin" lsbValue="1" sampleRate="0.03333333333333333" unit="">
+    <binFileFormat endianess="LITTLE" />
+    <channel name="ActivityClass" />
+  </signalEntry>
+  <signalEntry comment="Total energy expenditure (TEE = BMR + AEE)" dataType="double" id="TotalEnergyExpenditure.bin" lsbValue="1" sampleRate="0.03333333333333333" unit="kcal/d">
+    <binFileFormat endianess="LITTLE" />
+    <channel name="TotalEnergyExpenditure" />
+  </signalEntry>
+  <valuesEntry comment="HRV parameter SDNN (standard deviation of NN intervals)" contentClass="HrvSdnn" dataType="double" id="HrvSdnn.csv" lsbValue="1" sampleRate="0.03333333333333333" unit="ms">
+    <csvFileFormat decimalSeparator="," separator=";" />
+    <channel name="HrvSdnn" />
+  </valuesEntry>
+  <valuesEntry comment="Baevsky Stress Index" contentClass="BaevskyStressIndex" dataType="double" id="BaevskyStressIndex.csv" lsbValue="1" sampleRate="0.03333333333333333" unit="">
+    <csvFileFormat decimalSeparator="," separator=";" />
+    <channel name="BaevskyStressIndex" />
+  </valuesEntry>
+  <valuesEntry comment="HRV parameter HF (high frequency)" contentClass="HrvHf" dataType="double" id="HrvHf.csv" lsbValue="1" sampleRate="0.03333333333333333" unit="ms^2">
+    <csvFileFormat decimalSeparator="," separator=";" />
+    <channel name="HrvHf" />
+  </valuesEntry>
+  <valuesEntry comment="HRV parameter LF/HF (low frequency to high frequency ratio" contentClass="HrvLfHf" dataType="double" id="HrvLfHf.csv" lsbValue="1" sampleRate="0.03333333333333333" unit="">
+    <csvFileFormat decimalSeparator="," separator=";" />
+    <channel name="HrvLfHf" />
+  </valuesEntry>
+  <valuesEntry comment="HRV parameter LF (low frequency)" contentClass="HrvLf" dataType="double" id="HrvLf.csv" lsbValue="1" sampleRate="0.03333333333333333" unit="ms^2">
+    <csvFileFormat decimalSeparator="," separator=";" />
+    <channel name="HrvLf" />
+  </valuesEntry>
+  <valuesEntry comment="HRV parameter pNNx" contentClass="HrvPnnx" dataType="double" id="HrvPnnx.csv" lsbValue="1" sampleRate="0.03333333333333333" unit="%">
+    <csvFileFormat decimalSeparator="," separator=";" />
+    <channel name="HrvPnnx" />
+  </valuesEntry>
+  <valuesEntry comment="HRV parameter RMSSD (root mean square of successive differences of NN intervals)" contentClass="HrvRmssd" dataType="double" id="HrvRmssd.csv" lsbValue="1" sampleRate="0.03333333333333333" unit="ms">
+    <csvFileFormat decimalSeparator="," separator=";" />
+    <channel name="HrvRmssd" />
+  </valuesEntry>
+  <valuesEntry comment="HRV parameter SDSD (standard deviation of successive differences of NN intervals)" contentClass="HrvSdsd" dataType="double" id="HrvSdsd.csv" lsbValue="1" sampleRate="0.03333333333333333" unit="ms">
+    <csvFileFormat decimalSeparator="," separator=";" />
+    <channel name="HrvSdsd" />
+  </valuesEntry>
+  <valuesEntry comment="HRV parameter SD1 ()" contentClass="HrvSd1" dataType="double" id="HrvSd1.csv" lsbValue="1" sampleRate="0.03333333333333333" unit="ms">
+    <csvFileFormat decimalSeparator="," separator=";" />
+    <channel name="HrvSd1" />
+  </valuesEntry>
+  <valuesEntry comment="HRV parameter SD2 ()" contentClass="HrvSd2" dataType="double" id="HrvSd2.csv" lsbValue="1" sampleRate="0.03333333333333333" unit="ms">
+    <csvFileFormat decimalSeparator="," separator=";" />
+    <channel name="HrvSd2" />
+  </valuesEntry>
+  <valuesEntry comment="HRV parameter SD2/SD1 (SD2 to SD1 ration)" contentClass="HrvSd2Sd1" dataType="double" id="HrvSd2Sd1.csv" lsbValue="1" sampleRate="0.03333333333333333" unit="ms">
+    <csvFileFormat decimalSeparator="," separator=";" />
+    <channel name="HrvSd2Sd1" />
+  </valuesEntry>
+  <valuesEntry comment="Respiration rate (EDR)" contentClass="Edr" dataType="double" id="Edr.csv" lsbValue="1" sampleRate="0.03333333333333333" unit="1/min">
+    <csvFileFormat decimalSeparator="," separator=";" />
+    <channel name="Edr" />
+  </valuesEntry>
+  <signalEntry comment="Accleration on the down axis" dataType="double" id="AccDown.bin" lsbValue="1" sampleRate="64" unit="g">
+    <binFileFormat endianess="LITTLE" />
+    <channel name="AccDown" />
+  </signalEntry>
+  <signalEntry comment="Accleration on the forward axis" dataType="double" id="AccForward.bin" lsbValue="1" sampleRate="64" unit="g">
+    <binFileFormat endianess="LITTLE" />
+    <channel name="AccForward" />
+  </signalEntry>
+  <signalEntry comment="Acceleration on the right axis" dataType="double" id="AccRight.bin" lsbValue="1" sampleRate="64" unit="g">
+    <binFileFormat endianess="LITTLE" />
+    <channel name="AccRight" />
+  </signalEntry>
+</unisens>
