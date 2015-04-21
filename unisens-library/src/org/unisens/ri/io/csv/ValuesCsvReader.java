@@ -499,7 +499,6 @@ public class ValuesCsvReader extends ValuesReader
 				data[i] = (Float.parseFloat(dataString) - baseline)
 				* lsbValue;
 			}
-
 			values[sampleNumber] = new Value(samplestamp, data);
 			this.currentSample++;
 		}
@@ -527,10 +526,9 @@ public class ValuesCsvReader extends ValuesReader
 					dataString = dataString.replace(
 							decimalSeparator.charAt(0), '.');
 				}
-				data[i] = (Float.parseFloat(dataString) - baseline)
+				data[i] = (Double.parseDouble(dataString) - baseline)
 				* lsbValue;
 			}
-
 			values[sampleNumber] = new Value(samplestamp, data);
 			this.currentSample++;
 		}
@@ -634,6 +632,7 @@ public class ValuesCsvReader extends ValuesReader
 	{
 		String line = "";
 		StringTokenizer tokenizer;
+		String dataString;
 		ValueList valueList = new ValueList();
 		long[] timestamps = new long[length];
 		float[][] data = new float[length][channelCount];
@@ -644,8 +643,15 @@ public class ValuesCsvReader extends ValuesReader
 			timestamps[sampleNumber] = Long.parseLong(tokenizer.nextToken()
 					.trim());
 			for (int i = 0; i < channelCount; i++)
-				data[sampleNumber][i] = Float.parseFloat(tokenizer.nextToken()
-						.trim());
+			{
+				dataString = tokenizer.nextToken().trim();
+				if (!decimalSeparator.equalsIgnoreCase("."))
+				{
+					dataString = dataString.replace(
+							decimalSeparator.charAt(0), '.');
+				}
+				data[sampleNumber][i] = Float.parseFloat(dataString);
+			}
 			this.currentSample++;
 		}
 		valueList.setSamplestamps(timestamps);
@@ -657,6 +663,7 @@ public class ValuesCsvReader extends ValuesReader
 	{
 		String line = "";
 		StringTokenizer tokenizer;
+		String dataString;
 		ValueList valueList = new ValueList();
 		long[] timestamps = new long[length];
 		double[][] data = new double[length][channelCount];
@@ -667,8 +674,15 @@ public class ValuesCsvReader extends ValuesReader
 			timestamps[sampleNumber] = Long.parseLong(tokenizer.nextToken()
 					.trim());
 			for (int i = 0; i < channelCount; i++)
-				data[sampleNumber][i] = Double.parseDouble(tokenizer
-						.nextToken().trim());
+			{
+				dataString = tokenizer.nextToken().trim();
+				if (!decimalSeparator.equalsIgnoreCase("."))
+				{
+					dataString = dataString.replace(
+							decimalSeparator.charAt(0), '.');
+				}
+				data[sampleNumber][i] = Double.parseDouble(dataString);
+			}
 			this.currentSample++;
 		}
 		valueList.setSamplestamps(timestamps);
@@ -776,6 +790,7 @@ public class ValuesCsvReader extends ValuesReader
 	{
 		String line = "";
 		StringTokenizer tokenizer;
+		String dataString;
 		ValueList valueList = new ValueList();
 		long[] timestamps = new long[length];
 		double[][] data = new double[length][channelCount];
@@ -786,9 +801,16 @@ public class ValuesCsvReader extends ValuesReader
 			timestamps[sampleNumber] = Long.parseLong(tokenizer.nextToken()
 					.trim());
 			for (int i = 0; i < channelCount; i++)
-				data[sampleNumber][i] = (Float.parseFloat(tokenizer.nextToken()
-						.trim()) - baseline)
+			{
+				dataString = tokenizer.nextToken().trim();
+				if (!decimalSeparator.equalsIgnoreCase("."))
+				{
+					dataString = dataString.replace(
+							decimalSeparator.charAt(0), '.');
+				}
+				data[sampleNumber][i] = (Float.parseFloat(dataString) - baseline)
 						* lsbValue;
+			}
 			this.currentSample++;
 		}
 		valueList.setSamplestamps(timestamps);
@@ -800,6 +822,7 @@ public class ValuesCsvReader extends ValuesReader
 	{
 		String line = "";
 		StringTokenizer tokenizer;
+		String dataString;
 		ValueList valueList = new ValueList();
 		long[] timestamps = new long[length];
 		double[][] data = new double[length][channelCount];
@@ -810,9 +833,16 @@ public class ValuesCsvReader extends ValuesReader
 			timestamps[sampleNumber] = Long.parseLong(tokenizer.nextToken()
 					.trim());
 			for (int i = 0; i < channelCount; i++)
-				data[sampleNumber][i] = (Double.parseDouble(tokenizer
-						.nextToken().trim()) - baseline)
+			{
+				dataString = tokenizer.nextToken().trim();
+				if (!decimalSeparator.equalsIgnoreCase("."))
+				{
+					dataString = dataString.replace(
+							decimalSeparator.charAt(0), '.');
+				}
+				data[sampleNumber][i] = (Double.parseDouble(dataString) - baseline)
 						* lsbValue;
+			}
 			this.currentSample++;
 		}
 		valueList.setSamplestamps(timestamps);
