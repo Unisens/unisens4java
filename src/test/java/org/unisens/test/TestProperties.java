@@ -25,8 +25,8 @@ package org.unisens.test;
 
 public interface TestProperties {
 	
-	static String TEST_DEST = "unisens-tests"+System.getProperty("file.separator")+"test-dest";
-	static String TEST_SRC_BASE = "unisens-tests"+System.getProperty("file.separator")+"data";
+	static String TEST_SRC_BASE = "src/test/data";
+	static String TEST_DEST = "build/testData";
 	
 	static String EXAMPLE1 = "example1";
 	static String EXAMPLE2 = "example2";
