@@ -94,9 +94,9 @@
 	
   <!-- build interface and unisens-library-->
   <target name="build">
-    <javac destdir="build/unisens-interface" srcdir="${workingdir}/unisens-interface/src" />
-    <javac destdir="build/unisens-library" srcdir="${workingdir}/unisens-library/src" classpath="build/unisens-interface"/>
-	<javac destdir="build/unisens-tests" srcdir="${workingdir}/unisens-tests" debug="true">
+    <javac destdir="build/unisens-interface" srcdir="${workingdir}/unisens-interface/src" source="1.6" target="1.6" />
+    <javac destdir="build/unisens-library" srcdir="${workingdir}/unisens-library/src" classpath="build/unisens-interface" source="1.6" target="1.6"/>
+	<javac destdir="build/unisens-tests" srcdir="${workingdir}/unisens-tests" debug="true" source="1.6" target="1.6">
 		<classpath>
 			<path refid="library.classpath"/>
 			<pathelement path="build/unisens-interface"/>
