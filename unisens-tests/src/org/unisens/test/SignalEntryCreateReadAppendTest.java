@@ -334,13 +334,17 @@ public class SignalEntryCreateReadAppendTest implements TestProperties{
 	}
 	
 	@Test
-	public void testZSaveUnisens() throws Exception{
+	public void testSaveUnisens() throws Exception{
+		signalEntry = (SignalEntry)unisens.createSignalEntry("se_double_be2.bin", new String[]{"a", "b"}, DataType.DOUBLE, sampleRate);
+		signalEntryFileFormat = (BinFileFormat)signalEntry.getFileFormat();
+		signalEntryFileFormat.setEndianess(Endianess.BIG);
+		signalEntry.append(double64);
 		unisens.closeAll();
 		unisens.save();
 		
 		unisens = factory.createUnisens(TEST_DEST);
 		assertEquals(timestampStart.toString(), unisens.getTimestampStart().toString());
-		signalEntry = (SignalEntry)unisens.getEntry("se_double_be.bin");
+		signalEntry = (SignalEntry)unisens.getEntry("se_double_be2.bin");
 		assertEquals("BIN", signalEntry.getFileFormat().getFileFormatName());
 		assertEquals(DataType.DOUBLE, signalEntry.getDataType());
 		assertEquals(sampleRate, signalEntry.getSampleRate(), 0);
