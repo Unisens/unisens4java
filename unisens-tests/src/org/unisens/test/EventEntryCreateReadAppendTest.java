@@ -115,11 +115,17 @@ public class EventEntryCreateReadAppendTest implements TestProperties {
 	
 	@Test
 	public void testSaveUnisens() throws Exception{
+		eventEntry = unisens.createEventEntry("ee2.bin", sampleRate);
+		eventEntry.setTypeLength(2);
+		eventEntry.setCommentLength(11);
+		eventEntry.setFileFormat(new BinFileFormatImpl());
+		eventEntry.append(events);
+		
 		unisens.closeAll();
 		unisens.save();
 		unisens = factory.createUnisens(TEST_DEST);
 		assertEquals(timestampStart.toString(), unisens.getTimestampStart().toString());
-		eventEntry = (EventEntry)unisens.getEntry("ee.bin");
+		eventEntry = (EventEntry)unisens.getEntry("ee2.bin");
 		assertEquals("BIN", eventEntry.getFileFormat().getFileFormatName());
 		assertEquals(sampleRate, eventEntry.getSampleRate(), 0);
 		assertTrue(eventEntry.getFileFormat() instanceof BinFileFormat);
