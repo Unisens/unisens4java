@@ -21,7 +21,7 @@ group = 'com.github.unisens'
 targetCompatibility = 1.6
 sourceCompatibility = 1.6
 
-version = '2.2.0'
+version = '2.2.1'
 
 repositories {
     mavenCentral()
@@ -40,4 +40,13 @@ jar {
 		'Export-Package': 'org.unisens'
         )
     }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+	classifier 'sources'
+	from sourceSets.main.allSource
+}
+ 
+artifacts {
+	archives sourcesJar
 }
