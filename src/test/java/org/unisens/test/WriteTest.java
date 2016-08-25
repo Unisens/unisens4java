@@ -21,9 +21,9 @@ import org.unisens.UnisensParseException;
 import org.unisens.Value;
 import org.unisens.ValuesEntry;
 
-public class WriteTest
-{
-	private static String datasetPath = "unisens-tests//data//writeTest";
+public class WriteTest extends TestBase {
+
+	private static String datasetPath = TEST_DEST + System.getProperty("file.separator") + "writeTest";
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
