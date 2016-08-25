@@ -7,28 +7,37 @@
  * user guide available at http://gradle.org/docs/1.12/userguide/tutorial_java_projects.html
  */
 
-// Apply the java plugin to add support for Java
-apply plugin: 'java'
-apply plugin: 'eclipse'
+plugins {
+    id "org.jruyi.osgibnd" version "0.5.0"
+}
 
-// In this section you declare where to find the dependencies of your project
+// java plugin implied by the osgibnd plugin
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'maven'
+
+group = 'com.github.unisens'
+
+targetCompatibility = 1.6
+sourceCompatibility = 1.6
+
+version = '2.2.0'
+
 repositories {
-    // Use 'maven central' for resolving your dependencies.
-    // You can declare any Maven/Ivy/file repository here.
     mavenCentral()
 }
 
-// In this section you declare the dependencies for your production and test code
 dependencies {
-    testCompile 'junit:junit:4.11'
+    testCompile group: 'junit', name: 'junit', version: '4.11'
 }
 
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'org.jooq:jooq-codegen:3.7.1'
-        classpath 'mysql:mysql-connector-java:5.1.30'
+//OSGI specific entries that are not automatically generated
+jar {
+    manifest {
+        attributes (
+		'Bundle-SymbolicName': project.group + project.name,
+		'Bundle-Version': project.version,
+		'Export-Package': 'org.unisens'
+        )
     }
 }
