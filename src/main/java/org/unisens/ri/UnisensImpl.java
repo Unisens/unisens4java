@@ -773,9 +773,16 @@ public class UnisensImpl implements Unisens, Constants
 
 			FileOutputStream out = new FileOutputStream(file);
 			StreamResult result = new StreamResult(out);
+			
+			TransformerFactory transformerFactory = null;
 
-			Transformer transformer = TransformerFactory.newInstance()
-					.newTransformer();
+			try {
+				transformerFactory = TransformerFactory.newInstance("com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl",null);
+			} catch (javax.xml.transform.TransformerFactoryConfigurationError e) {
+				 transformerFactory = TransformerFactory.newInstance();
+			}
+
+			Transformer transformer = transformerFactory.newTransformer();
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty(OutputKeys.METHOD, "xml");
 			transformer.setOutputProperty(OutputKeys.VERSION, "1.0");
