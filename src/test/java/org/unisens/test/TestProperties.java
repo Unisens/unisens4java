@@ -38,4 +38,6 @@ public interface TestProperties {
 	static String TEST_TIME3 = "test_time3";
 	static String TEST_TIME4 = "test_time4";
 	static String TEST_TIME5 = "test_time5";
+	static String TEST_TIME6 = "test_time6";
+	static String TEST_TIME7 = "test_time7";
 }

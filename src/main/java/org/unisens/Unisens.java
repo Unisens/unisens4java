@@ -118,18 +118,20 @@ public interface Unisens {
 	
 	
 	/**
-	 * Gets the timestamp of the start of the data acquisition 
+	 * Gets the timestamp of the start of the data acquisition. For backward compatibility. Parses the date string using default time zone.  
 	 * 
 	 * @return the timestamp of the start of the data acquisition
 	 */
+	@Deprecated
 	Date getTimestampStart();
 	
 	
 	/**
-	 * Sets the timestamp of the start of the data acquisition
+	 * Sets the timestamp of the start of the data acquisition. For backward compatibility. Formats the timestamp using default time zone.  
 	 * 
 	 * @param timestampStart the timestamp of the start of the data acquisition
 	 */
+	@Deprecated
 	void setTimestampStart(Date timestampStart);
 	
 	/**

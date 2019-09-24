@@ -2,6 +2,7 @@ package org.unisens.test;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -94,6 +95,34 @@ public class TimeTest extends TestBase {
 	}
 	
 	@Test
+	public void testOldFunctionWithNewUnisensDataset() throws UnisensParseException 
+	{
+		String path = TestUtils.copyTestData(TEST_TIME1);
+		UnisensFactory factory = UnisensFactoryBuilder.createFactory();
+		Unisens unisens = factory.createUnisens(path);
+		
+		String localTimeString="2019-09-18T15:41:00.352";
+		
+		String testTimeString = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").format(unisens.getTimestampStart());
+		
+		assertEquals(localTimeString, testTimeString);
+	}
+	
+	@Test
+	public void testOldFunctionWithNewUnisensDatasetForeignTimeZone() throws UnisensParseException 
+	{
+		String path = TestUtils.copyTestData(TEST_TIME6);
+		UnisensFactory factory = UnisensFactoryBuilder.createFactory();
+		Unisens unisens = factory.createUnisens(path);
+		
+		String localTimeString="2019-09-19T02:41:00.352";
+
+		String testTimeString = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").format(unisens.getTimestampStart());
+		
+		assertEquals(localTimeString, testTimeString);
+	}
+	
+	@Test
 	public void testTimeFromUnisensStandard() throws UnisensParseException {
 		
 		String path = TestUtils.copyTestData(TEST_TIME2);
@@ -108,6 +137,64 @@ public class TimeTest extends TestBase {
 		assertEquals(localTimeString, timeString);
 		assertNull(unisens.getTimeZone());
 	}
+	
+	@Test
+	public void testWriteReadTimestampOldFunctions() throws UnisensParseException, IOException 
+	{
+		String path = TestUtils.copyTestData(TEST_TIME7);
+		UnisensFactory factory = UnisensFactoryBuilder.createFactory();
+		Unisens unisens = factory.createUnisens(path);
+		
+		Date now = new Date();
+		
+		unisens.setTimestampStart(now);
+		unisens.save();
+		
+		unisens = factory.createUnisens(path);
+		
+		assertEquals(now, unisens.getTimestampStart());
+		
+	}
+	
+	@Test
+	public void testWriteReadTimestampNewFunctions() throws UnisensParseException, IOException 
+	{
+		String path = TestUtils.copyTestData(TEST_TIME7);
+		UnisensFactory factory = UnisensFactoryBuilder.createFactory();
+		Unisens unisens = factory.createUnisens(path);
+		
+		Date now = new Date();
+		unisens.setTimestampStart(now);
+		unisens.save();
+		
+		unisens = factory.createUnisens(path);
+		
+		assertEquals(now, unisens.getZonedTimestampStart().getDate());
+		assertNull(unisens.getZonedTimestampStart().getTimeZone());
+		assertFalse(unisens.getZonedTimestampStart().getUtcValid());
+	}
+	
+	
+	
+	@Test
+	public void testWriteOldReadNewTimestampFunctions() throws UnisensParseException, IOException 
+	{
+		String path = TestUtils.copyTestData(TEST_TIME7);
+		UnisensFactory factory = UnisensFactoryBuilder.createFactory();
+		Unisens unisens = factory.createUnisens(path);
+		
+		Date now = new Date();
+		String timeZoneString = "America/Havana";
+		unisens.setZonedTimestampStart(new ZonedTimestamp(now, timeZoneString));
+		unisens.save();
+		
+		unisens = factory.createUnisens(path);
+		
+		assertEquals(now, unisens.getZonedTimestampStart().getDate());
+		assertEquals(timeZoneString, unisens.getZonedTimestampStart().getTimeZone().getID());
+		
+	}
+	
 
 	@Test(expected = UnisensParseException.class)
 	public void testTimeFromUnisensInconsistent() throws UnisensParseException {

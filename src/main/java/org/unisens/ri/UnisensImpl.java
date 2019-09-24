@@ -311,7 +311,12 @@ public class UnisensImpl implements Unisens, Constants
 	 */
 	public Date getTimestampStart()
 	{
-		return zonedTimestampStart.getDate();
+		if (zonedTimestampStart.getUtcValid())
+		{
+			return Utilities.convertIso8601StringToDate(zonedTimestampStart.format(), null);
+		} else {
+			return zonedTimestampStart.getDate();
+		}
 	}
 
 	public void setZonedTimestampStart(ZonedTimestamp zonedTimestampStart)
@@ -566,7 +571,7 @@ public class UnisensImpl implements Unisens, Constants
 			if (zonedTimestampStart.getUtcValid()) {
 				unisensElement.setAttribute(UNISENS_TIMESTAMP_START_UTC, zonedTimestampStart.formatUtc());
 				unisensElement.setAttribute(UNISENS_TIMESTAMP_START, zonedTimestampStart.format());
-				unisensElement.setAttribute(UNISENS_TIME_ZONE, "" + getTimeZone());
+				unisensElement.setAttribute(UNISENS_TIME_ZONE, "" + getTimeZone().getID());
 			} else {
 				unisensElement.setAttribute(UNISENS_TIMESTAMP_START, zonedTimestampStart.format());
 			}
