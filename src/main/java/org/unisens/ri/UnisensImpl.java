@@ -95,7 +95,7 @@ public class UnisensImpl implements Unisens, Constants
 	private String absoluteFileName = null;
 	private String version = null;
 	private String measurementId = null;
-	private ZonedTimestamp timestampStartZoned = null;	
+	private ZonedTimestamp zonedTimestampStart = null;	
 	private double duration = 0.0;
 	private String comment = null;
 	private DecimalFormat decimalFormat = null;
@@ -303,7 +303,7 @@ public class UnisensImpl implements Unisens, Constants
 	public void setTimestampStart(Date timestampStart)
 	{	
 		TimeZone timeZone = null;
-		this.timestampStartZoned = new ZonedTimestamp(timestampStart, timeZone);
+		this.zonedTimestampStart = new ZonedTimestamp(timestampStart, timeZone);
 	}
 
 	/**
@@ -311,17 +311,17 @@ public class UnisensImpl implements Unisens, Constants
 	 */
 	public Date getTimestampStart()
 	{
-		return timestampStartZoned.getDate();
+		return zonedTimestampStart.getDate();
 	}
 
-	public void setTimestampStartZoned(ZonedTimestamp timestampZonedStart)
+	public void setZonedTimestampStart(ZonedTimestamp zonedTimestampStart)
 	{
-		this.timestampStartZoned = timestampZonedStart;
+		this.zonedTimestampStart = zonedTimestampStart;
 	}
 	
-	public ZonedTimestamp getTimestampStartZoned()
+	public ZonedTimestamp getZonedTimestampStart()
 	{
-		return timestampStartZoned;
+		return zonedTimestampStart;
 	}
 	
 	public String getMeasurementId()
@@ -336,7 +336,7 @@ public class UnisensImpl implements Unisens, Constants
 
 	public TimeZone getTimeZone()
 	{
-		return timestampStartZoned.getTimeZone();
+		return zonedTimestampStart.getTimeZone();
 	}
 
 	public String getVersion()
@@ -512,11 +512,11 @@ public class UnisensImpl implements Unisens, Constants
 		Node attrNodeTimestampStartUtc = attr.getNamedItem(Constants.UNISENS_TIMESTAMP_START_UTC);
 		Node attrNodeTimeZone = attr.getNamedItem(Constants.UNISENS_TIME_ZONE);
 		if (attrNodeTimestampStartUtc != null & attrNodeTimeZone!=null) {
-			timestampStartZoned = new ZonedTimestamp(
+			zonedTimestampStart = new ZonedTimestamp(
 					Utilities.convertIso8601StringToDate(attrNodeTimestampStartUtc.getNodeValue(), "UTC"),
 					attrNodeTimeZone.getNodeValue());
-			if (timestampStartZoned.getUtcValid() & attrNodeTimestampStart != null) {
-				if (!Utilities.checkLocalTime(timestampStartZoned, attrNodeTimestampStart.getNodeValue()) ) {
+			if (zonedTimestampStart.getUtcValid() & attrNodeTimestampStart != null) {
+				if (!Utilities.checkLocalTime(zonedTimestampStart, attrNodeTimestampStart.getNodeValue()) ) {
 					throw new UnisensParseException("Inconsistent time attributes: timestampStartUtc, timestampStart, timeZone.", UnisensParseExceptionTypeEnum.UNISENS_INCONSISTENT_TIMES);
 				}
 			}
@@ -524,11 +524,11 @@ public class UnisensImpl implements Unisens, Constants
 		} else if (attrNodeTimestampStart != null) {
 			//timeZone unknown
 			TimeZone timeZone = null; 
-			timestampStartZoned = new ZonedTimestamp(
+			zonedTimestampStart = new ZonedTimestamp(
 					//use system default time zone to retrieve Date 
 					Utilities.convertIso8601StringToDate(attrNodeTimestampStart.getNodeValue(), null), timeZone);
 		} else {
-			timestampStartZoned=null;
+			zonedTimestampStart=null;
 		}
 
 		attrNode = attr.getNamedItem(Constants.UNISENS_DURATION);
@@ -562,13 +562,13 @@ public class UnisensImpl implements Unisens, Constants
 		if (getDuration() != 0)
 			unisensElement.setAttribute(UNISENS_DURATION, "" + getDuration());
 
-		if (timestampStartZoned!=null) {
-			if (timestampStartZoned.getUtcValid()) {
-				unisensElement.setAttribute(UNISENS_TIMESTAMP_START_UTC, timestampStartZoned.formatUtc());
-				unisensElement.setAttribute(UNISENS_TIMESTAMP_START, timestampStartZoned.format());
+		if (zonedTimestampStart!=null) {
+			if (zonedTimestampStart.getUtcValid()) {
+				unisensElement.setAttribute(UNISENS_TIMESTAMP_START_UTC, zonedTimestampStart.formatUtc());
+				unisensElement.setAttribute(UNISENS_TIMESTAMP_START, zonedTimestampStart.format());
 				unisensElement.setAttribute(UNISENS_TIME_ZONE, "" + getTimeZone());
 			} else {
-				unisensElement.setAttribute(UNISENS_TIMESTAMP_START, timestampStartZoned.format());
+				unisensElement.setAttribute(UNISENS_TIMESTAMP_START, zonedTimestampStart.format());
 			}
 		}
 			

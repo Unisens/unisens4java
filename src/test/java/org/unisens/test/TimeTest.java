@@ -20,7 +20,7 @@ import org.junit.Test;
 public class TimeTest extends TestBase {
 
 	@Test
-	public void testTimeStampZonedLocal() {
+	public void testZonedTimeStampLocal() {
 		
 		Date utc = new Date(1568814060352L);
 		String timeZoneString="Europe/Berlin";
@@ -33,7 +33,7 @@ public class TimeTest extends TestBase {
 	}
 	
 	@Test
-	public void testTimeStampZonedUtc() {
+	public void testZonedTimeStampUtc() {
 		
 		Date utc = new Date(1568814060352L);
 		String utcString="2019-09-18T13:41:00.352Z";
@@ -64,16 +64,16 @@ public class TimeTest extends TestBase {
 		Date utc = new Date(1568814060352L);
 		
 		TimeZone timeZone = TimeZone.getTimeZone("Europe/Berlin");
-		ZonedTimestamp timestampZoned = new ZonedTimestamp(utc, timeZone);
+		ZonedTimestamp zonedTimestamp = new ZonedTimestamp(utc, timeZone);
 		
 		String localTimeString="2019-09-18T15:41:00.352";
-		assertTrue(Utilities.checkLocalTime(timestampZoned, localTimeString));
+		assertTrue(Utilities.checkLocalTime(zonedTimestamp, localTimeString));
 
 		localTimeString="2019-09-18T15:41:00";
-		assertTrue(Utilities.checkLocalTime(timestampZoned, localTimeString));
+		assertTrue(Utilities.checkLocalTime(zonedTimestamp, localTimeString));
 		
 		localTimeString="2019-09-18T17:41:00";
-		assertFalse(Utilities.checkLocalTime(timestampZoned, localTimeString));
+		assertFalse(Utilities.checkLocalTime(zonedTimestamp, localTimeString));
 	}
 	
 	@Test
@@ -87,10 +87,10 @@ public class TimeTest extends TestBase {
 		String timeZoneString="Europe/Berlin";
 		String localTimeString="2019-09-18T15:41:00.352";
 		
-		ZonedTimestamp timestampZoned = unisens.getTimestampStartZoned();
-		assertEquals(utc, timestampZoned.getDate());
-		assertEquals(timeZoneString, timestampZoned.getTimeZone().getID());
-		assertEquals(localTimeString, timestampZoned.format());
+		ZonedTimestamp zonedTimestamp = unisens.getZonedTimestampStart();
+		assertEquals(utc, zonedTimestamp.getDate());
+		assertEquals(timeZoneString, zonedTimestamp.getTimeZone().getID());
+		assertEquals(localTimeString, zonedTimestamp.format());
 	}
 	
 	@Test
@@ -128,12 +128,12 @@ public class TimeTest extends TestBase {
 		String localTimeString="2019-10-27T02:30:00.000"; // Sun Oct 27 2019 00:30:00 UTC
 		String timeZoneString="Europe/Berlin";
 		
-		ZonedTimestamp timestampZoned = unisens.getTimestampStartZoned();
+		ZonedTimestamp zonedTimestamp = unisens.getZonedTimestampStart();
 		
-		assertEquals(timeZoneString, timestampZoned.getTimeZone().getID());		
-		String timeString = timestampZoned.format();
+		assertEquals(timeZoneString, zonedTimestamp.getTimeZone().getID());		
+		String timeString = zonedTimestamp.format();
 		assertEquals(localTimeString, timeString);
-		assertEquals(utc, timestampZoned.getDate());
+		assertEquals(utc, zonedTimestamp.getDate());
 	}
 	
 	@Test
@@ -147,12 +147,12 @@ public class TimeTest extends TestBase {
 		String localTimeString="2019-10-27T02:30:00.000"; // Sun Oct 27 2019 01:30:00 TC
 		String timeZoneString="Europe/Berlin";
 		
-		ZonedTimestamp timestampZoned = unisens.getTimestampStartZoned();
+		ZonedTimestamp zonedTimestamp = unisens.getZonedTimestampStart();
 		
-		assertEquals(timeZoneString, timestampZoned.getTimeZone().getID());		
-		String timeString = timestampZoned.format();
+		assertEquals(timeZoneString, zonedTimestamp.getTimeZone().getID());		
+		String timeString = zonedTimestamp.format();
 		assertEquals(localTimeString, timeString);
-		assertEquals(utc, timestampZoned.getDate());
+		assertEquals(utc, zonedTimestamp.getDate());
 	}
 	
 	
