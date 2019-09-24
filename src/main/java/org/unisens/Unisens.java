@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TimeZone;
 
 
 /**
@@ -131,6 +132,33 @@ public interface Unisens {
 	 */
 	void setTimestampStart(Date timestampStart);
 	
+	/**
+	 * Gets the zoned timestamp of the start of the data acquisition 
+	 * 
+	 * @return the zoned timestamp of the start of the data acquisition
+	 */
+	ZonedTimestamp getTimestampStartZoned();
+
+	/**
+	 * Sets the zoned timestamp of the start of the data acquisition
+	 * 
+	 * @param timestampStart the timestamp of the start of the data acquisition
+	 */
+	void setTimestampStartZoned(ZonedTimestamp timestampZonedStart);
+	
+	/**
+	 * Gets the time zone of the start of the data acquisition 
+	 * 
+	 * @return the time zone of the start of the data acquisition
+	 */
+	TimeZone getTimeZone();
+	
+//	/**
+//	 * Sets the time zone of the start of the data acquisition
+//	 * 
+//	 * @param timeZone the time zone of the start of the data acquisition
+//	 */
+//	void setTimeZone(String timeZone);
 	
 	/**
 	 * Returns the version of the XML-Schema used in the unisens.xml file 

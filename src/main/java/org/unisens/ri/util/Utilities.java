@@ -31,9 +31,11 @@ import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 import java.util.regex.Pattern;
 
 import org.unisens.DataType;
+import org.unisens.ZonedTimestamp;
 
 public class Utilities
 {
@@ -198,36 +200,48 @@ public class Utilities
 
 	}
 
-	public static Date convertStringToDate(String date)
-	{
-		try
-		{
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
-					"yyyy-MM-dd'T'HH:mm:ss");
-			SimpleDateFormat simpleDateFormatWithMs = new SimpleDateFormat(
-					"yyyy-MM-dd'T'HH:mm:ss.SSS");
-			String pattern = "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}";
-			
-			if (Pattern.matches(pattern, date))
-			{
-				return simpleDateFormatWithMs.parse(date);
-			}
-			return simpleDateFormat.parse(date);
+	public static Date convertIso8601StringToDate(String dateString, String timeZoneString) {
+		TimeZone timeZone;
+		if (timeZoneString == null) {
+			timeZone = java.util.TimeZone.getDefault();
+		} else {
+			timeZone = java.util.TimeZone.getTimeZone(timeZoneString);
 		}
-		catch (ParseException pe)
-		{
-			pe.printStackTrace();
+
+		if (dateString.endsWith("Z")) {
+			dateString = dateString.substring(0, dateString.length() - 1);
+		}
+
+		SimpleDateFormat simpleDateFormat;
+
+		String pattern = "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}";
+
+		if (Pattern.matches(pattern, dateString)) {
+			simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+		} else {
+			simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		}
+
+		simpleDateFormat.setTimeZone(timeZone);
+
+		try {
+			return simpleDateFormat.parse(dateString);
+		} catch (ParseException e) {
+			e.printStackTrace();
 			return null;
 		}
 	}
 
-	public static String convertDateToString(Date date)
+	public static boolean checkLocalTime(ZonedTimestamp timestampZoned, String dateStringLocal)
 	{
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
-				"yyyy-MM-dd'T'HH:mm:ss.SSS");
-		return simpleDateFormat.format(date);
-	}
+	    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+	    simpleDateFormat.setTimeZone(timestampZoned.getTimeZone());
+	    String localTimeFromUtc = simpleDateFormat.format(timestampZoned.getDate());
 
+	    return dateStringLocal.equals(localTimeFromUtc) | dateStringLocal.equals(localTimeFromUtc.substring(0,localTimeFromUtc.length()-4) );
+	    
+	}
+	
 	public static void copyFile(File in, File out)
 	{
 		try

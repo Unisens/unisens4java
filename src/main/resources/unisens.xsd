@@ -33,7 +33,21 @@
 			<xs:attribute name="timestampStart" type="xs:dateTime" use="required">
 				<xs:annotation>
 					<xs:documentation>
-						Timestamp of the begin of the measurement corresponing ISO 8601. For example "2010-08-18T17:58:46.012" for "8. AUG 2010, 5:58:46 pm and 12 ms".
+						Timestamp of the begin of the measurement corresponding ISO 8601. For example "2010-08-18T17:58:46.012" for "8. AUG 2010, 5:58:46 pm and 12 ms".
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="timeZoneStart" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>
+						Time zone in which this measurement was started. A name that uniquely identifies the time zone. For example "Europe/Berlin". See IANA Time Zone Database.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="timestampStartUTC" type="xs:int" use="optional">
+				<xs:annotation>
+					<xs:documentation>
+						Timestamp of the begin of the measurement corresponding ISO 8601. For example "2010-08-18T17:58:46.012Z" .
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>

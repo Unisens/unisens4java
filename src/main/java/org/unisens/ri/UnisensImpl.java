@@ -36,6 +36,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.TimeZone;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
@@ -66,6 +67,7 @@ import org.unisens.FileFormat;
 import org.unisens.Group;
 import org.unisens.MeasurementEntry;
 import org.unisens.SignalEntry;
+import org.unisens.ZonedTimestamp;
 import org.unisens.Unisens;
 import org.unisens.UnisensParseException;
 import org.unisens.UnisensParseExceptionTypeEnum;
@@ -93,7 +95,7 @@ public class UnisensImpl implements Unisens, Constants
 	private String absoluteFileName = null;
 	private String version = null;
 	private String measurementId = null;
-	private Date timestampStart = null;
+	private ZonedTimestamp timestampStartZoned = null;	
 	private double duration = 0.0;
 	private String comment = null;
 	private DecimalFormat decimalFormat = null;
@@ -264,7 +266,6 @@ public class UnisensImpl implements Unisens, Constants
 		this.entries.remove(entry);
 		for (Group group : groups)
 			group.getEntries().remove(entry);
-
 	}
 
 
@@ -296,11 +297,33 @@ public class UnisensImpl implements Unisens, Constants
 		this.duration = (double) duration;
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public void setTimestampStart(Date timestampStart)
-	{
-		this.timestampStart = timestampStart;
+	{	
+		TimeZone timeZone = null;
+		this.timestampStartZoned = new ZonedTimestamp(timestampStart, timeZone);
 	}
 
+	/**
+	 * @deprecated
+	 */
+	public Date getTimestampStart()
+	{
+		return timestampStartZoned.getDate();
+	}
+
+	public void setTimestampStartZoned(ZonedTimestamp timestampZonedStart)
+	{
+		this.timestampStartZoned = timestampZonedStart;
+	}
+	
+	public ZonedTimestamp getTimestampStartZoned()
+	{
+		return timestampStartZoned;
+	}
+	
 	public String getMeasurementId()
 	{
 		return measurementId;
@@ -311,9 +334,9 @@ public class UnisensImpl implements Unisens, Constants
 		this.measurementId = measurementId;
 	}
 
-	public Date getTimestampStart()
+	public TimeZone getTimeZone()
 	{
-		return timestampStart;
+		return timestampStartZoned.getTimeZone();
 	}
 
 	public String getVersion()
@@ -478,16 +501,36 @@ public class UnisensImpl implements Unisens, Constants
 		}
 	}
 
-	private void parse(Node unisensNode)
+	private void parse(Node unisensNode) throws UnisensParseException
 	{
 		NamedNodeMap attr = unisensNode.getAttributes();
 		Node attrNode = attr.getNamedItem(Constants.UNISENS_VERSION);
 		version = (attrNode != null) ? attrNode.getNodeValue() : null;
 		attrNode = attr.getNamedItem(Constants.UNISENS_MEASUREMENT_ID);
 		measurementId = (attrNode != null) ? attrNode.getNodeValue() : null;
-		attrNode = attr.getNamedItem(Constants.UNISENS_TIMESTAMP_START);
-		timestampStart = (attrNode != null) ? Utilities
-				.convertStringToDate(attrNode.getNodeValue()) : null;
+		Node attrNodeTimestampStart = attr.getNamedItem(Constants.UNISENS_TIMESTAMP_START);
+		Node attrNodeTimestampStartUtc = attr.getNamedItem(Constants.UNISENS_TIMESTAMP_START_UTC);
+		Node attrNodeTimeZone = attr.getNamedItem(Constants.UNISENS_TIME_ZONE);
+		if (attrNodeTimestampStartUtc != null & attrNodeTimeZone!=null) {
+			timestampStartZoned = new ZonedTimestamp(
+					Utilities.convertIso8601StringToDate(attrNodeTimestampStartUtc.getNodeValue(), "UTC"),
+					attrNodeTimeZone.getNodeValue());
+			if (timestampStartZoned.getUtcValid() & attrNodeTimestampStart != null) {
+				if (!Utilities.checkLocalTime(timestampStartZoned, attrNodeTimestampStart.getNodeValue()) ) {
+					throw new UnisensParseException("Inconsistent time attributes: timestampStartUtc, timestampStart, timeZone.", UnisensParseExceptionTypeEnum.UNISENS_INCONSISTENT_TIMES);
+				}
+			}
+			
+		} else if (attrNodeTimestampStart != null) {
+			//timeZone unknown
+			TimeZone timeZone = null; 
+			timestampStartZoned = new ZonedTimestamp(
+					//use system default time zone to retrieve Date 
+					Utilities.convertIso8601StringToDate(attrNodeTimestampStart.getNodeValue(), null), timeZone);
+		} else {
+			timestampStartZoned=null;
+		}
+
 		attrNode = attr.getNamedItem(Constants.UNISENS_DURATION);
 		duration = (attrNode != null) ? Double.parseDouble(attrNode
 				.getNodeValue()) : 0;
@@ -518,9 +561,17 @@ public class UnisensImpl implements Unisens, Constants
 			unisensElement.setAttribute(UNISENS_COMMENT, getComment());
 		if (getDuration() != 0)
 			unisensElement.setAttribute(UNISENS_DURATION, "" + getDuration());
-		if (getTimestampStart() != null)
-			unisensElement.setAttribute(UNISENS_TIMESTAMP_START,
-					Utilities.convertDateToString(timestampStart));
+
+		if (timestampStartZoned!=null) {
+			if (timestampStartZoned.getUtcValid()) {
+				unisensElement.setAttribute(UNISENS_TIMESTAMP_START_UTC, timestampStartZoned.formatUtc());
+				unisensElement.setAttribute(UNISENS_TIMESTAMP_START, timestampStartZoned.format());
+				unisensElement.setAttribute(UNISENS_TIME_ZONE, "" + getTimeZone());
+			} else {
+				unisensElement.setAttribute(UNISENS_TIMESTAMP_START, timestampStartZoned.format());
+			}
+		}
+			
 		if (getMeasurementId() != null)
 			unisensElement.setAttribute(UNISENS_MEASUREMENT_ID,
 					getMeasurementId());

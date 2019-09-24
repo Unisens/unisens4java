@@ -34,5 +34,6 @@ package org.unisens;
  */
 public enum UnisensParseExceptionTypeEnum {
 	UNISENS_GROUP_ENTRY_NOT_EXIST,
-	UNISENS_INVALID
+	UNISENS_INVALID,
+	UNISENS_INCONSISTENT_TIMES
 }

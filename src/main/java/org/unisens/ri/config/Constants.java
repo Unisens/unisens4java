@@ -47,6 +47,8 @@ public interface Constants {
 	public static String UNISENS_VERSION = "version";
 	public static String UNISENS_MEASUREMENT_ID = "measurementId";
 	public static String UNISENS_TIMESTAMP_START = "timestampStart";
+	public static String UNISENS_TIMESTAMP_START_UTC = "timestampStartUtc";
+	public static String UNISENS_TIME_ZONE = "timeZone";
 	public static String UNISENS_DURATION = "duration";
 	public static String UNISENS_COMMENT = "comment";
 	

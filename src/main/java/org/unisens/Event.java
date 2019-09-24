@@ -102,7 +102,7 @@ public class Event implements Cloneable{
 	}
 
 	/**
-	 * Gets the the type of this Event. The type can be one ore more characters. The length of the type 
+	 * Gets the type of this Event. The type can be one ore more characters. The length of the type 
 	 * is defined in the EventEntry.
 	 * 
 	 * @return the type of this Event

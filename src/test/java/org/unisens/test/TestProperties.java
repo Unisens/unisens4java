@@ -32,5 +32,10 @@ public interface TestProperties {
 	static String EXAMPLE2 = "example2";
 	static String EXAMPLE3 = "test_read_pos";
 	static String EXAMPLE4 = "test_uint";
-
+	
+	static String TEST_TIME1 = "test_time1";
+	static String TEST_TIME2 = "test_time2";
+	static String TEST_TIME3 = "test_time3";
+	static String TEST_TIME4 = "test_time4";
+	static String TEST_TIME5 = "test_time5";
 }
