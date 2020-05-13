@@ -91,7 +91,7 @@ public interface Unisens {
 	 * 
 	 * @param duration the duration of this dataset in seconds
 	 * @deprecated use double parameter instead of long
-	 * @see setDuration(double duration)
+	 * @see #setDuration(double duration)
 	 * 
 	 */
 	@Deprecated

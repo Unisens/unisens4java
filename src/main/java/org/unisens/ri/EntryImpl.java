@@ -44,8 +44,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- * @author Radoslav Nedkov
- * @email radi.nedkov@gmail.com
+ * @author Radoslav Nedkov (radi.nedkov@gmail.com)
  *
  * 25.02.2007
  */

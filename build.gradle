@@ -52,8 +52,8 @@ artifacts {
 }
 
 task myJavadocs(type: Javadoc) {
+  exclude "**/ri/**"
   source = sourceSets.main.allJava
-  exclude "**/org/unisens/ri/**"
 }
 
 configurations {
