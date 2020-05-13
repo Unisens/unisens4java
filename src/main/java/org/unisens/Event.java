@@ -81,7 +81,7 @@ public class Event implements Cloneable{
 	 * 
 	 * @return the samplestamp in sample counts 
 	 * @deprecated use getSampleStamp
-	 * @see org.unisens.getSampleStamp
+	 * @see org.unisens.Event#getSampleStamp
 	 */
 	@Deprecated
 	public long getSamplestamp() {
@@ -94,7 +94,7 @@ public class Event implements Cloneable{
 	 * 
 	 * @param samplestamp the samplestamp in sample counts
 	 * @deprecated use setSampleStamp
-	 * @see org.unisens.setSampleStamp
+	 * @see org.unisens.Event#setSampleStamp
 	 */
 	@Deprecated
 	public void setSamplestamp(long samplestamp) {

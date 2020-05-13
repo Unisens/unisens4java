@@ -55,7 +55,7 @@ public class Value {
 	 * 
 	 * @return the samplestamp
 	 * @deprecated use getSampleStamp
-	 * @see org.unisens.getSampleStamp
+	 * @see org.unisens.Value#getSampleStamp
 	 */
 	@Deprecated
 	public long getSamplestamp() {
@@ -67,7 +67,7 @@ public class Value {
 	 * 
 	 * @param samplestamp
 	 * @deprecated use setSampleStamp
-	 * @see org.unisens.setSampleStamp
+	 * @see org.unisens.Value#setSampleStamp
 	 */
 	@Deprecated
 	public void setSamplestamp(long samplestamp) {
