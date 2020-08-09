@@ -29,7 +29,7 @@ import java.util.Properties;
 
 public class UnisensProperties {
 	private static Properties properties = null;
-	private static UnisensProperties unisensProiperties = null;
+	private static UnisensProperties unisensProperties = null;
 	
 	private UnisensProperties(){
 		try{
@@ -45,10 +45,10 @@ public class UnisensProperties {
 	}
 	
 	public static UnisensProperties getInstance(){
-		if(unisensProiperties == null)
-			unisensProiperties = new UnisensProperties();
+		if(unisensProperties == null)
+			unisensProperties = new UnisensProperties();
 		
-		return new UnisensProperties();
+		return unisensProperties;
 	}
 	
 	public Properties getProperties(){
