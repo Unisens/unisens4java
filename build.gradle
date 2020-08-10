@@ -21,7 +21,7 @@ group = 'com.github.unisens'
 targetCompatibility = 1.6
 sourceCompatibility = 1.6
 
-version = '2.2.2'
+version = '2.2.3'
 
 repositories {
     mavenCentral()
@@ -50,3 +50,27 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 artifacts {
 	archives sourcesJar
 }
+
+task myJavadocs(type: Javadoc) {
+  exclude "**/ri/**"
+  source = sourceSets.main.allJava
+}
+
+configurations {
+    xsdTask
+}
+
+dependencies {
+    xsdTask group: 'xsddoc', name: 'xsddoc', version: '1.0'
+	xsdTask group: 'xalan', name: 'xalan', version: '2.7.2'
+}
+
+task myXsddoc(type: JavaExec) {
+    classpath configurations.xsdTask
+    group = "Execution"
+    description = "Create XSD documentation"
+    main = 'net.sf.xframe.xsddoc.Main'
+	//http://xframe.sourceforge.net/xsddoc/usage-console.html
+	args '-v', '-t', '"Unisens - a universal data format"', '-o', '"documentation/schema-doc"', 'src/main/resources/unisens.xsd'
+}
+

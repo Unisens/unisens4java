@@ -82,8 +82,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
- * @author Radoslav Nedkov
- * @email radi.nedkov@gmail.com
+ * @author Radoslav Nedkov (radi.nedkov@gmail.com)
  * 
  *        25.02.2007
  */
